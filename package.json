@@ -1,0 +1,31 @@
+{
+  "name": "api_logischool",
+  "version": "1.0.0",
+  "description": "L'api logischool permettra le bon fonctionnement des différentes couches de notre application logischool",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Team-CDA/api_logischool.git"
+  },
+  "author": "Etienne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Team-CDA/api_logischool/issues"
+  },
+  "homepage": "https://github.com/Team-CDA/api_logischool#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.27.0",
+    "swagger-jsdoc": "^6.2.5",
+    "swagger-ui-express": "^4.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
