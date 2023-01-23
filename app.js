@@ -12,6 +12,8 @@ const swaggerUI = require('swagger-ui-express')
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
+const checkAuth = require('./helpers/jwt');
+router.get('/', checkAuth, (req, res, next) => {});
 
 
 app.use(express.json())
