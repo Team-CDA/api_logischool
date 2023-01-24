@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
-app.get('/', checkAuth)
+app.get('/')
 app.use(express.json())
 app.use(morgan('dev'))
 
