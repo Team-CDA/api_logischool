@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'Linus is good'
+      message: 'pas tout de suite la pause clope'
     });
   }
 };
