@@ -87,8 +87,9 @@ const updateOneById = (req, res) => {
             }
         
             rolesTable.update({
-                    role: req.body.role.trim(),
-                    updatedAt: new Date()
+                    // role: req.body.role.trim(),
+                    // updatedAt: new Date()
+                    ...req.body
                 }, {
                     where: {
                         id: req.params.id
