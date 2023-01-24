@@ -38,12 +38,12 @@ app.get('/', checkAuth, (req,res) => {
 })
 
 app.get('/getToken', (req, res) => {
-  const payload = {id: 1, email: 'pif@fmail.com'};
-  const secret = 'monsupersecret';
-  const options = { expiresIn: '2min' };
-  const token = jwt.sign(payload, secret, options);
-  console.log(token);
-  res.status(200).json({message: 'Token generated', token: token});
+    const payload = {id: 1, email: 'pif@fmail.com'};
+    const secret = 'monsupersecret';
+    const options = { expiresIn: '2min' };
+    const token = jwt.sign(payload, secret, options);
+    console.log(token);
+    res.status(200).json({message: 'Token generated', token: token});
 });
 
 
