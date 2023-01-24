@@ -1,7 +1,6 @@
 //On importe db qui contient tous nos modèles.
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
-const { check, validationResult } = require('express-validator');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table roles
 const rolesTable = db['roles'];
 
@@ -62,20 +61,11 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
 
     rolesTable.findByPk(req.params.id)
         .then(role => {
-            if (!role) {
-                return res.status(404).json({
-                    message: "Aucun rôle n'a été trouvé"
-                })
-            }
             rolesTable.update({
-                    role: req.body.role,
+                    role: req.body.role.trim(),
                     updatedAt: new Date()
                 }, {
                     where: {
