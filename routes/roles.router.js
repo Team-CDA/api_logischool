@@ -79,7 +79,7 @@ router.get('/', roleController.getAll)
  *         404:
  *            description: the roles table was not found
  */
-router.get('/', roleController.getOneById)
+router.get('/:id', roleController.getOneById)
 
 
 /** 
