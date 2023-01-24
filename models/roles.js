@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
         len: [0, 32],
         notEmpty: true,
-        isAlpha: true
       }
 
     }
