@@ -4,7 +4,7 @@
   "description": "L'api logischool permettra le bon fonctionnement des différentes couches de notre application logischool",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "npm install && nodemon app.js"
   },
   "repository": {
     "type": "git",
