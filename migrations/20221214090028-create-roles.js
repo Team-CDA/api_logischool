@@ -12,7 +12,7 @@ module.exports = {
       role: {
         type: Sequelize.STRING,
         unique: true,
-        allowNull: true
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
