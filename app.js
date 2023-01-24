@@ -30,20 +30,20 @@ const port = 3000
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
-app.get('/', checkAuth, (req,res) => {
+app.get('/', (req,res) => {
     const message = "Bienvenue sur notre API"
     const data =  'coucou'
     res.json(success(message,data));
 })
 
-app.get('/getToken', (req, res) => {
-  const payload = {id: 1, email: 'pif@fmail.com'};
-  const secret = 'monsupersecret';
-  const options = { expiresIn: '2min' };
-  const token = jwt.sign(payload, secret, options);
-  console.log(token);
-  res.status(200).json({message: 'Token generated', token: token});
-});
+// app.get('/getToken', (req, res) => {
+//   const payload = {id: 1, email: 'pif@fmail.com'};
+//   const secret = 'monsupersecret';
+//   const options = { expiresIn: '2min' };
+//   const token = jwt.sign(payload, secret, options);
+//   console.log(token);
+//   res.status(200).json({message: 'Token generated', token: token});
+// });
 
 
 
