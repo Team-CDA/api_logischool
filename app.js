@@ -8,7 +8,6 @@ const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const swaggerUI = require('swagger-ui-express');
-const myJwt = require('./helpers/jwt');
 const jwt = require('jsonwebtoken');
 
 

@@ -3,26 +3,18 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-    await queryInterface.bulkInsert('roles', [{
-      role: 'administrateur',
-    }], {});
+        await queryInterface.bulkInsert('roles', [
+          {role: 'admin'},
+          {role: 'parent'},
+          {role: 'élève'},
+          {role: 'proviseur'},
+          {role: 'personnel'},
+        ], {}
+        );
   },
 
   async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    // await queryInterface.sequelize.query('TRUNCATE TABLE roles');
+  }  
+  
 };
