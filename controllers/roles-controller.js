@@ -34,6 +34,24 @@ const getAll = (req, res) => {
 
 }
 
+const getOneById = (req, res) => {
+    rolesTable.findByPk(req.params.id)
+        .then(role => {
+            if (!role) {
+                return res.status(404).json({ message: "Aucun rôle n'a été trouvé" })
+            }
+            res.status(200).json(role)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération du rôle."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
+
+
 
 
 const createOne = (req, res) => {
@@ -99,6 +117,12 @@ const updateOneById = (req, res) => {
 
 
 const deleteOneById = (req, res) => {
+    rolesTable.findByPk(req.params.id)
+    .then(role => {
+        if(!role) {
+            return res.status(404).json({message: "Aucun rôle n'a été trouvé"})
+        }
+
     rolesTable.destroy({
             where: {
                 id: req.params.id
@@ -117,6 +141,7 @@ const deleteOneById = (req, res) => {
                 error
             })
         })
+    })
 }
 
 const deleteAll = (req, res) => {
@@ -142,6 +167,7 @@ const roleController = {
     updateOneById,
     deleteOneById,
     getAll,
+    getOneById,
     deleteAll
 }
 

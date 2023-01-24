@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        isAlpha: true,
         max: 32,
         notEmpty: true,
       }
