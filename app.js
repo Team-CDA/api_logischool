@@ -1,41 +1,59 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-var app = express();
+// On récupère le paquet express
+const checkAuth = require('./helpers/jwt');
+const express = require('express')
+const morgan = require('morgan')
+const {success,getSwagger} = require('./helper')
+const usersRouter  = require('./routes/users.router')
+const rolesRouter  = require('./routes/roles.router')
+const swaggerUI = require('swagger-ui-express');
+const myJwt = require('./helpers/jwt');
+const jwt = require('jsonwebtoken');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//On créé une instance d'une application express (c'est notre serveur)
+const app = express()
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(express.json())
+app.use(morgan('dev'))
+
+
+app.use('/users', usersRouter)
+
+app.use('/roles', rolesRouter)
+
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
+//On définit un port par défaut
+const port = 3000
+
+
+//Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
+// on utilise la méthode send de la réponse pour renvoyer un message
+app.get('/', checkAuth, (req,res) => {
+    const message = "Bienvenue sur notre API"
+    const data =  'coucou'
+    res.json(success(message,data));
+})
+
+app.get('/getToken', (req, res) => {
+  const payload = {id: 1, email: 'pif@fmail.com'};
+  const secret = 'monsupersecret';
+  const options = { expiresIn: '2min' };
+  const token = jwt.sign(payload, secret, options);
+  console.log(token);
+  res.status(200).json({message: 'Token generated', token: token});
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
 
-module.exports = app;
+//Gestion de l'erreur 404
+app.use(({res}) => {
+    const message = 'Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.'
+    res.status(404).json({message})
+})
+
+
+//On démarre l'api sur le port 3000 en affichant un message
+app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port}`))

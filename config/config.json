@@ -1,22 +1,22 @@
 {
   "development": {
-    "username": "dbu5177669",
-    "password": "logischoolcda",
-    "database": "database_development",
-    "host": "db5011136013.hosting-data.io",
+    "username": "root",
+    "password": null,
+    "database": "logischool",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "database_test",
+    "database": "logischool",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "database_production",
+    "database": "logischool",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }
