@@ -61,9 +61,13 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-
+    
     rolesTable.findByPk(req.params.id)
         .then(role => {
+            if(!role) {
+                return res.status(404).json({message: "Aucun rôle n'a été trouvé"})
+            }
+        
             rolesTable.update({
                     role: req.body.role.trim(),
                     updatedAt: new Date()
