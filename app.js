@@ -9,22 +9,12 @@ const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
-const apicache = require('apicache');
 
 //JEFAISUNTEST
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
 app.get('/')
-const apicache = require('apicache');
-const cache = apicache.middleware;
-
-app.get('/clear-cache', (req, res) => {
-    apicache.clear();
-    res.send('Cache cleared');
-});
-
-
 app.use(express.json())
 app.use(morgan('dev'))
 
