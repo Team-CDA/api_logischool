@@ -9,8 +9,9 @@ const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-//JEFAISUNTEST
+
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
@@ -31,7 +32,7 @@ const port = 3000
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req,res) => {
-    const message = "Bienvenue sur notre API ( test GitHook )"
+    const message = "Bienvenue sur notre API de zinzins !"
     const data =  '42'
     res.json(success(message,data));
 })
