@@ -1,5 +1,3 @@
-
-
 // On récupère le paquet express
 const checkAuth = require('./helpers/jwt');
 const express = require('express')
