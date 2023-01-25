@@ -16,6 +16,13 @@ require('dotenv').config();
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
+app.post('/auto-pull', (req, res) => {
+    const timestamp = Date.now();
+    const url = `https://api.logischool.fr/pull?timestamp=${timestamp}`;
+    res.send(`Webhook envoyé à ${url}`);
+  });
+  
+
 app.get('/')
 app.use(express.json())
 app.use(morgan('dev'))
