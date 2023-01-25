@@ -32,7 +32,7 @@ const port = 3000
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req,res) => {
     const message = "Bienvenue sur notre API"
-    const data =  'Hello World !'
+    const data =  '42'
     res.json(success(message,data));
 })
 
