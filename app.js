@@ -7,6 +7,7 @@ const morgan = require('morgan')
 const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
+const alertTypesRouter = require('./routes/alert_types.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
 
@@ -22,6 +23,8 @@ app.use(morgan('dev'))
 app.use('/users', usersRouter)
 
 app.use('/roles', rolesRouter)
+
+app.use('/alert_types', alertTypesRouter)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
