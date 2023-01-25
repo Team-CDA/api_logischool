@@ -1,0 +1,25 @@
+# source : https://github.com/marketplace/actions/rsync-deployments-action
+name: DEPLOY
+
+# Sur un "push" dans la branche "main"
+on:
+  push:
+    branches:
+    - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      
+      # Rsync deploy
+      - name: rsync deployments
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzr --delete --exclude="" --include="" --filter=""
+          remote_path: /var/www/html/api_logischool
+          remote_host: 82.165.236.128
+          remote_user: root
+          remote_key: ${{ secrets.DEPLOY_KEY }}
