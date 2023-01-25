@@ -9,8 +9,9 @@ const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-//JEFAISUNTEST
+
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
 
