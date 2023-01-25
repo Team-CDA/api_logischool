@@ -59,6 +59,28 @@ const roleController = require ("../controllers/roles-controller")
  */
 router.get('/', roleController.getAll)
 
+/** 
+ * @swagger
+ * 
+ * /roles/{id}:
+ *    get:
+ *      tags: [Roles]
+ *      summary: Récupère un rôle en fonction de son id
+ *      description: Récupère un rôle en fonction de son id
+ *      responses: 
+ *         200:
+ *            description: Success
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Role'
+ *         404:
+ *            description: the roles table was not found
+ */
+router.get('/:id', roleController.getOneById)
+
 
 /** 
  * @swagger

@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
 
 module.exports = (req, res, next) => {
   try {
@@ -9,7 +8,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'Authentification échouée'
+      message: 'pas tout de suite la pause clope'
     });
   }
 };

@@ -9,15 +9,23 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+
     static associate(models) {
       // define association here
     }
   }
   roles.init({
     role: {
-    type:  DataTypes.STRING,
-    unique: true,
-    allowNull: true
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        isAlpha: true,
+        max: 32,
+        notEmpty: true,
+      }
+
     }
   }, {
     sequelize,
