@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         max: 32,
         notEmpty: true,
       }
-
     }
   }, {
     sequelize,

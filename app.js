@@ -18,6 +18,15 @@ app.get('/')
 app.use(express.json())
 app.use(morgan('dev'))
 
+app.get('/auto-pull', (req, res) => { // il faut ajouter le checkAuth ici
+    const timestamp = Date.now();
+    const url = `https://api.logischool.fr/pull?timestamp=${timestamp}`;
+    res.redirect(url);
+})
+
+app.get('/pull', (req, res) => {
+    res.json({message: 'Pulling from github'});
+});
 
 app.use('/users', usersRouter)
 
@@ -32,7 +41,7 @@ const port = 3000
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req,res) => {
     const message = "Bienvenue sur notre API"
-    const data =  'coucou'
+    const data =  '42'
     res.json(success(message,data));
 })
 
