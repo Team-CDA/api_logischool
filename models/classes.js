@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       classes.belongsTo(models.class_types, {
-        foreignKey: 'class_type_id',
+        foreignKey: 'id_class_type',
         as: 'class_type',
       });
     }
