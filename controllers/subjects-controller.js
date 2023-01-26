@@ -14,7 +14,7 @@ const getAll = (req,res)=> {
         if (result.length === 0) {
 
             //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
-            res.send("Aucune matière présent en base de données.")
+            res.json("Aucune matière présent en base de données.")
         } else {
             // Sinon, on renvoie le résultat de notre requête
             res.json(result, 200)

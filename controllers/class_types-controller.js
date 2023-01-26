@@ -2,14 +2,14 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classe_types
-const classesTable = db['classe_types'];
+const classe_typesTable = db['classe_types'];
 
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
     //On utilise l'ORM pour SELECT toute la table
-    classesTable.findAll()
+    classe_typesTable.findAll()
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {
@@ -35,7 +35,7 @@ const getAll = (req, res) => {
 }
 
 const getOneById = (req, res) => {
-    classesTable.findByPk(req.params.id)
+    classe_typesTable.findByPk(req.params.id)
         .then(classe_type => {
             if (!classe_type) {
                 return res.status(404).json({ message: "Aucun classe n'a été trouvé" })
@@ -55,7 +55,7 @@ const getOneById = (req, res) => {
 
 
 const createOne = (req, res) => {
-    classesTable.create(req.body)
+    classe_typesTable.create(req.body)
 
         .then(classe_type => {
             const message = "classe_type ajouté à la base de données."
@@ -79,13 +79,13 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    classesTable.findByPk(req.params.id)
+    classe_typesTable.findByPk(req.params.id)
         .then(classe_type => {
             if(!classe_type) {
                 return res.status(404).json({message: "Aucun classe n'a été trouvé"})
             }
         
-            classesTable.update(
+            classe_typesTable.update(
                 req.body,
                     {
                     where: {
@@ -115,13 +115,13 @@ const updateOneById = (req, res) => {
 
 
 const deleteOneById = (req, res) => {
-    classesTable.findByPk(req.params.id)
+    classe_typesTable.findByPk(req.params.id)
     .then(classe_type => {
         if(!classe_type) {
             return res.status(404).json({message: "Aucun classe n'a été trouvé"})
         }
 
-    classesTable.destroy({
+    classe_typesTable.destroy({
             where: {
                 id: req.params.id
             }
@@ -143,7 +143,7 @@ const deleteOneById = (req, res) => {
 }
 
 const deleteAll = (req, res) => {
-    classesTable.destroy({
+    classe_typesTable.destroy({
             truncate: true
         })
         .then(r => {
@@ -160,7 +160,7 @@ const deleteAll = (req, res) => {
 }
 
 //On ajoute toutes les méthodes dans un objet pour faciliter l'export
-const classeController = {
+const classe_typesController = {
     createOne,
     updateOneById,
     deleteOneById,
@@ -170,4 +170,4 @@ const classeController = {
 }
 
 
-module.exports = classeController
+module.exports = classe_typesController

@@ -1,42 +1,44 @@
 
 
 // const checkAuth = require('./helpers/jwt');
-const express = require('express')
-const morgan = require('morgan')
-const {success,getSwagger} = require('./helper')
-const usersRouter  = require('./routes/users.router')
-const rolesRouter  = require('./routes/roles.router')
-const alertTypesRouter = require('./routes/alert_types.router')
-const classesRouter = require('./routes/classes.router')
+const express = require('express');
+const morgan = require('morgan');
+const {success,getSwagger} = require('./helper');
+const usersRouter  = require('./routes/users.router');
+const rolesRouter  = require('./routes/roles.router');
+const alertTypesRouter = require('./routes/alert_types.router');
+const classTypesRouter = require('./routes/class_types.router');
+const classesRouter = require('./routes/classes.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
+// const fs = require('fs');
 require('dotenv').config();
 
-var logFilePath = '/var/log/morgan.log';
-var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+// var logFilePath = '/var/log/morgan.log';
+// var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
 
 
 
 //On créé une instance d'une application express (c'est notre serveur)
-const app = express()
+const app = express();
 
-app.get('/')
-app.use(express.json())
-app.use(morgan('dev'))
-app.use(morgan('combined', { stream: logStream }));
+app.get('/');
+app.use(express.json());
+app.use(morgan('dev'));
+// app.use(morgan('combined', { stream: logStream }));
 
-app.use('/users', usersRouter)
+app.use('/users', usersRouter);
 
-app.use('/roles', rolesRouter)
+app.use('/roles', rolesRouter);
 
-app.use('/alert_types', alertTypesRouter)
+app.use('/alert_types', alertTypesRouter);
+app.use('/class_types', classTypesRouter);
 
-app.use('/classes', classesRouter)
+app.use('/classes', classesRouter);
 
-app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()));
 //On définit un port par défaut
-const port = 3000
+const port = 3000;
 
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
@@ -45,7 +47,7 @@ app.get('/', (req, res) => {
     const message = "Bienvenue sur notre API"
     const data =  '100'
     res.json(success(message,data));
-})
+});
 
 app.get('/getToken', (req, res) => {
     const payload = {id: 1, email: 'pif@fmail.com'};
@@ -62,8 +64,8 @@ app.get('/getToken', (req, res) => {
 app.use(({res}) => {
     const message = 'Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.'
     res.status(404).json({message})
-})
+});
 
 
 //On démarre l'api sur le port 3000 en affichant un message
-app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port}`))
+app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port}`));
