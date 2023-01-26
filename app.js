@@ -6,6 +6,7 @@ const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const alertTypesRouter = require('./routes/alert_types.router')
+const classesRouter = require('./routes/classes.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -24,6 +25,8 @@ app.use('/users', usersRouter)
 app.use('/roles', rolesRouter)
 
 app.use('/alert_types', alertTypesRouter)
+
+app.use('/classes', classesRouter)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
