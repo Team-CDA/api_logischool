@@ -32,8 +32,8 @@ app.use('/users', usersRouter);
 app.use('/roles', rolesRouter);
 
 app.use('/alert_types', alertTypesRouter);
-app.use('/class_types', classTypesRouter);
 
+app.use('/class_types', classTypesRouter);
 app.use('/classes', classesRouter);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()));
