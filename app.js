@@ -7,12 +7,24 @@ const morgan = require('morgan')
 const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
+const alertTypesRouter = require('./routes/alert_types.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
-//JEFAISUNTEST
+
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express()
+
+app.get('/auto-pull', (req, res) => { // il faut ajouter le checkAuth ici
+    const timestamp = Date.now();
+    const url = `https://api.logischool.fr/pull?timestamp=${timestamp}`;
+    res.redirect(url);
+})
+
+app.get('/pull', (req, res) => {
+    res.json({message: 'Pulling from github'});
+});
 
 app.get('/')
 app.use(express.json())
@@ -32,6 +44,8 @@ app.use('/users', usersRouter)
 
 app.use('/roles', rolesRouter)
 
+app.use('/alert_types', alertTypesRouter)
+
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
 const port = 3000
@@ -41,18 +55,18 @@ const port = 3000
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req,res) => {
     const message = "Bienvenue sur notre API"
-    const data =  '42'
+    const data =  'WINNERS +++ NEVER QUIT AND QUITTERS NEVER WIN'
     res.json(success(message,data));
 })
 
-// app.get('/getToken', (req, res) => {
-//   const payload = {id: 1, email: 'pif@fmail.com'};
-//   const secret = 'monsupersecret';
-//   const options = { expiresIn: '2min' };
-//   const token = jwt.sign(payload, secret, options);
-//   console.log(token);
-//   res.status(200).json({message: 'Token generated', token: token});
-// });
+app.get('/getToken', (req, res) => {
+    const payload = {id: 1, email: 'pif@fmail.com'};
+    const secret = process.env.JWT_SECRET;
+    const options = { expiresIn: '2min' };
+    const token = jwt.sign(payload, secret, options);
+    console.log(token);
+    res.status(200).json({message: 'Token generated', token: token});
+});
 
 
 
