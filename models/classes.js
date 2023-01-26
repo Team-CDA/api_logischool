@@ -14,7 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   classes.init({
-    name: DataTypes.STRING,
+    name: {
+      type : DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 64,
+        notEmpty: true,
+      }
+    },
     scolarity_year: DataTypes.INTEGER
   }, {
     sequelize,

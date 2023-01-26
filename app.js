@@ -11,7 +11,13 @@ const alertTypesRouter = require('./routes/alert_types.router')
 const classesRouter = require('./routes/classes.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 require('dotenv').config();
+
+var logFilePath = '/var/log/morgan.log';
+var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+app.use(morgan('combined', { stream: logStream }));
+
 
 
 //On créé une instance d'une application express (c'est notre serveur)
