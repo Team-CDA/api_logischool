@@ -1,5 +1,5 @@
 const { Router } = require ("express")
-const classTypesController = require("../controllers/class_types-controller")
+const classTypesController = require("../controllers/classe_types-controller")
 const router = Router()
 
 /** 
