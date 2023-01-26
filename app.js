@@ -15,7 +15,6 @@ require('dotenv').config();
 
 var logFilePath = '/var/log/morgan.log';
 var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-app.use(morgan('combined', { stream: logStream }));
 
 
 
@@ -25,6 +24,7 @@ const app = express()
 app.get('/')
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(morgan('combined', { stream: logStream }));
 
 app.use('/users', usersRouter)
 
