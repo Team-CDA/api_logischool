@@ -1,22 +1,22 @@
 //On importe db qui contient tous nos modèles.
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
-//On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table roles
-const rolesTable = db['roles'];
+//On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classe_types
+const classesTable = db['classe_types'];
 
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
     //On utilise l'ORM pour SELECT toute la table
-    rolesTable.findAll()
+    classesTable.findAll()
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {
             if (result.length === 0) {
 
                 //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
-                res.json("Aucun rôle présent en base de données.")
+                res.json("Aucun classe présent en base de données.")
             } else {
                 // Sinon, on renvoie le résultat de notre requête
                 res.json(result, 200)
@@ -25,7 +25,7 @@ const getAll = (req, res) => {
         //en cas d'erreur, on passe dans le catch
         .catch(error => {
             //On définit un status d'erreur et un message a renvoyer
-            const message = "La liste des rôles n'a pas pu être récupérée. Réessayez dans quelques instants."
+            const message = "La liste des classe_types n'a pas pu être récupérée. Réessayez dans quelques instants."
             res.status(500).json({
                 message,
                 data: error
@@ -35,15 +35,15 @@ const getAll = (req, res) => {
 }
 
 const getOneById = (req, res) => {
-    rolesTable.findByPk(req.params.id)
-        .then(role => {
-            if (!role) {
-                return res.status(404).json({ message: "Aucun rôle n'a été trouvé" })
+    classesTable.findByPk(req.params.id)
+        .then(classe_type => {
+            if (!classe_type) {
+                return res.status(404).json({ message: "Aucun classe n'a été trouvé" })
             }
-            res.status(200).json(role)
+            res.status(200).json(classe_type)
         })
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de la récupération du rôle."
+            const message = "Une erreur a eu lieu lors de la récupération du classe."
             res.status(500).json({
                 message,
                 data: error
@@ -55,13 +55,13 @@ const getOneById = (req, res) => {
 
 
 const createOne = (req, res) => {
-    rolesTable.create(req.body)
+    classesTable.create(req.body)
 
-        .then(role => {
-            const message = "Rôle ajouté à la base de données."
+        .then(classe_type => {
+            const message = "classe_type ajouté à la base de données."
             res.status(201).json({
                 message,
-                data: role
+                data: classe_type
             })
         })
 
@@ -79,13 +79,13 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    rolesTable.findByPk(req.params.id)
-        .then(role => {
-            if(!role) {
-                return res.status(404).json({message: "Aucun rôle n'a été trouvé"})
+    classesTable.findByPk(req.params.id)
+        .then(classe_type => {
+            if(!classe_type) {
+                return res.status(404).json({message: "Aucun classe n'a été trouvé"})
             }
         
-            rolesTable.update(
+            classesTable.update(
                 req.body,
                     {
                     where: {
@@ -94,7 +94,7 @@ const updateOneById = (req, res) => {
                     returning: true,
                 })
                 .then(result => {
-                    const message = "Rôle correctement mis à jour."
+                    const message = "classe_type correctement mis à jour."
                     res.status(201).json({
                         message
                     });
@@ -115,13 +115,13 @@ const updateOneById = (req, res) => {
 
 
 const deleteOneById = (req, res) => {
-    rolesTable.findByPk(req.params.id)
-    .then(role => {
-        if(!role) {
-            return res.status(404).json({message: "Aucun rôle n'a été trouvé"})
+    classesTable.findByPk(req.params.id)
+    .then(classe_type => {
+        if(!classe_type) {
+            return res.status(404).json({message: "Aucun classe n'a été trouvé"})
         }
 
-    rolesTable.destroy({
+    classesTable.destroy({
             where: {
                 id: req.params.id
             }
@@ -143,7 +143,7 @@ const deleteOneById = (req, res) => {
 }
 
 const deleteAll = (req, res) => {
-    rolesTable.destroy({
+    classesTable.destroy({
             truncate: true
         })
         .then(r => {
@@ -160,7 +160,7 @@ const deleteAll = (req, res) => {
 }
 
 //On ajoute toutes les méthodes dans un objet pour faciliter l'export
-const roleController = {
+const classeController = {
     createOne,
     updateOneById,
     deleteOneById,
@@ -170,4 +170,4 @@ const roleController = {
 }
 
 
-module.exports = roleController
+module.exports = classeController
