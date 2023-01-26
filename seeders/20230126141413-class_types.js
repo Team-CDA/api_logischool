@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('roles', [
+    await queryInterface.bulkInsert('class_types', [
       {class_type: 'CP'},
       {class_type: 'CE1'},
       {class_type: 'CE2'},
