@@ -1,7 +1,7 @@
 
 
 // On récupère le paquet express
-const checkAuth = require('./helpers/jwt');
+// const checkAuth = require('./helpers/jwt');
 const express = require('express')
 const morgan = require('morgan')
 const {success,getSwagger} = require('./helper')
@@ -11,12 +11,12 @@ const alertTypesRouter = require('./routes/alert_types.router')
 const classesRouter = require('./routes/classes.router')
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
-const fs = require('fs');
+// const fs = require('fs');
 require('dotenv').config();
 
-var logFilePath = '/var/log/morgan.log';
-var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-app.use(morgan('combined', { stream: logStream }));
+// var logFilePath = '/var/log/morgan.log';
+// var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+// app.use(morgan('combined', { stream: logStream }));
 
 
 
