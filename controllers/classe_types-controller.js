@@ -2,7 +2,7 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classe_types
-const classe_typesTable = db['classe_types'];
+const classe_typesTable = db['class_types'];
 
 
 //On déclare toutes les méthodes
