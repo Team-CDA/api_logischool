@@ -5,7 +5,7 @@ const users = require('../models/users');
 const usersTable = db['users'];
 
 const getAllUsers = (req,res)=> {
-
+        
         //On utilise l'ORM pour SELECT toute la table
         usersTable.findAll()
 

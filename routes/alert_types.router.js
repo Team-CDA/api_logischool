@@ -7,7 +7,7 @@ const router = Router()
  * 
  * /alert_types:
  *    get:
- *      tags: [types d'alerte]
+ *      tags: [Types d'alerte]
  *      summary: Récupère la liste de type d'alerte
  *      description: Récupère la liste de type d'alerte
  *      responses: 
@@ -22,7 +22,7 @@ router.get('/', alertTypesController.getAll)
  * 
  * /alert_types:
  *    get:
- *      tags: [types d'alerte]
+ *      tags: [Types d'alerte]
  *      summary: Récupère un type d'alerte par son id
  *      description: Récupère un type d'alerte par son id
  *      responses: 
@@ -37,7 +37,7 @@ router.get('/:id', alertTypesController.getOneById)
  * 
  * /alert_types/create:
  *    post:
- *      tags: [types d'alerte]
+ *      tags: [Types d'alerte]
  *      requestBody:
  *         required: true
  *         content:
@@ -56,9 +56,9 @@ router.post('/create', alertTypesController.createOne)
 /** 
  * @swagger
  * 
- * /alert_types/update/{id}:
+ * /alert_types/update/{:id}:
  *    patch:
- *      tags: [type d'alerte]
+ *      tags: [Types d'alerte]
  *      summary: Permet La modification d'un type d'alerte
  *      requestBody:
  *       required: true
@@ -77,10 +77,10 @@ router.patch('/update/:id', alertTypesController.updateOneById)
 /** 
  * @swagger
  * 
- * /alert_types/delete/{id}:
+ * /alert_types/delete/{:id}:
  *    delete:
- *      tags: [type d'alerte]
- *      summary: Permet La suppressin d'un type d'alerte
+ *      tags: [Types d'alerte]
+ *      summary: Permet la suppressin d'un type d'alerte
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
  *         200:
@@ -95,8 +95,8 @@ router.delete('/delete/:id', alertTypesController.deleteOneById)
 //  * 
 //  * /alert_types/deleteAll:
 //  *    delete:
-//  *      tags: [types d'alerte]
-//  *      summary: Permet La suppression de tous les type d'alerte (truncate)
+//  *      tags: [Types d'alerte]
+//  *      summary: Permet la suppression de tous les type d'alerte (truncate)
 //  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
 //  *      responses:
 //  *         200:
