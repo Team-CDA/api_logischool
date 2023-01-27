@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   alerts.init({
     message: DataTypes.STRING,
-    transmission_date: DataTypes.DATE,
     id_alert_type: DataTypes.INTEGER
   }, {
     sequelize,

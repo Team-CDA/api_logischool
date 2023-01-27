@@ -4,13 +4,26 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('classes', [
-      {name: 'SECPA1'},
-      {name: 'SECPA2'},
-      {name: 'SECPA3'},
-      {name: 'SECPA4'},
-      {name: 'SECPA5'},
-      {name: 'SECPA6'},
-      {name: 'SECPA7'},
+      {
+        name: 'SECPA1',
+        id_class_type: 1
+      },
+      {
+        name: 'SECPA2',
+        id_class_type: 1
+      },
+      {
+        name: 'SECPA3',
+        id_class_type: 1
+      },
+      {
+        name: 'SECPA4',
+        id_class_type: 1
+      },
+      {
+        name: 'SECPA5',
+        id_class_type: 1
+      },
     ], {}
     );
   },
