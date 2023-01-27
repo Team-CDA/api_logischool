@@ -16,16 +16,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   roles.init({
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
       unique: true,
       allowNull: false,
       validate: {
         is: ["^[a-zA-Z0-9À-ÿ]+$"],
-        isAlpha: true,
-        max: 32,
+        max: 64,
         notEmpty: true,
       }
-
     }
   }, {
     sequelize,

@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "@pi_logischo0l",
+    "password": "Logischool0591$",
+    "database": "logischool",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "@pi_logischo0l",
+    "password": "Logischool0591$",
+    "database": "logischool",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "@pi_logischo0l",
+    "password": "Logischool0591$",
+    "database": "logischool",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -15,7 +15,7 @@ const getAllUsers = (req,res)=> {
             if (result.length === 0) {
 
                 //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
-                res.send("Aucun utilisateur présent en base de données.")
+                res.json({Message : "Aucun utilisateur présent en base de données."})
             } else {
                 // Sinon, on renvoie le résultat de notre requête
                 res.json(result, 200)

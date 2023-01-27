@@ -8,42 +8,89 @@ const router = Router()
  * @swagger
  *  components: 
  *    schemas:
- *       Utilisateurs:
+ *       Users:
  *          type: object
  *          required: 
- *              - users
+ *              - role
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le user
+ *               description: L'id qui représente le rôle
  *             firstname:
  *               type: string
- *               description: Le prénom de l'utilisateur
+ *               description: Le prénom de l'utilisateur                
  *             lastname:
  *               type: string
- *               description: Le nom de l'utilisateur 
+ *               description: Le nom de l'utilisateur                
  *             birthdate:
  *               type: date
- *               description: la date de naissance                    
- *             createdAt:
- *               type: date
- *               description: La date à laquelle le rôle a été créé
+ *               description: La date de naissance de l'utilisateur                
+ *             adress:
+ *               type: string
+ *               description: L'adresse de l'utilisateur                
+ *             city:
+ *               type: string
+ *               description: La ville de l'utilisateur        
+ *             zipcode:
+ *               type: string
+ *               description: Le code postal de l'utilisateur    
+ *             mail:
+ *               type: string
+ *               description: L'adresse mail de l'utilisateur  
+ *             phone:
+ *               type: string
+ *               description: Le numéro de téléphone de l'utilisateur  
+ *             ine:
+ *               type: string
+ *               description: Le numéro INE de l'utilisateur
+ *             id_first_tutor:
+ *               type: integer
+ *               description: L'id du premier tuteur de l'utilisateur
+ *             id_second_tutor:
+ *               type: integer
+ *               description: L'id du second tuteur de l'utilisateur
+ *             id_establishment:
+ *               type: integer
+ *               description: L'id de l'établissement de l'utilisateur
+ *             id_class:
+ *               type: integer
+ *               description: L'id de la classe de l'utilisateur
+ *             id_gender:
+ *               type: integer
+ *               description: L'id du genre de l'utilisateur
+ *             id_role:
+ *               type: integer
+ *               description: L'id du rôle de l'utilisateur
+ *             id_status:
+ *               type: integer
+ *               description: L'id du statut de l'utilisateur
  *             updatedAt:
  *               type: date
  *               description: La date de la dernière modification du rôle
  *          example: 
  *             id: 1
- *             firstname: Nicolas
- *             lastname: Personne
- *             birthdate: 24/05/1991
- *             adress: 70 rue des Jacobins
- *             city: Amiens
- *             zipcode: "80000"
- *             mail: nicolasp@lamanus.jp
- *             phone: "0102030405"
+ *             firstname: "Jean"
+ *             lastname: "Dupont"
+ *             birthdate: 2000-12-14
+ *             adress: "1 rue de la paix"
+ *             city: "Paris"
+ *             zipcode: "75000"
+ *             mail: "lol@gmail.com"
+ *             phone: "0606060606"
+ *             ine: "123456789"
+ *             id_first_tutor: 1
+ *             id_second_tutor: 2
+ *             id_establishment: 1
+ *             id_class: 1
+ *             id_gender: 1
+ *             id_role: 1
+ *             id_status: 1
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
+ * 
+ * 
  */
+
 
 /** 
  * @swagger
@@ -149,21 +196,5 @@ router.patch('/update/:id', userController.updateOneById)
  *         
  */
 router.delete('/delete/:id', userController.deleteOneById)
-
-
-// /** 
-//  * @swagger
-//  * 
-//  * /roles/deleteAll:
-//  *    delete:
-//  *      tags: [Roles]
-//  *      summary: Permet La suppression de tous les rôles (truncate)
-//  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
-//  *      responses:
-//  *         200:
-//  *          description: Roles successfully deleted
-//  *         
-//  */
-// router.delete('/deleteAll', roleController.deleteAll)
 
 module.exports = router

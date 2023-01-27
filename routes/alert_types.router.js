@@ -2,6 +2,36 @@ const { Router } = require ("express")
 const alertTypesController = require("../controllers/alert_types-controller")
 const router = Router()
 
+/**
+ * @swagger
+ *  components: 
+ *    schemas:
+ *       Types d'alerte:
+ *          type: object
+ *          required: 
+ *              - alert_type
+ *          properties: 
+ *             id:
+ *               type: integer
+ *               description: L'id qui représente le type d'alerte
+ *             type:
+ *               type: string
+ *               description: Le nom du type d'alerte               
+ *             createdAt:
+ *               type: date
+ *               description: La date à laquelle le type d'alerte a été créé
+ *             updatedAt:
+ *               type: date
+ *               description: La date de la dernière modification du type d'alerte
+ *          example: 
+ *             id: 1
+ *             type: "Manifestation"  
+ *             createdAt: 2022-12-14T12:45:48
+ *             updatedAt: 2022-12-14T12:46:48
+ * 
+ * 
+ */
+
 /** 
  * @swagger
  * 
@@ -48,7 +78,7 @@ router.get('/:id', alertTypesController.getOneById)
  *      description: Permet d'ajouter un type d'alerte.
  *      responses: 
  *         200:
- *            description: alert types successfully created
+ *            description: alert type successfully fetched
  */
 router.post('/create', alertTypesController.createOne)
 
@@ -68,7 +98,7 @@ router.post('/create', alertTypesController.createOne)
  *    description: Grâce à l'id d'un type d'alerte vous pouvez la modifier.
  *    responses:
  *         200:
- *          description: alert types successfully updated
+ *          description: alert type successfully updated
  *         
  */
 router.patch('/update/:id', alertTypesController.updateOneById)
