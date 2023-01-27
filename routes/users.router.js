@@ -84,7 +84,7 @@ router.patch('/update/:id', userController.updateOneById)
  * 
  * /users/delete/{id}:
  *    delete:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      summary: Permet La suppressin d'un utilisateur
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
@@ -93,21 +93,5 @@ router.patch('/update/:id', userController.updateOneById)
  *         
  */
 router.delete('/delete/:id', userController.deleteOneById)
-
-
-// /** 
-//  * @swagger
-//  * 
-//  * /roles/deleteAll:
-//  *    delete:
-//  *      tags: [Roles]
-//  *      summary: Permet La suppression de tous les rôles (truncate)
-//  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
-//  *      responses:
-//  *         200:
-//  *          description: Roles successfully deleted
-//  *         
-//  */
-// router.delete('/deleteAll', roleController.deleteAll)
 
 module.exports = router
