@@ -58,7 +58,7 @@ const router = Router()
  *                              items:
  *                              $ref: '#/components/schemas/Alertes'
  *         404:
- *            description: the roles table was not found
+ *            description: the alerts table was not found
  * 
  */
 router.get('/', alertsController.getAll)
