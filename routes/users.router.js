@@ -39,7 +39,7 @@ router.get('/:id', userController.getOneById)
  * 
  * /users/create:
  *    post:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      requestBody:
  *         required: true
  *         content:
@@ -62,7 +62,7 @@ router.post('/create', userController.createOne)
  * 
  * /users/update/{id}:
  *    patch:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      summary: Permet La modification d'un utilisateur
  *      requestBody:
  *       required: true
