@@ -22,7 +22,7 @@ router.get('/', classTypesController.getAll)
  * 
  * /class_types:
  *    get:
- *      tags: [types d'class]
+ *      tags: [types de classe]
  *      summary: Récupère un type de classe par son id
  *      description: Récupère un type de classe par son id
  *      responses: 
@@ -37,15 +37,15 @@ router.get('/:id', classTypesController.getOneById)
  * 
  * /class_types/create:
  *    post:
- *      tags: [types de class]
+ *      tags: [type de classe]
  *      requestBody:
  *         required: true
  *         content:
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/class_types'
- *      summary: Permet d'ajouter un type d'class
- *      description: Permet d'ajouter un type de class.
+ *      summary: Permet d'ajouter un type de classe
+ *      description: Permet d'ajouter un type de classe.
  *      responses: 
  *         200:
  *            description: classe_types successfully created
@@ -59,14 +59,14 @@ router.post('/create', classTypesController.createOne)
  * /class_types/update/{id}:
  *    patch:
  *      tags: [type de class]
- *      summary: Permet La modification d'un type de class
+ *      summary: Permet La modification d'un type de classe
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/class_types'
- *    description: Grâce à l'id d'un type de class vous pouvez la modifier.
+ *    description: Grâce à l'id d'un type de classe vous pouvez la modifier.
  *    responses:
  *         200:
  *          description: class_types successfully updated
@@ -80,29 +80,13 @@ router.patch('/update/:id', classTypesController.updateOneById)
  * /class_types/delete/{id}:
  *    delete:
  *      tags: [type de class]
- *      summary: Permet La suppressin d'un type de class
- *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Permet La suppression d'un type de classe
+ *      description: Passer l'id de la classe que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
  *         200:
  *          description: class_types successfully deleted
  *         
  */
 router.delete('/delete/:id', classTypesController.deleteOneById)
-
-
-// /** 
-//  * @swagger
-//  * 
-//  * /class_types/deleteAll:
-//  *    delete:
-//  *      tags: [types de class]
-//  *      summary: Permet La suppression de tous les type de class (truncate)
-//  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
-//  *      responses:
-//  *         200:
-//  *          description: class_types successfully deleted
-//  *         
-//  */
-// router.delete('/deleteAll', classTypesController.deleteAll)
 
 module.exports = router
