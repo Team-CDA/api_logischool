@@ -15,6 +15,11 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-      // await queryInterface.sequelize.query('TRUNCATE TABLE users');
-    }
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+  }
 };

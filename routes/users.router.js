@@ -43,9 +43,6 @@ const router = Router()
  *             phone: "0102030405"
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
- *             
- * 
- * 
  */
 
 /** 
@@ -73,7 +70,7 @@ router.get('/', userController.getAllUsers)
 /** 
  * @swagger
  * 
- * /users/{:id}:
+ * /users/{id}:
  *    get:
  *      tags: [Utilisateurs]
  *      summary: Récupère un utilisateurs par son id
@@ -119,7 +116,7 @@ router.post('/create', userController.createOne)
 /** 
  * @swagger
  * 
- * /users/update/{:id}:
+ * /users/update/{id}:
  *    patch:
  *      tags: [Utilisateurs]
  *      summary: Permet la modification d'un utilisateur
@@ -141,7 +138,7 @@ router.patch('/update/:id', userController.updateOneById)
 /** 
  * @swagger
  * 
- * /users/delete/{:id}:
+ * /users/delete/{id}:
  *    delete:
  *      tags: [Utilisateurs]
  *      summary: Permet la suppression d'un utilisateur

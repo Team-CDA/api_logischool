@@ -3,6 +3,7 @@ const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const users = require('../models/users');
 const usersTable = db['users'];
+const classesTable = db['classes'];
 
 const getAllUsers = (req,res)=> {
         
@@ -26,7 +27,7 @@ const getAllUsers = (req,res)=> {
             const message = "La liste des utilisateurs n'a pas pu être récupérée. Réessayez dans quelques instants."
             res.status(500).json({
                 message,
-                data: error
+                data: error.message
             })
         })
 
@@ -44,7 +45,7 @@ const getOneById = (req, res) => {
             const message = "Une erreur a eu lieu lors de la récupération d'un utilisateur."
             res.status(500).json({
                 message,
-                data: error
+                data: error.message
             })
         })
 }
@@ -145,6 +146,10 @@ const deleteAll = (req, res) => {
                 error
             })
         })
+}
+
+const getallUsersClasse = (req, res) => {
+    
 }
 
 const userController = {

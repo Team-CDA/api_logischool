@@ -52,11 +52,10 @@ router.get('/:id', alertTypesController.getOneById)
  */
 router.post('/create', alertTypesController.createOne)
 
-
 /** 
  * @swagger
  * 
- * /alert_types/update/{:id}:
+ * /alert_types/update/{id}:
  *    patch:
  *      tags: [Types d'alerte]
  *      summary: Permet La modification d'un type d'alerte
@@ -77,7 +76,7 @@ router.patch('/update/:id', alertTypesController.updateOneById)
 /** 
  * @swagger
  * 
- * /alert_types/delete/{:id}:
+ * /alert_types/delete/{id}:
  *    delete:
  *      tags: [Types d'alerte]
  *      summary: Permet la suppressin d'un type d'alerte
