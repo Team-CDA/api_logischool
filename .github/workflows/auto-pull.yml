@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: add known hosts
-        run: ssh-keyscan -H ${{secrets.SSH_HOST}} >> /root/.ssh/known_hosts
       
       # Rsync deploy
       - name: rsync deployments
