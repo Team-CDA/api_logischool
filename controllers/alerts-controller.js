@@ -10,7 +10,7 @@ const getAll = (req,res)=> {
         include: [{
             model: alertTypesTable,
             as: 'alert_types',
-        }]
+        }],
     })
     
 
