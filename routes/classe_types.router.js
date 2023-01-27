@@ -2,6 +2,38 @@ const { Router } = require ("express")
 const classTypesController = require("../controllers/classe_types-controller")
 const router = Router()
 
+//On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
+/**
+ * @swagger
+ *  components: 
+ *    schemas:
+ *       Types de classe:
+ *          type: object
+ *          required: 
+ *              - class_type
+ *          properties: 
+ *             id:
+ *               type: integer
+ *               description: L'id qui représente le type de classe
+ *             class_type:
+ *               type: string
+ *               description: Le nom du type de classe               
+ *             createdAt:
+ *               type: date
+ *               description: La date à laquelle le type de classe a été créé
+ *             updatedAt:
+ *               type: date
+ *               description: La date de la dernière modification du type de classe
+ *          example: 
+ *             id: 1
+ *             class_type: CM2  
+ *             createdAt: 2022-12-14T12:45:48
+ *             updatedAt: 2022-12-14T12:46:48
+ * 
+ * 
+ */
+
+
 /** 
  * @swagger
  * 
