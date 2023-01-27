@@ -29,7 +29,7 @@ const classeController = require ("../controllers/classes-controller")
  *               description: La date de la dernière modification du classe
  *          example: 
  *             id: 1
- *             classe: Administrateur  
+ *             classe: "CM2"  
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
  * 

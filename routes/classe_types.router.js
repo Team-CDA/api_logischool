@@ -26,7 +26,7 @@ const router = Router()
  *               description: La date de la dernière modification du type de classe
  *          example: 
  *             id: 1
- *             class_type: CM2  
+ *             class_type: "Primaire"  
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
  * 

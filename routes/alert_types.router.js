@@ -25,7 +25,7 @@ const router = Router()
  *               description: La date de la dernière modification du type d'alerte
  *          example: 
  *             id: 1
- *             class_type: Manifestation  
+ *             type: "Manifestation"  
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
  * 

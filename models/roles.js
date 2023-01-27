@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   roles.init({
     role: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
       unique: true,
       allowNull: false,
       validate: {
