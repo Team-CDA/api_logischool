@@ -39,7 +39,7 @@ const router = Router()
  * 
  * /class_types:
  *    get:
- *      tags: [types de classe]
+ *      tags: [Types de classe]
  *      summary: Récupère la liste de type de classe
  *      description: Récupère la liste de type de classe
  *      responses: 
@@ -54,7 +54,7 @@ router.get('/', classTypesController.getAll)
  * 
  * /class_types:
  *    get:
- *      tags: [types de classe]
+ *      tags: [Types de classe]
  *      summary: Récupère un type de classe par son id
  *      description: Récupère un type de classe par son id
  *      responses: 
@@ -69,7 +69,7 @@ router.get('/:id', classTypesController.getOneById)
  * 
  * /class_types/create:
  *    post:
- *      tags: [type de classe]
+ *      tags: [Types de classe]
  *      requestBody:
  *         required: true
  *         content:
@@ -90,7 +90,7 @@ router.post('/create', classTypesController.createOne)
  * 
  * /class_types/update/{id}:
  *    patch:
- *      tags: [type de class]
+ *      tags: [Types de classe]
  *      summary: Permet La modification d'un type de classe
  *      requestBody:
  *       required: true
@@ -111,7 +111,7 @@ router.patch('/update/:id', classTypesController.updateOneById)
  * 
  * /class_types/delete/{id}:
  *    delete:
- *      tags: [type de class]
+ *      tags: [Types de classe]
  *      summary: Permet La suppression d'un type de classe
  *      description: Passer l'id de la classe que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
