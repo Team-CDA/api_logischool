@@ -39,16 +39,13 @@ const router = Router()
  *             phone:
  *               type: string
  *               description: Le numéro de téléphone de l'utilisateur  
- *             phone:
- *               type: string
- *               description: Le numéro de téléphone de l'utilisateur  
  *             ine:
  *               type: string
  *               description: Le numéro INE de l'utilisateur
- *             first_tutor:
+ *             id_first_tutor:
  *               type: integer
  *               description: L'id du premier tuteur de l'utilisateur
- *             second_tutor:
+ *             id_second_tutor:
  *               type: integer
  *               description: L'id du second tuteur de l'utilisateur
  *             id_establishment:
@@ -80,8 +77,8 @@ const router = Router()
  *             mail: "lol@gmail.com"
  *             phone: "0606060606"
  *             ine: "123456789"
- *             first_tutor: 1
- *             second_tutor: 2
+ *             id_first_tutor: 1
+ *             id_second_tutor: 2
  *             id_establishment: 1
  *             id_class: 1
  *             id_gender: 1
