@@ -1,11 +1,18 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const alertsTable = db['alerts'];
+const alertTypesTable = db['alert_types'];
 
 const getAll = (req,res)=> {
 
     //On utilise l'ORM pour SELECT toute la table
-    alertsTable.findAll()
+    alertsTable.findAll({
+        include: [{
+            model: alertTypesTable,
+            as: 'alert_types',
+        }]
+    })
+    
 
     //On utilise les promesses pour gérer les résultats de la requête.
     .then(result => {

@@ -10,8 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.belongsTo(models.alert_types, { foreignKey: 'id_alert_type' });
     }
+    
   }
   alerts.init({
     message: DataTypes.STRING,
