@@ -58,7 +58,7 @@ router.post('/create', alertTypesController.createOne)
  * 
  * /alert_types/update/{id}:
  *    patch:
- *      tags: [type d'alerte]
+ *      tags: [types d'alerte]
  *      summary: Permet La modification d'un type d'alerte
  *      requestBody:
  *       required: true
@@ -79,7 +79,7 @@ router.patch('/update/:id', alertTypesController.updateOneById)
  * 
  * /alert_types/delete/{id}:
  *    delete:
- *      tags: [type d'alerte]
+ *      tags: [types d'alerte]
  *      summary: Permet La suppressin d'un type d'alerte
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:

@@ -11,14 +11,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      rooms.belongsTo(models.buildings, {
+        as : 'buildings',
+        foreignKey: 'id_building'
+        
+      })
     }
   }
   rooms.init({
     name: DataTypes.STRING,
-    id_toom_type: DataTypes.INTEGER,
+    id_room_type: DataTypes.INTEGER,
     id_building: DataTypes.INTEGER
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
     modelName: 'rooms',
   });
   return rooms;

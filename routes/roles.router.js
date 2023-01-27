@@ -40,7 +40,7 @@ const roleController = require ("../controllers/roles-controller")
 /** 
  * @swagger
  * 
- * /roles:
+ * /roles/all:
  *    get:
  *      tags: [Roles]
  *      summary: Récupère la liste de tous les rôles
@@ -57,7 +57,7 @@ const roleController = require ("../controllers/roles-controller")
  *         404:
  *            description: the roles table was not found
  */
-router.get('/', roleController.getAll)
+router.get('/all', roleController.getAll)
 
 /** 
  * @swagger

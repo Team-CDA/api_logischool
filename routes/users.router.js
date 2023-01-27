@@ -39,7 +39,7 @@ router.get('/:id', userController.getOneById)
  * 
  * /users/create:
  *    post:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      requestBody:
  *         required: true
  *         content:
@@ -62,7 +62,7 @@ router.post('/create', userController.createOne)
  * 
  * /users/update/{id}:
  *    patch:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      summary: Permet La modification d'un utilisateur
  *      requestBody:
  *       required: true
@@ -84,7 +84,7 @@ router.patch('/update/:id', userController.updateOneById)
  * 
  * /users/delete/{id}:
  *    delete:
- *      tags: [Utilisateur]
+ *      tags: [Utilisateurs]
  *      summary: Permet La suppressin d'un utilisateur
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
