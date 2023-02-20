@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       slot_duration: {
-        type: Sequelize.TIME
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
