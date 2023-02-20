@@ -18,12 +18,20 @@ const reportController = require ("../controllers/reports-controller")
  *             id:
  *               type: integer
  *               description: L'id qui représente le report
+ *             id_user:
+ *               type: integer
+ *               description: L'id qui représente l'utilisateur lié au report'
+ *             id_report_type:
+ *               type: integer
+ *               description: L'id qui représente le type de report'
  *             report_date:
  *               type: string
  *               description: La date de création du report                
  *          example: 
- *             id: 1
- *             report_date: "Absence injustifiée"  
+ *               id: 1
+ *               id_user: 1
+ *               id_report_type: 1
+ *               report_date: "2023-05-21"  
  *
  * 
  */
@@ -34,7 +42,7 @@ const reportController = require ("../controllers/reports-controller")
  * 
  * /report:
  *    get:
- *      tags: [Report]
+ *      tags: [Reports]
  *      summary: Récupère la liste de tous les reports
  *      description: Récupère la liste de tous les reports
  *      responses: 
@@ -56,7 +64,7 @@ router.get('/', reportController.getAll)
  * 
  * /report/{id}:
  *    get:
- *      tags: [Report]
+ *      tags: [Reports]
  *      summary: Récupère un report en fonction de son id
  *      description: Récupère un report en fonction de son id
  *      responses: 
@@ -79,7 +87,7 @@ router.get('/:id', reportController.getOneById)
  * 
  * /report/create:
  *    post:
- *      tags: [Report]
+ *      tags: [Reports]
  *      requestBody:
  *         required: true
  *         content:

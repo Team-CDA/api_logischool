@@ -6,6 +6,9 @@ module.exports = {
     await queryInterface.bulkInsert('reports', [
       {
         report_date: '2022-01-01',
+        id_user: 1,
+        id_report_type: 1,
+        report_date: new Date(),
       },
     ], {}
     );
