@@ -24,7 +24,6 @@ const router = Router()
  * 
  */
 
-
 /** 
  * @swagger
  * 
@@ -46,5 +45,76 @@ const router = Router()
  * 
  */
 router.get('/', gendersController.getGenderAll)
+
+/** 
+ * @swagger
+ * 
+ * /genders:
+ *    get:
+ *      tags: [Genre]
+ *      summary: Récupère un genre par son id
+ *      description: Success
+ *      responses: 
+ *         200:
+ *            description: Success
+ * 
+ */
+router.get('/:id', gendersController.getOneById)
+
+/** 
+ * @swagger
+ * 
+ * /genders/create:
+ *    post:
+ *      tags: [Genre]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/genders'
+ *      summary: Permet d'ajouter un genre.
+ *      description: Permet d'ajouter un genre.
+ *      responses: 
+ *         200:
+ *            description: genders successfully fetched
+ */
+router.post('/create', gendersController.createOne)
+
+/** 
+ * @swagger
+ * 
+ * /genders/update/{id}:
+ *    patch:
+ *      tags: [Genre]
+ *      summary: Permet La modification d'un genre
+ *      requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *            schema:
+ *               $ref: '#/components/schemas/genders'
+ *    description: Grâce à l'id d'un genre vous pouvez la modifier.
+ *    responses:
+ *         200:
+ *          description: alert type successfully updated
+ *         
+ */
+router.patch('/update/:id', gendersController.updateOneById)
+
+/** 
+ * @swagger
+ * 
+ * /genders/delete/{id}:
+ *    delete:
+ *      tags: [Genre]
+ *      summary: Permet la suppressin d'un genre
+ *      description: Passer l'id du genre que vous souhaitez supprimer en url et le tour est joué.
+ *      responses:
+ *         200:
+ *          description: alert types successfully deleted
+ *         
+ */
+router.delete('/delete/:id', gendersController.deleteOneById)
 
 module.exports = router
