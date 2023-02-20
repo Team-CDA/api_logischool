@@ -1,10 +1,9 @@
-
-
 // const checkAuth = require('./helpers/jwt');
 const express = require('express');
 const morgan = require('morgan');
 const {success,getSwagger} = require('./helper');
 const usersRouter  = require('./routes/users.router');
+const statusesRouter  = require('./routes/statuses.router');
 const rolesRouter  = require('./routes/roles.router');
 const alertTypesRouter = require('./routes/alert_types.router');
 const alertsRouter = require('./routes/alerts.router');
@@ -33,6 +32,8 @@ app.use(morgan('dev'));
 app.use('/users', usersRouter);
 
 app.use('/roles', rolesRouter);
+
+app.use('/statuses', statusesRouter);
 
 app.use('/alert_types', alertTypesRouter);
 app.use('/alerts', alertsRouter);
