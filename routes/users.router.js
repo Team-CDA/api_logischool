@@ -107,7 +107,7 @@ const router = Router()
  *               schema:
  *                 type: array
  *                 items:
- *                   $ref: '#/components/schemas/Utilisateurs'
+ *                   $ref: '#/components/schemas/Users'
  *         404:
  *            description: the table was not found
  * 
@@ -130,7 +130,7 @@ router.get('/', userController.getAllUsers)
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Utilisateurs'
+ *                    $ref: '#/components/schemas/Users'
  *         404:
  *            description: the table was not found
  * 
@@ -148,7 +148,7 @@ router.get('/:id', userController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/Utilisateurs'
+ *                 $ref: '#/components/schemas/Users'
  *      summary: Permet d'ajouter un nouveau utilisateur
  *      description: En Remplissant le formulaire, vous pouvez créer un nouveau utilisateur.
  *      responses: 
@@ -172,7 +172,7 @@ router.post('/create', userController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/Utilisateurs'
+ *               $ref: '#/components/schemas/Users'
  *    description: Grâce à l'id d'un utilisateur vous pouvez modifier certaine information.
  *    responses:
  *         200:
