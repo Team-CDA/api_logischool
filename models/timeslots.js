@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   timeslots.init({
-    slot_duration: DataTypes.TIME
+    slot_duration: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'timeslots',
