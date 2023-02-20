@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
+// const lessonsRouter  = require('./routes/lessons.router')
 const alertTypesRouter = require('./routes/alert_types.router')
 const classesRouter = require('./routes/classes.router')
 const swaggerUI = require('swagger-ui-express');
@@ -22,6 +23,8 @@ app.use(morgan('dev'))
 app.use('/users', usersRouter)
 
 app.use('/roles', rolesRouter)
+
+// app.use('/lessons', lessonsRouter)
 
 app.use('/alert_types', alertTypesRouter)
 

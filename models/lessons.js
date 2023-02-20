@@ -11,8 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      lessons.hasOne(models.users, {
+        as : 'users', 
+        foreignKey : 'id'
+      })
     }
   }
+  
   lessons.init({
     lesson_datetime: DataTypes.DATE,
     id_room: DataTypes.INTEGER,
