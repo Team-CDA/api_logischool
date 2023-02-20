@@ -1,6 +1,42 @@
 const { Router } = require ("express")
 const ClassesController = require("../controllers/Classes-controller")
 const router = Router()
+//On importe le controller avec toutes les méthodes à l'intérieur.
+const classeController = require ("../controllers/classes-controller")
+
+
+
+//On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
+/**
+ * @swagger
+ *  components: 
+ *    schemas:
+ *       Classe:
+ *          type: object
+ *          required: 
+ *              - classe
+ *          properties: 
+ *             id:
+ *               type: integer
+ *               description: L'id qui représente la classe
+ *             classe:
+ *               type: string
+ *               description: Le nom de la classe                
+ *             createdAt:
+ *               type: date
+ *               description: La date à laquelle la classe a été créé
+ *             updatedAt:
+ *               type: date
+ *               description: La date de la dernière modification du classe
+ *          example: 
+ *             id: 1
+ *             classe: "CM2"  
+ *             createdAt: 2022-12-14T12:45:48
+ *             updatedAt: 2022-12-14T12:46:48
+ * 
+ * 
+ */
+
 
 /** 
  * @swagger

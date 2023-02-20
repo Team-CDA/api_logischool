@@ -17,6 +17,7 @@ const getAll = (req, res) => {
 
                 //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
                 res.send("Aucune  Classe n'est présente en base de données.")
+                res.json({Message : "Aucune classe présente en base de données."})
             } else {
                 // Sinon, on renvoie le résultat de notre requête
                 res.json(result, 200)

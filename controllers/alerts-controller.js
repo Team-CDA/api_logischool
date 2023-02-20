@@ -1,18 +1,25 @@
 const db = require('../models/index');
-const alert_types = require('../models/alert_types');
+const { ValidationError } = require('sequelize');
+const alertsTable = db['alerts'];
 const alertTypesTable = db['alert_types'];
 
 const getAll = (req,res)=> {
 
     //On utilise l'ORM pour SELECT toute la table
-    alertTypesTable.findAll()
+    alertsTable.findAll({
+        include: [{
+            model: alertTypesTable,
+            as: 'alert_types',
+        }],
+    })
+    
 
     //On utilise les promesses pour gérer les résultats de la requête.
     .then(result => {
         if (result.length === 0) {
 
             //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
-            res.json({Message : "Aucun types d'alerte présent en base de données."})
+            res.json({Message : "Aucune alerte présente en base de données."})
         } else {
             // Sinon, on renvoie le résultat de notre requête
             res.json(result, 200)
@@ -21,7 +28,7 @@ const getAll = (req,res)=> {
     //en cas d'erreur, on passe dans le catch
     .catch(error => {
         //On définit un status d'erreur et un message a renvoyer
-        const message = "La liste de type d'alerte n'a pas pu être récupérée. Réessayez dans quelques instants."
+        const message = "La liste des alertes n'a pas pu être récupérée. Réessayez dans quelques instants."
         res.status(500).json({
             message,
             data: error
@@ -31,15 +38,15 @@ const getAll = (req,res)=> {
 }
 
 const getOneById = (req, res) => {
-    alertTypesTable.findByPk(req.params.id)
-        .then(alert_types => {
-            if (!alert_types) {
-                return res.status(404).json({ message: "Aucun type d'alerte n'a été trouvé" })
+    alertsTable.findByPk(req.params.id)
+        .then(alerts => {
+            if (!alerts) {
+                return res.status(404).json({ message: "Aucune alerte n'a été trouvée" })
             }
-            res.status(200).json(alert_types)
+            res.status(200).json(alerts)
         })
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de la récupération d'un type d'alerte."
+            const message = "Une erreur a eu lieu lors de la récupération de l'alerte."
             res.status(500).json({
                 message,
                 data: error
@@ -48,18 +55,18 @@ const getOneById = (req, res) => {
 }
 
 const createOne = (req, res) => {
-    alertTypesTable.create(req.body)
+    alertsTable.create(req.body)
 
-        .then(alert_types => {
-            const message = "Un type d'alerte est ajouté à la base de données."
+        .then(alerts => {
+            const message = "Une alerte est ajoutée à la base de données."
             res.status(201).json({
                 message,
-                data: alert_types
+                data: alerts
             })
         })
 
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de l'insertion de type d'alerte en base de donnée."
+            const message = "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée."
             if (error instanceof ValidationError) {
                 res.status(400).send(error.errors[0].message)
             } else {
@@ -72,7 +79,7 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    alertTypesTable.update(
+    alertsTable.update(
         req.body,
         {
             where: {
@@ -81,13 +88,13 @@ const updateOneById = (req, res) => {
             returning: true,
         })
         .then(result => {
-            const message = "Votre type d'alerte a été mis à jour."
+            const message = "Votre alerte a été mise à jour."
             res.status(201).json({
                 message
             });
         })
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de la modification."
+            const message = "Une erreur a eu lieu lors de la modification de l'alerte."
             if (error instanceof ValidationError) {
                 res.status(400).send(error.errors[0].message)
             } else {
@@ -100,20 +107,20 @@ const updateOneById = (req, res) => {
 };
 
 const deleteOneById = (req, res) => {
-    alertTypesTable.findByPk(req.params.id)
-    .then(alert_types => {
-        if(!alert_types) {
-            return res.status(404).json({message: "Aucun type d'alerte n'a été trouvé"})
+    alertsTable.findByPk(req.params.id)
+    .then(alerts => {
+        if(!alerts) {
+            return res.status(404).json({message: "Aucune alerte n'a été trouvée"})
         }
 
-    alertTypesTable.destroy({
+    alertsTable.destroy({
             where: {
                 id: req.params.id
             }
         })
 
         .then(r => {
-            const message = "le type d'alerte a bien été supprimé."
+            const message = "l'alerte a bien été supprimée."
             res.status(200).send(message)
         })
 
@@ -128,7 +135,7 @@ const deleteOneById = (req, res) => {
 }
 
 // const deleteAll = (req, res) => {
-//     alertTypesTable.destroy({
+//     alertsTable.destroy({
 //             truncate: true
 //         })
 //         .then(r => {
@@ -144,7 +151,7 @@ const deleteOneById = (req, res) => {
 //         })
 // }
 
-const alertTypesController = {
+const alertsController = {
     getAll,
     getOneById,
     createOne,
@@ -153,4 +160,4 @@ const alertTypesController = {
     // deleteAll
 }
 
-module.exports = alertTypesController
+module.exports = alertsController

@@ -29,7 +29,7 @@ const roleController = require ("../controllers/roles-controller")
  *               description: La date de la dernière modification du rôle
  *          example: 
  *             id: 1
- *             role: Administrateur  
+ *             role: "Administrateur"  
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
  * 
