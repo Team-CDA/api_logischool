@@ -1,7 +1,7 @@
 //On importe db qui contient tous nos modèles.
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
-//On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classes
+//On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table statuts
 const statusesTable = db['statuses'];
 
 
@@ -36,11 +36,11 @@ const getAll = (req, res) => {
 
 const getOneById = (req, res) => {
     statusesTable.findByPk(req.params.id)
-        .then(classe => {
-            if (!classe) {
+        .then(status => {
+            if (!status) {
                 return res.status(404).json({ message: "Aucun statut n'a été trouvé" })
             }
-            res.status(200).json(classe)
+            res.status(200).json(status)
         })
         .catch(error => {
             const message = "Une erreur a eu lieu lors de la récupération du statut."
@@ -57,11 +57,11 @@ const getOneById = (req, res) => {
 const createOne = (req, res) => {
     statusesTable.create(req.body)
 
-        .then(classe => {
+        .then(status => {
             const message = "Statut ajouté à la base de données."
             res.status(201).json({
                 message,
-                data: classe
+                data: status
             })
         })
 
@@ -80,8 +80,8 @@ const createOne = (req, res) => {
 
 const updateOneById = (req, res) => {
     statusesTable.findByPk(req.params.id)
-        .then(classe => {
-            if(!classe) {
+        .then(status => {
+            if(!status) {
                 return res.status(404).json({message: "Aucun statut n'a été trouvé"})
             }
         
@@ -116,9 +116,9 @@ const updateOneById = (req, res) => {
 
 const deleteOneById = (req, res) => {
     statusesTable.findByPk(req.params.id)
-    .then(classe => {
-        if(!classe) {
-            return res.status(404).json({message: "Aucun classe n'a été trouvée"})
+    .then(status => {
+        if(!status) {
+            return res.status(404).json({message: "Aucun status n'a été trouvée"})
         }
 
     statusesTable.destroy({
@@ -160,7 +160,7 @@ const deleteAll = (req, res) => {
 }
 
 //On ajoute toutes les méthodes dans un objet pour faciliter l'export
-const classeController = {
+const statusController = {
     createOne,
     updateOneById,
     deleteOneById,
@@ -170,4 +170,4 @@ const classeController = {
 }
 
 
-module.exports = classeController
+module.exports = statusController
