@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const {success,getSwagger} = require('./helper');
 const usersRouter  = require('./routes/users.router');
+const usersGroup = require('./routes/users_groups.router');
 const statusesRouter  = require('./routes/statuses.router');
 const groupsRouter  = require('./routes/groups.router');
 const rolesRouter  = require('./routes/roles.router');
@@ -34,6 +35,7 @@ app.use(morgan('dev'));
 // app.use(morgan('combined', { stream: logStream }));
 
 app.use('/users', usersRouter);
+app.use('/users_groups', usersGroup);
 
 app.use('/roles', rolesRouter);
 
