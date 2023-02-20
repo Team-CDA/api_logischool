@@ -159,3 +159,6 @@ router.delete('/delete/:id', roomsController.deleteOneById)
 router.delete('/deleteAll', roomsController.deleteAll)
 
 module.exports = router
+
+
+
