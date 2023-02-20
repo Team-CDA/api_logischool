@@ -13,6 +13,7 @@ const alertsRouter = require('./routes/alerts.router');
 const classTypesRouter = require('./routes/classe_types.router');
 const classesRouter = require('./routes/classes.router');
 const eventsRouter = require('./routes/events.router');
+const roomsRouter = require ('./routes/rooms.router');
 const eventTypesRouter = require('./routes/event_types.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
@@ -51,6 +52,8 @@ app.use('/classes', classesRouter);
 
 app.use('/events', eventsRouter);
 app.use('/event_types', eventTypesRouter);
+
+app.use('/rooms', roomsRouter);
 
 app.use('/timeslots', require('./routes/timeslots.router'));
 
