@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   buildings.init({
     name: DataTypes.STRING,
-    id_establishment: DataTypes.INTEGER
+    id_establishment: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     defaultScope: {

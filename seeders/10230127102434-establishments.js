@@ -6,7 +6,10 @@ module.exports = {
     await queryInterface.bulkInsert('establishments', [
       {name: 'Lycée'},
       {name: 'Collège'},
-
+      {name: 'Primaire'},
+      {name: 'Maternelle'},
+      {name: 'Crèche'},
+      {name: 'Autre'}
     ], {}
     );
   },
