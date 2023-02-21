@@ -2,14 +2,14 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classe_types
-const classe_typesTable = db['class_types'];
+const class_typesTable = db['class_types'];
 
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
     //On utilise l'ORM pour SELECT toute la table
-    classe_typesTable.findAll()
+    class_typesTable.findAll()
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {
@@ -35,7 +35,7 @@ const getAll = (req, res) => {
 }
 
 const getOneById = (req, res) => {
-    classe_typesTable.findByPk(req.params.id)
+    class_typesTable.findByPk(req.params.id)
         .then(classe_type => {
             if (!classe_type) {
                 return res.status(404).json({ message: "Aucun classe n'a été trouvé" })
@@ -55,7 +55,7 @@ const getOneById = (req, res) => {
 
 
 const createOne = (req, res) => {
-    classe_typesTable.create(req.body)
+    class_typesTable.create(req.body)
 
         .then(classe_type => {
             const message = "classe_type ajouté à la base de données."
@@ -79,7 +79,7 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    classe_typesTable.findByPk(req.params.id)
+    class_typesTable.findByPk(req.params.id)
         .then(classe_type => {
             if(!classe_type) {
                 return res.status(404).json({message: "Aucun classe n'a été trouvé"})
@@ -115,7 +115,7 @@ const updateOneById = (req, res) => {
 
 
 const deleteOneById = (req, res) => {
-    classe_typesTable.findByPk(req.params.id)
+    class_typesTable.findByPk(req.params.id)
     .then(classe_type => {
         if(!classe_type) {
             return res.status(404).json({message: "Aucun classe n'a été trouvé"})
@@ -143,7 +143,7 @@ const deleteOneById = (req, res) => {
 }
 
 const deleteAll = (req, res) => {
-    classe_typesTable.destroy({
+    class_typesTable.destroy({
             truncate: true
         })
         .then(r => {
@@ -160,7 +160,7 @@ const deleteAll = (req, res) => {
 }
 
 //On ajoute toutes les méthodes dans un objet pour faciliter l'export
-const classe_typesController = {
+const class_typesController = {
     createOne,
     updateOneById,
     deleteOneById,
@@ -170,4 +170,4 @@ const classe_typesController = {
 }
 
 
-module.exports = classe_typesController
+module.exports = class_typesController

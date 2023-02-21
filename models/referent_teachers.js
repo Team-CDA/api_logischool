@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   referent_teachers.init({
-    id_class: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER
+    id_class: DataTypes.INTEGER.UNSIGNED,
+    id_user: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'referent_teachers',

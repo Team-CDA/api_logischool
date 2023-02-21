@@ -1,7 +1,7 @@
 const { Router } = require ("express")
 const router = Router()
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const room_typesController = require ("../controllers/rooms-controller")
+const room_typesController = require ("../controllers/room_types-controller")
 
 
 
