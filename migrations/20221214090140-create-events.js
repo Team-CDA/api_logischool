@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       message: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('medium')
       },
       starting_date: {
         type: Sequelize.DATE

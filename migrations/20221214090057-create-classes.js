@@ -18,7 +18,7 @@ module.exports = {
         }
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       scolarity_year: {
         type: Sequelize.INTEGER

@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       homework_image: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64)
       },
       id_user: {
         type: Sequelize.INTEGER.UNSIGNED,

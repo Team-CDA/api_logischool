@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
         unique: true,
         allowNull: false
       },

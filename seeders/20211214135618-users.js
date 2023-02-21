@@ -15,7 +15,7 @@ module.exports = {
           zipcode: "75000",
           mail: "toto@gmail.com",
           phone: "0606060606",
-          ine: "123456789",
+          ine: "12345678910",
           first_tutor: 1,
           second_tutor: 2,
           // id_establishment : 1,

@@ -10,10 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       firstname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       lastname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       birthdate: {
         type: Sequelize.DATE
@@ -22,19 +22,19 @@ module.exports = {
         type: Sequelize.STRING
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       zipcode: {
-        type: Sequelize.STRING
+        type: Sequelize.CHAR(5)
       },
       mail: {
         type: Sequelize.STRING
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.CHAR(10)
       },
       ine: {
-        type: Sequelize.STRING
+        type: Sequelize.CHAR(11)
       },
       first_tutor: {
         type: Sequelize.INTEGER.UNSIGNED

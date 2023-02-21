@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       id_toom_type: {
         type: Sequelize.INTEGER.UNSIGNED,

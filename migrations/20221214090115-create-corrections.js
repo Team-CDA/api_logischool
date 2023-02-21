@@ -10,7 +10,7 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       correction_image: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64)
       },
       id_homework: {
         type: Sequelize.INTEGER.UNSIGNED,
