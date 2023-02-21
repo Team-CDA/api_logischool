@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       firstname: {
         type: Sequelize.STRING
@@ -37,41 +37,41 @@ module.exports = {
         type: Sequelize.STRING
       },
       first_tutor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       second_tutor: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       id_establishment: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'establishments',
           key:'id'
         }
       },
       id_class: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'classes',
           key:'id'
         }
       },
       id_gender: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'genders',
           key:'id'
         }
       },
       id_role: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED.UNSIGNED,
         references:{
           model:'roles',
           key:'id'
         }
       },
       id_status: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'statuses',
           key:'id'

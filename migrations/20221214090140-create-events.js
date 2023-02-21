@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       message: {
         type: Sequelize.STRING
@@ -19,7 +19,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       id_event_type: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'event_types',
           key:'id'

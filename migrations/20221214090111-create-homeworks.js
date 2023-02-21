@@ -7,7 +7,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       plannified_date: {
         type: Sequelize.DATE
@@ -16,21 +16,21 @@ module.exports = {
         type: Sequelize.STRING
       },
       id_user: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'users',
           key:'id'
         }
       },
       id_subject: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'subjects',
           key:'id'
         }
       },
       id_class: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'classes',
           key:'id'
