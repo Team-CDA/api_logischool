@@ -11,10 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.classes, {
+        foreignKey: 'id_class'
+      })
     }
   }
   users.init({
-    firstname: DataTypes.STRING,
+    firstname: {
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty: true,
+      }
+    },
     lastname: DataTypes.STRING,
     birthdate: DataTypes.DATE,
     adress: DataTypes.STRING,
