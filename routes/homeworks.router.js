@@ -10,7 +10,7 @@ module.exports = router
 /** 
  * @swagger
  * 
- * /alert_types/create:
+ * /homeworks/create:
  *    post:
  *      tags: [types d'alerte]
  *      requestBody:
@@ -18,7 +18,7 @@ module.exports = router
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/alert_types'
+ *                 $ref: '#/components/schemas/homeworks'
  *      summary: Permet d'ajouter un type d'alerte
  *      description: Permet d'ajouter un type d'alerte.
  *      responses: 
