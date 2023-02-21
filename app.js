@@ -11,6 +11,7 @@ const alertsRouter = require('./routes/alerts.router');
 const classTypesRouter = require('./routes/classe_types.router');
 const classesRouter = require('./routes/classes.router');
 const gendersRouter = require('./routes/genders-router');
+const referent_teachersRouter = require('./routes/referent_teachers.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
 // const fs = require('fs');
@@ -40,6 +41,7 @@ app.use('/class_types', classTypesRouter);
 app.use('/classes', classesRouter);
 
 app.use('/genders', gendersRouter);
+app.use('/referent_teachers', referent_teachersRouter);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()));
 //On définit un port par défaut

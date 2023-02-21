@@ -49,15 +49,22 @@ router.get('/', gendersController.getGenderAll)
 /** 
  * @swagger
  * 
- * /genders:
+ * /genders/{id}:
  *    get:
  *      tags: [Genre]
  *      summary: Récupère un genre par son id
- *      description: Success
+ *      description: Récupère un genre par son id
  *      responses: 
  *         200:
  *            description: Success
- * 
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Genders'
+ *         404:
+ *            description: the table was not found
  */
 router.get('/:id', gendersController.getOneById)
 
