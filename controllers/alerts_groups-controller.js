@@ -1,19 +1,23 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const alertsTable = db['alerts'];
-const alertGroupsTable = db['alerts_groups'];
+const alertsGroupsTable = db['alerts_groups'];
+const groupsTable = db['groups'];
 
 const getAll = (req,res)=> {
 
     //On utilise l'ORM pour SELECT toute la table
-    alertGroupsTable.findAll({
+    alertsGroupsTable.findAll({
         include: [{
-            model: alertGroupsTable,
-            as: 'alerts_groups',
-        }],
+            model: alertsTable,
+            as: 'alerts',
+        }, 
+        {
+            model: groupsTable,
+            as: 'groups',
+        }
+    ],
     })
-    
-
     //On utilise les promesses pour gérer les résultats de la requête.
     .then(result => {
         if (result.length === 0) {
@@ -28,7 +32,7 @@ const getAll = (req,res)=> {
     //en cas d'erreur, on passe dans le catch
     .catch(error => {
         //On définit un status d'erreur et un message a renvoyer
-        const message = "La liste des alertes n'a pas pu être récupérée. Réessayez dans quelques instants."
+        const message = "La liste des alertes n'a pas pu être récupérée. Réessayez dans quelques instants.";
         res.status(500).json({
             message,
             data: error
@@ -38,7 +42,7 @@ const getAll = (req,res)=> {
 }
 
 const getOneById = (req, res) => {
-    alertGroupsTable.findByPk(req.params.id)
+    alertsGroupsTable.findByPk(req.params.id)
         .then(alerts => {
             if (!alerts) {
                 return res.status(404).json({ message: "Aucune alerte n'a été trouvée" })
@@ -55,7 +59,7 @@ const getOneById = (req, res) => {
 }
 
 const createOne = (req, res) => {
-    alertGroupsTable.create(req.body)
+    alertsGroupsTable.create(req.body)
 
         .then(alerts => {
             const message = "Une alerte est ajoutée à la base de données."
@@ -79,7 +83,7 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    alertGroupsTable.update(
+    alertsGroupsTable.update(
         req.body,
         {
             where: {
@@ -107,13 +111,13 @@ const updateOneById = (req, res) => {
 };
 
 const deleteOneById = (req, res) => {
-    alertGroupsTable.findByPk(req.params.id)
+    alertsGroupsTable.findByPk(req.params.id)
     .then(alerts => {
         if(!alerts) {
             return res.status(404).json({message: "Aucune alerte n'a été trouvée"})
         }
 
-    alertGroupsTable.destroy({
+        alertsGroupsTable.destroy({
             where: {
                 id: req.params.id
             }

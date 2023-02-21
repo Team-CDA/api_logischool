@@ -4,8 +4,7 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('alerts_groups', [
-        {id_alert : 1},
-        {id_group : 1}
+        {id_alert : 1, id_group : 1},
     ], {});
   },
 

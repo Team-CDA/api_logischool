@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.alert_types, { foreignKey: 'id_alert_type', as : 'alert_types' });
+      this.hasMany(models.alerts_groups, {
+        as: 'alerts_groups',
+        foreignKey: 'id_group'
+      })
     }
     
   }
