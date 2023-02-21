@@ -1,5 +1,5 @@
 const { Router } = require ("express")
-const classTypesController = require("../controllers/classe_types-controller")
+const classTypesController = require("../controllers/class_types-controller")
 const router = Router()
 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.

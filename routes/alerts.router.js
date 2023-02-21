@@ -6,7 +6,7 @@ const router = Router()
  * @swagger
  *  components: 
  *    schemas:
- *       Alertes:
+ *       Alerts:
  *          type: object
  *          required: 
  *              - alertes
@@ -45,7 +45,7 @@ const router = Router()
  * 
  * /alerts:
  *    get:
- *      tags: [Alertes]
+ *      tags: [Alerts]
  *      summary: Récupère la liste des alertes
  *      description: Récupère la liste des alertes
  *      responses: 
@@ -56,7 +56,7 @@ const router = Router()
  *                          schema:
  *                              type: array
  *                              items:
- *                              $ref: '#/components/schemas/Alertes'
+ *                              $ref: '#/components/schemas/Alerts'
  *         404:
  *            description: the alerts table was not found
  * 
@@ -68,7 +68,7 @@ router.get('/', alertsController.getAll)
  * 
  * /alerts:
  *    get:
- *      tags: [Alertes]
+ *      tags: [Alerts]
  *      summary: Récupère une alerte par son id
  *      description: Récupère une alerte par son id
  *      responses: 
@@ -83,13 +83,13 @@ router.get('/:id', alertsController.getOneById)
  * 
  * /alerts/create:
  *    post:
- *      tags: [Alertes]
+ *      tags: [Alerts]
  *      requestBody:
  *         required: true
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/Alertes'
+ *                 $ref: '#/components/schemas/Alerts'
  *      summary: Permet d'ajouter une alerte
  *      description: Permet d'ajouter une alerte.
  *      responses: 
@@ -104,14 +104,14 @@ router.post('/create', alertsController.createOne)
  * 
  * /alerts/update/{id}:
  *    patch:
- *      tags: [Alertes]
+ *      tags: [Alerts]
  *      summary: Permet La modification d'une alerte
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/Alertes'
+ *               $ref: '#/components/schemas/Alerts'
  *    description: Grâce à l'id d'une alerte vous pouvez la modifier.
  *    responses:
  *         200:
@@ -125,7 +125,7 @@ router.patch('/update/:id', alertsController.updateOneById)
  * 
  * /alerts/delete/{id}:
  *    delete:
- *      tags: [Alertes]
+ *      tags: [Alerts]
  *      summary: Permet La suppressin d'une alerte
  *      description: Passer l'id due alerte que vous souhaitez supprimer en url et le tour est joué.
  *      responses:

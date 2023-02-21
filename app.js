@@ -11,9 +11,10 @@ const reportTypesRouter = require('./routes/report_types.router');
 const reportsRouter = require('./routes/reports.router');
 const alertTypesRouter = require('./routes/alert_types.router');
 const alertsRouter = require('./routes/alerts.router');
-const classTypesRouter = require('./routes/classe_types.router');
+const classTypesRouter = require('./routes/class_types.router');
 const classesRouter = require('./routes/classes.router');
 const eventsRouter = require('./routes/events.router');
+const roomTypesRouter = require('./routes/room_types.router');
 const roomsRouter = require ('./routes/rooms.router');
 const eventTypesRouter = require('./routes/event_types.router');
 const timeslotsRouter = require('./routes/timeslots.router');
@@ -62,6 +63,7 @@ app.use('/classes', classesRouter);
 app.use('/events', eventsRouter);
 app.use('/event_types', eventTypesRouter);
 
+app.use('/room_types', roomTypesRouter);
 app.use('/rooms', roomsRouter);
 
 app.use('/timeslots', timeslotsRouter);
