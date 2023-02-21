@@ -10,7 +10,7 @@ const roomsController = require ("../controllers/rooms-controller")
  * @swagger
  *  components: 
  *    schemas:
- *       Salle:
+ *       Room:
  *          type: object
  *          required: 
  *              - salle
@@ -40,9 +40,9 @@ const roomsController = require ("../controllers/rooms-controller")
 /** 
  * @swagger
  * 
- * /salles:
+ * /rooms:
  *    get:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      summary: Récupère la liste de tous les salles
  *      description: Récupère la liste de toutes les salles
  *      responses: 
@@ -62,9 +62,9 @@ router.get('/', roomsController.getAll)
 /** 
  * @swagger
  * 
- * /salles/{id}:
+ * /rooms/{id}:
  *    get:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      summary: Récupère une salle en fonction de son id
  *      description: Récupère une salle en fonction de son id
  *      responses: 
@@ -85,9 +85,9 @@ router.get('/:id', roomsController.getOneById)
 /** 
  * @swagger
  * 
- * /salles/create:
+ * /rooms/create:
  *    post:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      requestBody:
  *         required: true
  *         content:
@@ -108,9 +108,9 @@ router.post('/create', roomsController.createOne)
 /** 
  * @swagger
  * 
- * /salles/update/{id}:
+ * /rooms/update/{id}:
  *    patch:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      summary: Permet La modification d'une salle
  *      requestBody:
  *       required: true
@@ -130,9 +130,9 @@ router.patch('/update/:id', roomsController.updateOneById)
 /** 
  * @swagger
  * 
- * /salles/delete/{id}:
+ * /rooms/delete/{id}:
  *    delete:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      summary: Permet La suppression d'une salle
  *      description: Passer l'id du salle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
@@ -146,9 +146,9 @@ router.delete('/delete/:id', roomsController.deleteOneById)
 /** 
  * @swagger
  * 
- * /salles/deleteAll:
+ * /rooms/deleteAll:
  *    delete:
- *      tags: [salles]
+ *      tags: [Rooms]
  *      summary: Permet La suppression de toutes les salles (truncate)
  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
  *      responses:

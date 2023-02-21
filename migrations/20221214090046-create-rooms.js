@@ -12,7 +12,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING(128)
       },
-      id_toom_type: {
+      id_room_type: {
         type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'room_types',

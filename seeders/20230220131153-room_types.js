@@ -3,11 +3,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('rooms', [
+    await queryInterface.bulkInsert('room_types', [
       {
-        name: 'Salle 1',
-        id_room_type: 1,
-        id_building: 1
+        room_type: 'Gymnase'
     },
     ], {}
     );

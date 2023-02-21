@@ -16,6 +16,8 @@ const classesRouter = require('./routes/classes.router');
 const eventsRouter = require('./routes/events.router');
 const roomsRouter = require ('./routes/rooms.router');
 const eventTypesRouter = require('./routes/event_types.router');
+const timeslotsRouter = require('./routes/timeslots.router');
+const lessonsRouter = require('./routes/lessons.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
 // const fs = require('fs');
@@ -57,7 +59,9 @@ app.use('/event_types', eventTypesRouter);
 
 app.use('/rooms', roomsRouter);
 
-app.use('/timeslots', require('./routes/timeslots.router'));
+app.use('/timeslots', timeslotsRouter);
+
+app.use('/lessons', lessonsRouter);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()));
 //On définit un port par défaut
