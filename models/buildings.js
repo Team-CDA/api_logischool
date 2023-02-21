@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      buildings.hasMany(models.rooms, {
+        as: 'rooms',
+        foreignKey: 'id_building'
+      })
     }
   }
   buildings.init({
@@ -18,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     id_establishment: DataTypes.INTEGER
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
     modelName: 'buildings',
   });
   return buildings;

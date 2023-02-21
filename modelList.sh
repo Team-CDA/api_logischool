@@ -4,14 +4,14 @@
     npx sequelize-cli model:create --name establishments --attributes name:string
     npx sequelize-cli model:create --name buildings --attributes name:string,id_establishment:integer
     npx sequelize-cli model:create --name room_types --attributes room_type:string
-    npx sequelize-cli model:create --name rooms --attributes name:string,id_toom_type:integer,id_building:integer
+    npx sequelize-cli model:create --name rooms --attributes name:string,id_room_type:integer,id_building:integer
     npx sequelize-cli model:create --name class_types --attributes class_type:string
     npx sequelize-cli model:create --name classes --attributes name:string,scolarity_year:integer,id_class_type:integer
     npx sequelize-cli model:create --name users --attributes firstname:string,lastname:string,birthdate:date,adress:string,city:string,zipcode:string,mail:string,phone:string,ine:string,first_tutor:integer,second_tutor:integer,id_establishment:integer,id_class:integer,id_gender:integer,id_role:integer,id_status:integer
     npx sequelize-cli model:create --name referent_teachers --attributes id_class:integer,id_user:integer
     npx sequelize-cli model:create --name subjects --attributes subject_name:string
-    npx sequelize-cli model:create --name homeworks --attributes plannified_date:date,homework_image:string,id_user:integer,id_subject:integer,id_class:integer
-    npx sequelize-cli model:create --name corrections --attributes correction_image:string,id_homework:integer
+    npx sequelize-cli model:create --name homeworks --attributes correction_image:string, homework_image:string,id_user:integer,id_subject:integer,id_class:integer,name:string
+    npx sequelize-cli model:create --name homeworks_classes --attributes id_class:integer,id_homework:integer,plannified_date:date
     npx sequelize-cli model:create --name timeslots --attributes slot_duration:time
     npx sequelize-cli model:create --name lessons --attributes lesson_datetime:date,id_room:integer,id_user:integer,id_subject:integer,id_timeslot:integer,id_class:integer
     npx sequelize-cli model:create --name missing_students --attributes id_user:integer,id_lesson:integer

@@ -13,7 +13,8 @@ module.exports = {
         type: Sequelize.STRING(128)
       },
       id_room_type: {
-        type: Sequelize.INTEGER.UNSIGNED,
+        type: Sequelize.INTEGER,
+        allowNull: false,
         references:{
           model:'room_types',
           key:'id'
@@ -38,6 +39,11 @@ module.exports = {
       }
     },
     {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['id_building', 'name']
+        }
+      },
       charset: 'utf8',
       collate: 'utf8_unicode_ci'
     });

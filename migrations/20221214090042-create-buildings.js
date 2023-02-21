@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       name: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
       id_establishment: {
         type: Sequelize.INTEGER.UNSIGNED,

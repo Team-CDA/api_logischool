@@ -23,7 +23,7 @@ Création de la table buildings :
 
 Création de la table rooms :
 
-    npx sequelize-cli model:create --name rooms --attributes name:string,id_toom_type:integer,id_building:integer
+    npx sequelize-cli model:create --name rooms --attributes name:string,id_room_type:integer,id_building:integer
 
 Création de la table room_types :
 

@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      rooms.belongsTo(models.buildings, {
+        as : 'buildings',
+        foreignKey: 'id_building'
+      }),
+      rooms.belongsTo(models.room_types, {
+        as : 'room_types',
+        foreignKey: 'id_room_type'
+      })
     }
   }
   rooms.init({
@@ -19,6 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     id_building: DataTypes.INTEGER
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
     modelName: 'rooms',
   });
   return rooms;
