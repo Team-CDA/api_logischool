@@ -12,13 +12,13 @@ module.exports = router
  * 
  * /homeworks/create:
  *    post:
- *      tags: [types d'alerte]
+ *      tags: [Homeworks]
  *      requestBody:
  *         required: true
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/homeworks'
+ *                 $ref: '#/components/schemas/Homeworks'
  *      summary: Permet d'ajouter un type d'alerte
  *      description: Permet d'ajouter un type d'alerte.
  *      responses: 

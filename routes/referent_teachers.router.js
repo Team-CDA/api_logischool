@@ -28,7 +28,7 @@ const router = Router()
  * 
  * /referent_teachers:     
  *    get:
- *      tags: [Professeur référent]
+ *      tags: [Referent_teachers]
  *      summary: Récupère l'id de class et du professeur référent
  *      responses: 
  *         200:
@@ -50,7 +50,7 @@ router.get('/', referentTeachersController.getAll)
  * 
  * /referent_teachers/{id}:
  *    get:
- *      tags: [Professeur référent]
+ *      tags: [Referent_teachers]
  *      summary: Récupère l'id d'un professeur référent et l'id de sa classe
  *      description: Récupère l'id d'un professeur référent et l'id de sa classe
  *      responses: 
@@ -73,7 +73,7 @@ router.get('/:id', referentTeachersController.getOneById)
  * 
  * /referent_teachers/create:
  *    post:
- *      tags: [Professeur référent]
+ *      tags: [Referent_teachers]
  *      requestBody:
  *         required: true
  *         content:
@@ -93,8 +93,8 @@ router.post('/create', referentTeachersController.createOne)
  * 
  * /referent_teachers/update/{id}:
  *    patch:
- *      tags: [Professeur référent]
- *      summary: Permet La modification d'un Professeur référent pour l'assigné à une classe
+ *      tags: [Referent_teachers]
+ *      summary: Permet La modification d'un Referent_teachers pour l'assigné à une classe
  *      requestBody:
  *       required: true
  *       content:
@@ -114,7 +114,7 @@ router.patch('/update/:id', referentTeachersController.updateOneById)
  * 
  * /referent_teachers/delete/{id}:
  *    delete:
- *      tags: [Professeur référent]
+ *      tags: [Referent_teachers]
  *      summary: Permet la suppression d'un professeur référent
  *      description: Passer l'id du professeur référent que vous souhaitez supprimer en url et le tour est joué.
  *      responses:

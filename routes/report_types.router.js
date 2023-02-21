@@ -10,14 +10,14 @@ const report_typeController = require ("../controllers/report_types-controller")
  * @swagger
  *  components: 
  *    schemas:
- *       Report_type:
+ *       Report_types:
  *          type: object
  *          required: 
  *              - report_type
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type d'report
+ *               description: L'id qui représente le type de report
  *             report_name:
  *               type: string
  *               description: Le nom du type d'report                

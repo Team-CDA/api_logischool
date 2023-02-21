@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING(128)
       },
       id_room_type: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
         references:{
           model:'room_types',

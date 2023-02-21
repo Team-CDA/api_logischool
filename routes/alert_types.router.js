@@ -6,7 +6,7 @@ const router = Router()
  * @swagger
  *  components: 
  *    schemas:
- *       Types d'alerte:
+ *       Alert_types:
  *          type: object
  *          required: 
  *              - alert_type
@@ -73,12 +73,12 @@ router.get('/:id', alertTypesController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/alert_types'
+ *                 $ref: '#/components/schemas/Alert_types'
  *      summary: Permet d'ajouter un type d'alerte
  *      description: Permet d'ajouter un type d'alerte.
  *      responses: 
  *         200:
- *            description: alert type successfully fetched
+ *            description: Alert_type successfully created
  */
 router.post('/create', alertTypesController.createOne)
 
@@ -94,7 +94,7 @@ router.post('/create', alertTypesController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/alert_types'
+ *               $ref: '#/components/schemas/Alert_types'
  *    description: Grâce à l'id d'un type d'alerte vous pouvez la modifier.
  *    responses:
  *         200:

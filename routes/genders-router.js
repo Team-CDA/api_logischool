@@ -79,7 +79,7 @@ router.get('/:id', gendersController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/genders'
+ *                 $ref: '#/components/schemas/Genders'
  *      summary: Permet d'ajouter un genre.
  *      description: Permet d'ajouter un genre.
  *      responses: 
@@ -100,7 +100,7 @@ router.post('/create', gendersController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/genders'
+ *               $ref: '#/components/schemas/Genders'
  *    description: Grâce à l'id d'un genre vous pouvez la modifier.
  *    responses:
  *         200:

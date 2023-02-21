@@ -10,7 +10,7 @@ const reportController = require ("../controllers/reports-controller")
  * @swagger
  *  components: 
  *    schemas:
- *       Report:
+ *       Reports:
  *          type: object
  *          required: 
  *              - report
@@ -40,7 +40,7 @@ const reportController = require ("../controllers/reports-controller")
 /** 
  * @swagger
  * 
- * /report:
+ * /reports:
  *    get:
  *      tags: [Reports]
  *      summary: Récupère la liste de tous les reports
@@ -53,7 +53,7 @@ const reportController = require ("../controllers/reports-controller")
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Report'
+ *                    $ref: '#/components/schemas/Reports'
  *         404:
  *            description: the reports table was not found
  */
@@ -62,7 +62,7 @@ router.get('/', reportController.getAll)
 /** 
  * @swagger
  * 
- * /report/{id}:
+ * /reports/{id}:
  *    get:
  *      tags: [Reports]
  *      summary: Récupère un report en fonction de son id
@@ -75,7 +75,7 @@ router.get('/', reportController.getAll)
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Report'
+ *                    $ref: '#/components/schemas/Reports'
  *         404:
  *            description: the report table was not found
  */
@@ -85,7 +85,7 @@ router.get('/:id', reportController.getOneById)
 /** 
  * @swagger
  * 
- * /report/create:
+ * /reports/create:
  *    post:
  *      tags: [Reports]
  *      requestBody:
@@ -93,7 +93,7 @@ router.get('/:id', reportController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/Report'
+ *                 $ref: '#/components/schemas/Reports'
  *      summary: Permet d'ajouter un nouveau report
  *      description: En fournissant un nom, vous pouvez créer un nouveau report.
  *      responses: 

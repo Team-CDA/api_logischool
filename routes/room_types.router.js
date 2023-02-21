@@ -45,7 +45,7 @@ const room_typesController = require ("../controllers/rooms-controller")
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Room_type'
+ *                    $ref: '#/components/schemas/Room_types'
  *         404:
  *            description: the room_types table was not found
  */
@@ -67,7 +67,7 @@ router.get('/', room_typesController.getAll)
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Room_type'
+ *                    $ref: '#/components/schemas/Room_types'
  *         404:
  *            description: the room_types table was not found
  */
@@ -85,7 +85,7 @@ router.get('/:id', room_typesController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/Room_type'
+ *                 $ref: '#/components/schemas/Room_types'
  *      summary: Permet d'ajouter un nouveau type de room_type
  *      description: En fournissant un nom, vous pouvez créer une nouvelle room_type.
  *      responses: 
@@ -109,7 +109,7 @@ router.post('/create', room_typesController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/Room_type'
+ *               $ref: '#/components/schemas/Room_types'
  *    description: Grâce à l'id d'une room_type vous pouvez changer le nom correspondant.
  *    responses:
  *         200:

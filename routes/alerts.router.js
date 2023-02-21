@@ -9,7 +9,7 @@ const router = Router()
  *       Alertes:
  *          type: object
  *          required: 
- *              - aler
+ *              - alertes
  *          properties: 
  *             id:
  *               type: integer
@@ -89,7 +89,7 @@ router.get('/:id', alertsController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/alerts'
+ *                 $ref: '#/components/schemas/Alertes'
  *      summary: Permet d'ajouter une alerte
  *      description: Permet d'ajouter une alerte.
  *      responses: 
@@ -111,7 +111,7 @@ router.post('/create', alertsController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/alerts'
+ *               $ref: '#/components/schemas/Alertes'
  *    description: Grâce à l'id d'une alerte vous pouvez la modifier.
  *    responses:
  *         200:
