@@ -11,6 +11,7 @@ const reportTypesRouter = require('./routes/report_types.router');
 const reportsRouter = require('./routes/reports.router');
 const alertTypesRouter = require('./routes/alert_types.router');
 const alertsRouter = require('./routes/alerts.router');
+const alertsGroupsRouter = require('./routes/alerts_groups.router');
 const classTypesRouter = require('./routes/class_types.router');
 const classesRouter = require('./routes/classes.router');
 const eventsRouter = require('./routes/events.router');
@@ -56,6 +57,8 @@ app.use('/reports', reportsRouter);
 app.use('/alert_types', alertTypesRouter);
 app.use('/alerts', alertsRouter);
 
+app.use('/alerts_groups', alertsGroupsRouter);
+
 app.use('/class_types', classTypesRouter);
 app.use('/classes', classesRouter);
 
@@ -83,7 +86,7 @@ const port = 3000;
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req, res) => {
-    const message = "OH YEAH BABE!"
+    const message = "Bouffes mes nouilles !"
     const data =  '100'
     res.json(success(message,data));
 });
