@@ -52,7 +52,7 @@ router.get('/', classTypesController.getAll)
 /** 
  * @swagger
  * 
- * /class_types:
+ * /class_types/{id}:
  *    get:
  *      tags: [Types de classe]
  *      summary: Récupère un type de classe par son id
@@ -60,7 +60,14 @@ router.get('/', classTypesController.getAll)
  *      responses: 
  *         200:
  *            description: Success
- * 
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/class_types'
+ *         404:
+ *            description: the table was not found
  */
 router.get('/:id', classTypesController.getOneById)
 
