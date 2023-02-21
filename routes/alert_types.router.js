@@ -37,7 +37,7 @@ const router = Router()
  * 
  * /alert_types:
  *    get:
- *      tags: [Types d'alerte]
+ *      tags: [Alert_types]
  *      summary: Récupère la liste de type d'alerte
  *      description: Récupère la liste de type d'alerte
  *      responses: 
@@ -52,7 +52,7 @@ router.get('/', alertTypesController.getAll)
  * 
  * /alert_types:
  *    get:
- *      tags: [Types d'alerte]
+ *      tags: [Alert_types]
  *      summary: Récupère un type d'alerte par son id
  *      description: Récupère un type d'alerte par son id
  *      responses: 
@@ -67,7 +67,7 @@ router.get('/:id', alertTypesController.getOneById)
  * 
  * /alert_types/create:
  *    post:
- *      tags: [Types d'alerte]
+ *      tags: [Alert_types]
  *      requestBody:
  *         required: true
  *         content:
@@ -87,7 +87,7 @@ router.post('/create', alertTypesController.createOne)
  * 
  * /alert_types/update/{id}:
  *    patch:
- *      tags: [Types d'alerte]
+ *      tags: [Alert_types]
  *      summary: Permet La modification d'un type d'alerte
  *      requestBody:
  *       required: true
@@ -108,7 +108,7 @@ router.patch('/update/:id', alertTypesController.updateOneById)
  * 
  * /alert_types/delete/{id}:
  *    delete:
- *      tags: [Types d'alerte]
+ *      tags: [Alert_types]
  *      summary: Permet la suppressin d'un type d'alerte
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
@@ -124,7 +124,7 @@ router.delete('/delete/:id', alertTypesController.deleteOneById)
 //  * 
 //  * /alert_types/deleteAll:
 //  *    delete:
-//  *      tags: [Types d'alerte]
+//  *      tags: [Alert_types]
 //  *      summary: Permet la suppression de tous les type d'alerte (truncate)
 //  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
 //  *      responses:
