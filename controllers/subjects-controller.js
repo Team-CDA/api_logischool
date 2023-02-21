@@ -4,30 +4,126 @@ const { ValidationError } = require('sequelize');
 const subjects = require('../models/subjects');
 const subjectsTable = db['subjects'];
 
-const getAll = (req,res)=> {
-
-    //On utilise l'ORM pour SELECT toute la table
+const getAll = (req, res) => {
     subjectsTable.findAll()
-
-    //On utilise les promesses pour gérer les résultats de la requête.
-    .then(result => {
-        if (result.length === 0) {
-
-            //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
-            res.json({Message : "Aucune matière présent en base de données."})
-        } else {
-            // Sinon, on renvoie le résultat de notre requête
-            res.json(result, 200)
+    .then(subjects => {
+        if (!subjects) {
+            return res.status(404).json({ message: "Aucune matière n'a été trouvé" })
         }
+        res.status(200).json(subjects)
     })
-    //en cas d'erreur, on passe dans le catch
     .catch(error => {
-        //On définit un status d'erreur et un message a renvoyer
-        const message = "La liste des matière n'a pas pu être récupérée. Réessayez dans quelques instants."
+        const message = "Une erreur a eu lieu lors de la récupération d'une matière."
         res.status(500).json({
             message,
-            data: error
+            data: error.message
         })
     })
-
 }
+
+const getOneById = (req, res) => {
+    subjectsTable.findByPk(req.params.id)
+        .then(subjects => {
+            if (!subjects) {
+                return res.status(404).json({ message: "Aucune matière n'a été trouvé" })
+            }
+            res.status(200).json(subjects)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération d'une matière."
+            res.status(500).json({
+                message,
+                data: error.message
+            })
+        })
+}
+
+const createOne = (req, res) => {
+    subjectsTable.create(req.body)
+
+        .then(subjects => {
+            const message = "Une matière est ajouté à la base de données."
+            res.status(201).json({
+                message,
+                data: subjects
+            })
+        })
+
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de l'insertion de genre en base de donnée."
+            if (error instanceof ValidationError) {
+                res.status(400).send(error.errors[0].message)
+            } else {
+                res.status(500).json({
+                    message,
+                    error
+                })
+            }
+        })
+}
+
+const updateOneById = (req, res) => {
+    subjectsTable.update(
+        req.body,
+        {
+            where: {
+                id: req.params.id
+            },
+            returning: true,
+        })
+        .then(result => {
+            const message = "Votre matière a été mis à jour."
+            res.status(201).json({
+                message
+            });
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la modification."
+            if (error instanceof ValidationError) {
+                res.status(400).send(error.errors[0].message)
+            } else {
+                res.status(500).json({
+                    message,
+                    error
+                })
+            }
+        });
+};
+
+const deleteOneById = (req, res) => {
+    subjectsTable.findByPk(req.params.id)
+    .then(subjects => {
+        if(!subjects) {
+            return res.status(404).json({message: "Aucune matière n'a été trouvé"})
+        }
+
+        subjectsTable.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+
+        .then(r => {
+            const message = "la matière a bien été supprimé."
+            res.status(200).send(message)
+        })
+
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la suppression."
+            res.status(500).json({
+                message,
+                error
+            })
+        })
+    })
+}
+
+const subjectsController = {
+    getAll,
+    getOneById,
+    createOne,
+    updateOneById,
+    deleteOneById
+}
+
+module.exports = subjectsController
