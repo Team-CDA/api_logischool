@@ -13,7 +13,7 @@ const roomsController = require ("../controllers/rooms-controller")
  *       Room:
  *          type: object
  *          required: 
- *              - salle
+ *              - room
  *          properties: 
  *             id:
  *               type: integer
