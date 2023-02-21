@@ -9,10 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      plannified_date: {
-        type: Sequelize.DATE
-      },
       homework_image: {
+        type: Sequelize.STRING
+      },
+      correction_image: {
+        type: Sequelize.STRING
+      },
+      name: {
         type: Sequelize.STRING
       },
       id_user: {

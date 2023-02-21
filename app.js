@@ -8,6 +8,7 @@ const {success,getSwagger} = require('./helper')
 const usersRouter  = require('./routes/users.router')
 const rolesRouter  = require('./routes/roles.router')
 const alertTypesRouter = require('./routes/alert_types.router')
+const homeworksRouter = require('./routes/homeworks.router')
 const buildingsRouter = require('./routes/buildings.router')
 const roomsRouter = require('./routes/rooms.router')
 const swaggerUI = require('swagger-ui-express');
@@ -32,6 +33,8 @@ app.use('/alert_types', alertTypesRouter)
 app.use('/rooms', roomsRouter)
 
 app.use('/buildings', buildingsRouter)
+
+app.use('/homeworks', homeworksRouter)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
