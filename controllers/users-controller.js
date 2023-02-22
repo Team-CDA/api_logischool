@@ -3,7 +3,6 @@ const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const users = require('../models/users');
 const usersTable = db['users'];
-const classesTable = db['classes'];
 
 const getAllUsers = (req,res)=> {
         

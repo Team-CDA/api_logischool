@@ -1,3 +1,5 @@
+
+
 'use strict';
 const {
   Model
@@ -10,13 +12,6 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      this.hasMany(models.users, {
-        foreignKey: 'id',
-      })
-      this.hasMany(models.classes, {
-        foreignKey: 'id',
-      })
     }
   }
   users_classes.init({
@@ -27,5 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'users_classes',
   });
+  
   return users_classes;
 };
