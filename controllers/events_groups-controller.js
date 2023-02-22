@@ -1,36 +1,19 @@
 //On importe db qui contient tous nos modèles.
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
-const subjects = require('../models/subjects');
-const subjectsTable = db['subjects'];
+const events_groupsTable = db['events_group'];
 
 const getAll = (req, res) => {
-    subjectsTable.findAll()
-    .then(subjects => {
-        if (!subjects) {
-            return res.status(404).json({ message: "Aucune matière n'a été trouvé" })
-        }
-        res.status(200).json(subjects)
-    })
-    .catch(error => {
-        const message = "Une erreur a eu lieu lors de la récupération d'une matière."
-        res.status(500).json({
-            message,
-            data: error.message
-        })
-    })
-}
-
-const getOneById = (req, res) => {
-    subjectsTable.findByPk(req.params.id)
-        .then(subjects => {
-            if (!subjects) {
-                return res.status(404).json({ message: "Aucune matière n'a été trouvé" })
+    
+    events_groupsTable.findAll()
+        .then(events_groups => {
+            if (!events_groups) {
+                return res.status(404).json({ message: "Aucun événements de groupe n'a été trouvé" })
             }
-            res.status(200).json(subjects)
+            res.status(200).json(events_groups)
         })
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de la récupération d'une matière."
+            const message = "Une erreur a eu lieu lors de la récupération d'événements de groupe"
             res.status(500).json({
                 message,
                 data: error.message
@@ -38,19 +21,36 @@ const getOneById = (req, res) => {
         })
 }
 
-const createOne = (req, res) => {
-    subjectsTable.create(req.body)
+const getOneById = (req, res) => {
+    events_groupsTable.findByPk(req.params.id)
+        .then(events_groups => {
+            if (!events_groups) {
+                return res.status(404).json({ message: "Aucun événements de groupe n'a été trouvé" })
+            }
+            res.status(200).json(events_groups)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération d'événements de groupe."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
 
-        .then(subjects => {
-            const message = "Une matière est ajouté à la base de données."
+const createOne = (req, res) => {
+    events_groupsTable.create(req.body)
+
+        .then(events_groups => {
+            const message = "Un événements de groupe est ajouté à la base de données."
             res.status(201).json({
                 message,
-                data: subjects
+                data: events_groups
             })
         })
 
         .catch(error => {
-            const message = "Une erreur a eu lieu lors de l'insertion de genre en base de donnée."
+            const message = "Une erreur a eu lieu lors de l'insertion d'événements de groupe en base de donnée."
             if (error instanceof ValidationError) {
                 res.status(400).send(error.errors[0].message)
             } else {
@@ -63,7 +63,7 @@ const createOne = (req, res) => {
 }
 
 const updateOneById = (req, res) => {
-    subjectsTable.update(
+    events_groupsTable.update(
         req.body,
         {
             where: {
@@ -72,7 +72,7 @@ const updateOneById = (req, res) => {
             returning: true,
         })
         .then(result => {
-            const message = "Votre matière a été mis à jour."
+            const message = "Votre événement de groupe a été mis à jour."
             res.status(201).json({
                 message
             });
@@ -91,20 +91,20 @@ const updateOneById = (req, res) => {
 };
 
 const deleteOneById = (req, res) => {
-    subjectsTable.findByPk(req.params.id)
-    .then(subjects => {
-        if(!subjects) {
-            return res.status(404).json({message: "Aucune matière n'a été trouvé"})
+    events_groupsTable.findByPk(req.params.id)
+    .then(events_groups => {
+        if(!events_groups) {
+            return res.status(404).json({message: "Aucun événement de groupe n'a été trouvé"})
         }
 
-        subjectsTable.destroy({
+        events_groupsTable.destroy({
             where: {
                 id: req.params.id
             }
         })
 
         .then(r => {
-            const message = "la matière a bien été supprimé."
+            const message = "l'événement de groupe a bien été supprimé."
             res.status(200).send(message)
         })
 
@@ -118,12 +118,12 @@ const deleteOneById = (req, res) => {
     })
 }
 
-const subjectsController = {
+const events_groupsController = {
     getAll,
     getOneById,
-    createOne,
     updateOneById,
+    createOne,
     deleteOneById
 }
 
-module.exports = subjectsController
+module.exports = events_groupsController
