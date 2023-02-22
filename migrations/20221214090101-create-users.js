@@ -52,13 +52,6 @@ module.exports = {
           key:'id'
         }
       },
-      id_class: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        references:{
-          model:'classes',
-          key:'id'
-        }
-      },
       id_role: {
         type: Sequelize.INTEGER.UNSIGNED,
         references:{

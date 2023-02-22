@@ -20,7 +20,6 @@ module.exports = {
           first_tutor: 1,
           second_tutor: 2,
           // id_establishment : 1,
-          // id_class : 1,
           // id_role : 1,
           // id_status : 1
         },

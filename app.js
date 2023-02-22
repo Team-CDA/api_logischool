@@ -14,6 +14,7 @@ const alertsRouter = require('./routes/alerts.router');
 const alertsGroupsRouter = require('./routes/alerts_groups.router');
 const classTypesRouter = require('./routes/class_types.router');
 const classesRouter = require('./routes/classes.router');
+const usersClassesRouter = require('./routes/users_classes.router');
 const eventsRouter = require('./routes/events.router');
 const roomTypesRouter = require('./routes/room_types.router');
 const roomsRouter = require ('./routes/rooms.router');
@@ -62,6 +63,8 @@ app.use('/alerts_groups', alertsGroupsRouter);
 
 app.use('/class_types', classTypesRouter);
 app.use('/classes', classesRouter);
+
+app.use('/users_classes', usersClassesRouter);
 
 app.use('/events', eventsRouter);
 app.use('/event_types', eventTypesRouter);

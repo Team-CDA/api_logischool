@@ -35,7 +35,6 @@ module.exports = (sequelize, DataTypes) => {
     first_tutor: DataTypes.INTEGER,
     second_tutor: DataTypes.INTEGER,
     id_establishment: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER,
     id_role: DataTypes.INTEGER,
     id_status: DataTypes.INTEGER
   }, {
