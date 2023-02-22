@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     lastname: DataTypes.STRING,
     birthdate: DataTypes.DATE,
+    gender: DataTypes.INTEGER,
     adress: DataTypes.STRING,
     city: DataTypes.STRING,
     zipcode: DataTypes.STRING,
@@ -35,7 +36,6 @@ module.exports = (sequelize, DataTypes) => {
     second_tutor: DataTypes.INTEGER,
     id_establishment: DataTypes.INTEGER,
     id_class: DataTypes.INTEGER,
-    id_gender: DataTypes.INTEGER,
     id_role: DataTypes.INTEGER,
     id_status: DataTypes.INTEGER
   }, {

@@ -18,7 +18,10 @@ const router = Router()
  *               description: L'id qui représente le rôle
  *             firstname:
  *               type: string
- *               description: Le prénom de l'utilisateur                
+ *               description: Le prénom de l'utilisateur
+ *             gender:
+ *               type: string
+ *               description: Le genre de l'utilisateur                
  *             lastname:
  *               type: string
  *               description: Le nom de l'utilisateur                
@@ -55,9 +58,6 @@ const router = Router()
  *             id_class:
  *               type: integer
  *               description: L'id de la classe de l'utilisateur
- *             id_gender:
- *               type: integer
- *               description: L'id du genre de l'utilisateur
  *             id_role:
  *               type: integer
  *               description: L'id du rôle de l'utilisateur
@@ -82,7 +82,6 @@ const router = Router()
  *             id_second_tutor: 2
  *             id_establishment: 1
  *             id_class: 1
- *             id_gender: 1
  *             id_role: 1
  *             id_status: 1
  *             createdAt: 2022-12-14T12:45:48

@@ -9,6 +9,7 @@ module.exports = {
         {
           firstname: "John",
           lastname: "Doe",
+          gender: "M",
           birthdate: "1990-01-01",
           adress: "1 rue de la paix",
           city: "Paris",
@@ -20,7 +21,6 @@ module.exports = {
           second_tutor: 2,
           // id_establishment : 1,
           // id_class : 1,
-          // id_gender : 1,
           // id_role : 1,
           // id_status : 1
         },

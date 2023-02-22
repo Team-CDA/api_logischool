@@ -15,6 +15,9 @@ module.exports = {
       lastname: {
         type: Sequelize.STRING(128)
       },
+      gender: {
+        type: Sequelize.ENUM('M', 'F')
+      },
       birthdate: {
         type: Sequelize.DATE
       },
@@ -56,15 +59,8 @@ module.exports = {
           key:'id'
         }
       },
-      id_gender: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        references:{
-          model:'genders',
-          key:'id'
-        }
-      },
       id_role: {
-        type: Sequelize.INTEGER.UNSIGNED.UNSIGNED,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'roles',
           key:'id'
