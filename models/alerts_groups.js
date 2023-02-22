@@ -11,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsTo(models.alerts, {
+        as: 'alerts',
+        foreignKey: 'id'
+      }),
+      this.belongsTo(models.groups, {
+        as: 'groups',
+        foreignKey: 'id'
+      })
     }
   }
   alerts_groups.init({

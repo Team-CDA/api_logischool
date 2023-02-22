@@ -3,6 +3,7 @@ const { Router } = require ("express")
 const userController = require("../controllers/users-controller")
 const router = Router()
 
+//On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
  *  components: 
@@ -94,14 +95,21 @@ const router = Router()
 /** 
  * @swagger
  * 
- * /users:
+ * /users:     
  *    get:
  *      tags: [Utilisateurs]
  *      summary: Récupère la liste de tous les utilisateurs
- *      description: Récupère la liste de tous les utilisateurs
  *      responses: 
  *         200:
- *            description: Success
+ *           description: Success
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 type: array
+ *                 items:
+ *                   $ref: '#/components/schemas/Users'
+ *         404:
+ *            description: the table was not found
  * 
  */
 router.get('/', userController.getAllUsers)
@@ -109,7 +117,7 @@ router.get('/', userController.getAllUsers)
 /** 
  * @swagger
  * 
- * /users:
+ * /users/{id}:
  *    get:
  *      tags: [Utilisateurs]
  *      summary: Récupère un utilisateurs par son id
@@ -117,6 +125,14 @@ router.get('/', userController.getAllUsers)
  *      responses: 
  *         200:
  *            description: Success
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Users'
+ *         404:
+ *            description: the table was not found
  * 
  */
 router.get('/:id', userController.getOneById)
@@ -150,7 +166,7 @@ router.post('/create', userController.createOne)
  * /users/update/{id}:
  *    patch:
  *      tags: [Utilisateurs]
- *      summary: Permet La modification d'un utilisateur
+ *      summary: Permet la modification d'un utilisateur
  *      requestBody:
  *       required: true
  *       content:
@@ -172,7 +188,7 @@ router.patch('/update/:id', userController.updateOneById)
  * /users/delete/{id}:
  *    delete:
  *      tags: [Utilisateurs]
- *      summary: Permet La suppressin d'un utilisateur
+ *      summary: Permet la suppression d'un utilisateur
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:
  *         200:

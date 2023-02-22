@@ -7,16 +7,16 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       message: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('medium')
       },
       transmission_date: {
         type: Sequelize.DATE
       },
       id_alert_type: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'alert_types',
           key:'id'

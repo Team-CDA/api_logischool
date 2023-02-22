@@ -10,7 +10,7 @@ const statusController = require ("../controllers/statuses-controller")
  * @swagger
  *  components: 
  *    schemas:
- *       Statut:
+ *       Statuses:
  *          type: object
  *          required: 
  *              - statut
@@ -53,7 +53,7 @@ const statusController = require ("../controllers/statuses-controller")
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Status'
+ *                    $ref: '#/components/schemas/Statuses'
  *         404:
  *            description: the statuses table was not found
  */
@@ -75,7 +75,7 @@ router.get('/', statusController.getAll)
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Status'
+ *                    $ref: '#/components/schemas/Statuses'
  *         404:
  *            description: the statuses table was not found
  */
@@ -93,7 +93,7 @@ router.get('/:id', statusController.getOneById)
  *         content:
  *           application/json:
  *              schema:
- *                 $ref: '#/components/schemas/Status'
+ *                 $ref: '#/components/schemas/Statuses'
  *      summary: Permet d'ajouter un nouveau statut
  *      description: En fournissant un nom, vous pouvez créer un nouveau statut.
  *      responses: 
@@ -117,7 +117,7 @@ router.post('/create', statusController.createOne)
  *       content:
  *         application/json:
  *            schema:
- *               $ref: '#/components/schemas/Status'
+ *               $ref: '#/components/schemas/Statuses'
  *    description: Grâce à l'id d'un statut vous pouvez changer le nom correspondant.
  *    responses:
  *         200:

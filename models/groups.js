@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      groups.hasMany(models.alerts_groups, {
+        as: 'alerts_groups',
+        foreignKey: 'id_group'
+      })
     }
   }
   groups.init({

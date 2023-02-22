@@ -10,7 +10,7 @@ const event_typeController = require ("../controllers/event_types-controller")
  * @swagger
  *  components: 
  *    schemas:
- *       Event_type:
+ *       Event_types:
  *          type: object
  *          required: 
  *              - event_type

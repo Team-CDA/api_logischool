@@ -7,18 +7,18 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       id_class_type: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references: {
           model: 'class_types',
           id:'id'
         }
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       scolarity_year: {
         type: Sequelize.INTEGER

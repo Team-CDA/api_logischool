@@ -7,10 +7,10 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       slot_duration: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(3)
       },
       createdAt: {
         allowNull: false,

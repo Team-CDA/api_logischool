@@ -11,11 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      homeworks.hasMany(models.homeworks_classes, {
+        as: 'homeworks_classes',
+        foreignKey: 'id_homework'
+      })
     }
   }
   homeworks.init({
-    plannified_date: DataTypes.DATE,
     homework_image: DataTypes.STRING,
+    correction_image: DataTypes.STRING,
+    name: DataTypes.STRING,
     id_user: DataTypes.INTEGER,
     id_subjects: DataTypes.INTEGER,
     id_class: DataTypes.INTEGER

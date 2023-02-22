@@ -122,6 +122,9 @@ const updateOneById = (req, res) => {
                     lesson: req.body.lesson.trim(),
                     updatedAt: new Date()
                 }, {
+            lessonsTable.update(
+                req.body,
+                    {
                     where: {
                         id: req.params.id
                     },

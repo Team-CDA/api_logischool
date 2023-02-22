@@ -7,30 +7,33 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      plannified_date: {
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER.UNSIGNED
       },
       homework_image: {
+        type: Sequelize.STRING(64)
+      },
+      correction_image: {
+        type: Sequelize.STRING
+      },
+      name: {
         type: Sequelize.STRING
       },
       id_user: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'users',
           key:'id'
         }
       },
       id_subject: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'subjects',
           key:'id'
         }
       },
       id_class: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'classes',
           key:'id'

@@ -11,13 +11,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      buildings.hasMany(models.rooms, {
+        as: 'rooms',
+        foreignKey: 'id_building'
+      })
     }
   }
   buildings.init({
     name: DataTypes.STRING,
-    id_establishment: DataTypes.INTEGER
+    id_establishment: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
     modelName: 'buildings',
   });
   return buildings;

@@ -7,20 +7,21 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
-      id_toom_type: {
-        type: Sequelize.INTEGER,
+      id_room_type: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
         references:{
           model:'room_types',
           key:'id'
         }
       },
       id_building: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'buildings',
           key:'id'
@@ -38,6 +39,11 @@ module.exports = {
       }
     },
     {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['id_building', 'name']
+        }
+      },
       charset: 'utf8',
       collate: 'utf8_unicode_ci'
     });

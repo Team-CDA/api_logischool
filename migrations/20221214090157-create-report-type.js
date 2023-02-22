@@ -7,10 +7,10 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       report_name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128)
       },
       createdAt: {
         allowNull: false,

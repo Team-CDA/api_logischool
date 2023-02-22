@@ -7,10 +7,10 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED
       },
       role: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
         unique: true,
         allowNull: false
       },
