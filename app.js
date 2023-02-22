@@ -91,8 +91,8 @@ const port = 3000;
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req, res) => {
-    const message = "Bouffes mes nouilles !"
-    const data =  '100'
+    const message = "🖕"
+    const data =  'lol'
     res.json(success(message,data));
 });
 
