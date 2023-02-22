@@ -14,16 +14,16 @@ const router = Router()
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type de classe
+ *               description: The id that represents the type of class
  *             class_type:
  *               type: string
- *               description: Le nom du type de classe               
+ *               description: The name of the type of class              
  *             createdAt:
  *               type: date
- *               description: La date à laquelle le type de classe a été créé
+ *               description: The date when the type of class was created
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification du type de classe
+ *               description: The date of the last modification of the type of class
  *          example: 
  *             id: 1
  *             class_type: "Primaire"  
