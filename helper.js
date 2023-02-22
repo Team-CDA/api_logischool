@@ -9,7 +9,7 @@ const getSwagger = () => {
             info: {
                 title: 'Logischool API',
                 version: '1.0.0',
-                description: 'Bienvenue sur la documentation de notre API Logischool. Vous y retrouverez toutes les routes disponibles et vous pourrez également faire des tests.'
+                description: 'Welcome to the documentation of our Logischool API. You will find all the available routes there and you can also do tests.'
             }
         },
         apis: ['app.js',
