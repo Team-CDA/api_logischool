@@ -10,10 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       firstname: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(64)
       },
       lastname: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(64)
       },
       gender: {
         type: Sequelize.ENUM('M', 'F')

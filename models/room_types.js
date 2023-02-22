@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   room_types.init({
-    room_type: DataTypes.STRING
+    room_type: DataTypes.STRING(128)
   }, {
     sequelize,
     modelName: 'room_types',

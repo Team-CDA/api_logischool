@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   subjects.init({
-    subject_name: DataTypes.STRING
+    subject_name: DataTypes.STRING(128)
   }, {
     sequelize,
     modelName: 'subjects',

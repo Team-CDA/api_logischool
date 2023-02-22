@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   alerts_groups.init({
-    id_alert: DataTypes.INTEGER,
-    id_group: DataTypes.INTEGER
+    id_alert: DataTypes.INTEGER.UNSIGNED,
+    id_group: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'alerts_groups',

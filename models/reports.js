@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   reports.init({
-    id_user: DataTypes.INTEGER,
-    id_report_type: DataTypes.INTEGER,
+    id_user: DataTypes.INTEGER.UNSIGNED,
+    id_report_type: DataTypes.INTEGER.UNSIGNED,
     report_date: DataTypes.DATE
   }, {
     sequelize,

@@ -92,7 +92,7 @@ const port = 3000;
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req, res) => {
     const message = "🖕"
-    // const data =  'lol'
+    // const data =  ''
     res.json(success(message));
 });
 

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   buildings.init({
-    name: DataTypes.STRING,
+    name: DataTypes.STRING(128),
     id_establishment: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,

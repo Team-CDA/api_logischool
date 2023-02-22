@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   report_types.init({
-    report_name: DataTypes.STRING
+    report_name: DataTypes.STRING(128)
   }, {
     sequelize,
     modelName: 'report_types',

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   classes.init({
     name: {
-      type : DataTypes.STRING,
+      type : DataTypes.STRING(128),
       unique: true,
       allowNull: false,
       validate: {
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       }
     },
-    scolarity_year: DataTypes.INTEGER
+    scolarity_year: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'classes',

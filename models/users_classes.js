@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   users_classes.init({
-    id_user: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER,
+    id_user: DataTypes.INTEGER.UNSIGNED,
+    id_class: DataTypes.INTEGER.UNSIGNED,
     createdAt: DataTypes.DATE
   }, {
     sequelize,

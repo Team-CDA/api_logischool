@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   status.init({
-    status: DataTypes.STRING
+    status: DataTypes.STRING(64)
   }, {
     sequelize,
     modelName: 'statuses',

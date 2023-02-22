@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   events_group.init({
-    id_event: DataTypes.INTEGER,
-    id_group: DataTypes.INTEGER
+    id_event: DataTypes.INTEGER.UNSIGNED,
+    id_group: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'events_group',

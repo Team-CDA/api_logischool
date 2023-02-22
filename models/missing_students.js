@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   missing_students.init({
-    id_user: DataTypes.INTEGER,
-    id_lesson: DataTypes.INTEGER
+    id_user: DataTypes.INTEGER.UNSIGNED,
+    id_lesson: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'missing_students',

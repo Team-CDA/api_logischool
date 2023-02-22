@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     
   }
   alerts.init({
-    message: DataTypes.STRING,
-    id_alert_type: DataTypes.INTEGER
+    message: DataTypes.TEXT('medium'),
+    id_alert_type: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'alerts',

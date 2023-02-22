@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   alert_types.init({
-    type: DataTypes.STRING
+    type: DataTypes.STRING(128)
   }, {
     sequelize,
     modelName: 'alert_types',

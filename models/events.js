@@ -17,10 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   events.init({
-    message: DataTypes.STRING,
+    message: DataTypes.TEXT('medium'),
     starting_date: DataTypes.DATE,
     ending_date: DataTypes.DATE,
-    id_event_type: DataTypes.INTEGER
+    id_event_type: DataTypes.INTEGER.UNSIGNED,
   }, {
     sequelize,
     modelName: 'events',

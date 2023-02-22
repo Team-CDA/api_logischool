@@ -22,9 +22,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   rooms.init({
-    name: DataTypes.STRING,
-    id_room_type: DataTypes.INTEGER,
-    id_building: DataTypes.INTEGER
+    name: DataTypes.STRING(128),
+    id_room_type: DataTypes.INTEGER.UNSIGNED,
+    id_building: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     defaultScope: {
