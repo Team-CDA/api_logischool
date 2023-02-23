@@ -2,10 +2,23 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const events_groupsTable = db['events_group'];
+const eventsTable = db['events'];
+const groupsTable = db['groups'];
 
 const getAll = (req, res) => {
     
-    events_groupsTable.findAll()
+    events_groupsTable.findAll(
+        {
+            include: [{
+                model: eventsTable,
+                as: 'events',
+            },
+            {
+                model: groupsTable,
+                as: 'groups',
+            }],
+        }
+    )
         .then(events_groups => {
             if (!events_groups) {
                 return res.status(404).json({ message: "Aucun événements de groupe n'a été trouvé" })

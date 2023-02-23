@@ -1,13 +1,18 @@
 //On importe db qui contient tous nos modèles.
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
-const users = require('../models/users');
 const usersTable = db['users'];
+const classes = db['classes'];
 
 const getAllUsers = (req,res)=> {
         
         //On utilise l'ORM pour SELECT toute la table
-        usersTable.findAll()
+        usersTable.findAll({
+            include: [{
+                model: classes,
+                as: 'classes',
+            }],
+        })
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {
