@@ -2,16 +2,22 @@
 const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const usersTable = db['users'];
-const classes = db['classes'];
+const classesTable = db['classes'];
+const rolesTable = db['roles'];
 
 const getAllUsers = (req,res)=> {
         
         //On utilise l'ORM pour SELECT toute la table
         usersTable.findAll({
             include: [{
-                model: classes,
+                model: classesTable,
                 as: 'classes',
-            }],
+            },
+            {
+                model: rolesTable,
+                as: 'roles',
+            }
+        ],
         })
 
         //On utilise les promesses pour gérer les résultats de la requête.

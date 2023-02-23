@@ -3,13 +3,23 @@ const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classes
 const rolesTable = db['classes'];
+// const usersTable = db['users'];
 
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
     //On utilise l'ORM pour SELECT toute la table
-    rolesTable.findAll()
+    rolesTable.findAll(
+        // {
+        //     include: [
+        //         {
+        //             model: usersTable,
+        //             as: 'users',
+        //         }
+        //     ]
+        // }
+    )
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {

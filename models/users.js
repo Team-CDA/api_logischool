@@ -7,10 +7,11 @@ module.exports = (sequelize, DataTypes) => {
         through: "users_classes",
         foreignKey: "id_class",
       });
-      // this.belongsToMany(models.subjects, {
-      //   through: "users_subjects",
-      //   foreignKey: "id_subject",
-      // });
+      
+      this.belongsTo(models.roles, {
+        foreignKey: "id_role",
+        as: "roles",
+      });
     }
   }
   users.init(
@@ -97,7 +98,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.CHAR(11),
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
+          isNumeric: true,
           allowNull: false,
         },
       },
