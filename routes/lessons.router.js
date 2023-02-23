@@ -17,25 +17,25 @@ const eventController = require ("../controllers/lessons-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente la lesson
+ *               description: Lesson id
  *             lesson_datetime:
  *               type: datetime
- *               description: La date de la lesson                
+ *               description: Date and time of the lesson             
  *             id_room:
  *               type: integer
- *               description: L'id de la salle de la lesson
+ *               description: Room id
  *             id_user:
  *               type: integer
- *               description: L'id de l'utilisateur de la lesson
+ *               description: Id of the user who created the lesson
  *             id_subject:
  *               type: integer
- *               description: L'id de la matière de la lesson
+ *               description: Id of the subject of the lesson
  *             id_timeslot:
  *               type: integer
- *               description: L'id du créneau horaire de la lesson
+ *               description: Id of the timeslot of the lesson
  *             id_class:
  *               type: integer
- *               description: L'id de la classe de la lesson
+ *               description: Id of the class of the lesson
  *          example: 
  *             id: 1
  *             lesson_datetime: "2021-12-14 12:00:00"
@@ -56,8 +56,8 @@ const eventController = require ("../controllers/lessons-controller")
  * /lessons:
  *    get:
  *      tags: [Lessons]
- *      summary: Récupère la liste de tous les lessons
- *      description: Récupère la liste de tous les lessons
+ *      summary: Retrieves the list of all lessons
+ *      description: Retrieves the list of all lessons
  *      responses: 
  *         200:
  *            description: Success
@@ -78,8 +78,8 @@ router.get('/', eventController.getAll)
  * /lessons/{id}:
  *    get:
  *      tags: [Lessons]
- *      summary: Récupère une lesson en fonction de son id
- *      description: Récupère une lesson en fonction de son id
+ *      summary: Retrieves a lesson by id
+ *      description: With the id of a lesson you can retrieve the corresponding lesson.
  *      responses: 
  *         200:
  *            description: Success
@@ -107,8 +107,8 @@ router.get('/:id', eventController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Lesson'
- *      summary: Permet d'ajouter une nouvelle lesson
- *      description: En fournissant un nom, vous pouvez créer un nouveau lesson.
+ *      summary: Allows you to create a new lesson
+ *      description: When you pass a lesson name in the body, you create a lesson with this name
  *      responses: 
  *         200:
  *            description: Lesson successfully created
@@ -124,14 +124,14 @@ router.post('/create', eventController.createOne)
  * /lessons/update/{id}:
  *    patch:
  *      tags: [Lessons]
- *      summary: Permet La modification d'une lesson
+ *      summary: Allows you to update a lesson
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Lesson'
- *    description: Grâce à l'id d'une lesson vous pouvez changer le nom correspondant.
+ *    description: With the id of a lesson you can update the corresponding lesson.
  *    responses:
  *         200:
  *          description: Lesson successfully updated
@@ -146,8 +146,8 @@ router.patch('/update/:id', eventController.updateOneById)
  * /lessons/delete/{id}:
  *    delete:
  *      tags: [Lessons]
- *      summary: Permet La suppression d'une lesson
- *      description: Passer l'id de la lesson que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allows you to delete a lesson
+ *      description: Pass the id of the lesson you want to delete in the URL
  *      responses:
  *         200:
  *          description: Lesson successfully deleted
@@ -162,8 +162,8 @@ router.delete('/delete/:id', eventController.deleteOneById)
  * /lessons/deleteAll:
  *    delete:
  *      tags: [Lessons]
- *      summary: Permet La suppression de tous les lessons (truncate)
- *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+ *      summary: Allows you to delete all lessons
+ *      description: Delete all lessons
  *      responses:
  *         200:
  *          description: Lessons successfully deleted

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   establishments.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING(128),
   }, {
     sequelize,
     modelName: 'establishments',

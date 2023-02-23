@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   homeworks_classes.init({
-    id_class: DataTypes.INTEGER,
-    id_homework: DataTypes.INTEGER,
+    id_class: DataTypes.INTEGER.UNSIGNED,
+    id_homework: DataTypes.INTEGER.UNSIGNED,
     plannified_date: DataTypes.DATE
   }, {
     sequelize,

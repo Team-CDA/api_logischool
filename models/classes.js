@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsToMany(models.users, { through: 'users_classes', foreignKey: 'id_user' });
       classes.hasMany(models.homeworks_classes, {
         as: 'homeworks_classes',
         foreignKey: 'id_class'
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   classes.init({
     name: {
-      type : DataTypes.STRING,
+      type : DataTypes.STRING(128),
       unique: true,
       allowNull: false,
       validate: {
@@ -28,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       }
     },
-    scolarity_year: DataTypes.INTEGER
+    scolarity_year: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'classes',

@@ -14,7 +14,7 @@ const router = Router()
  *          properties: 
  *             events_groups:
  *               type: string
- *               description: L'id qui représente le groupe pour l'événement de groupe
+ *               description: Id of the events group.
  *          example: 
  *             id: 1
  *             id_event: "1"
@@ -30,7 +30,7 @@ const router = Router()
  * /events_groups:     
  *    get:
  *      tags: [Events Groups]
- *      summary: Récupère les id d'évent et groupe
+ *      summary: Retrieve all events groups
  *      responses: 
  *         200:
  *           description: Success
@@ -52,8 +52,8 @@ router.get('/', events_groupsController.getAll)
  * /events_groups/{id}:
  *    get:
  *      tags: [Events Groups]
- *      summary: Récupère un évent de groupe par son id
- *      description: Récupère un évent de groupe par son id
+ *      summary: Retrieve one events group by id
+ *      description: When you pass the id of an events group, you get the events group.
  *      responses: 
  *         200:
  *            description: Success
@@ -80,8 +80,8 @@ router.get('/:id', events_groupsController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Events_groups'
- *      summary: Permet d'ajouter un évent de groupe.
- *      description: Permet d'ajouter un évent de groupe.
+ *      summary: Allow to create an events group
+ *      description: You can create an events group by passing the id of the events group.
  *      responses: 
  *         200:
  *            description: events groups successfully fetched
@@ -94,14 +94,14 @@ router.post('/create', events_groupsController.createOne)
  * /events_groups/update/{id}:
  *    patch:
  *      tags: [Events Groups]
- *      summary: Permet La modification d'un évent de groupe
+ *      summary: Allow to update an events group
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Events_groups'
- *    description: Grâce à l'id d'un évent de groupe vous pouvez la modifier.
+ *    description: You can update an events group by passing the id of the events group.
  *    responses:
  *         200:
  *          description: events groups successfully updated
@@ -115,8 +115,8 @@ router.patch('/update/:id', events_groupsController.updateOneById)
  * /events_groups/delete/{id}:
  *    delete:
  *      tags: [Events Groups]
- *      summary: Permet la suppresion d'un évent de groupe
- *      description: Passer l'id de l'évent de groupe que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow to delete an events group
+ *      description: You can delete an events group by passing the id of the events group.
  *      responses:
  *         200:
  *          description: alert types successfully deleted

@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   users_groups.init({
-    id_group: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER
+    id_group: DataTypes.INTEGER.UNSIGNED,
+    id_user: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'users_groups',

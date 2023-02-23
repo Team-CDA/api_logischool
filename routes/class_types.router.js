@@ -14,16 +14,16 @@ const router = Router()
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type de classe
+ *               description: The id that represents the type of class
  *             class_type:
  *               type: string
- *               description: Le nom du type de classe               
+ *               description: The name of the type of class              
  *             createdAt:
  *               type: date
- *               description: La date à laquelle le type de classe a été créé
+ *               description: The date when the type of class was created
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification du type de classe
+ *               description: The date of the last modification of the type of class
  *          example: 
  *             id: 1
  *             class_type: "Primaire"  
@@ -40,8 +40,8 @@ const router = Router()
  * /class_types:
  *    get:
  *      tags: [Class_types]
- *      summary: Récupère la liste de type de classe
- *      description: Récupère la liste de type de classe
+ *      summary: Retrieve the list of type of class
+ *      description: Retrieve the list of type of class
  *      responses: 
  *         200:
  *            description: Success
@@ -55,8 +55,8 @@ router.get('/', classTypesController.getAll)
  * /class_types/{id}:
  *    get:
  *      tags: [Class_types]
- *      summary: Récupère un type de classe par son id
- *      description: Récupère un type de classe par son id
+ *      summary: Retrieve a type of class by its id
+ *      description: Retrieve a type of class by its id
  *      responses: 
  *         200:
  *            description: Success
@@ -83,8 +83,8 @@ router.get('/:id', classTypesController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Class_types'
- *      summary: Permet d'ajouter un type de classe
- *      description: Permet d'ajouter un type de classe.
+ *      summary: Allow to create a type of class
+ *      description: Allow to create a type of class.
  *      responses: 
  *         200:
  *            description: classe_types successfully created
@@ -98,14 +98,14 @@ router.post('/create', classTypesController.createOne)
  * /class_types/update/{id}:
  *    patch:
  *      tags: [Class_types]
- *      summary: Permet La modification d'un type de classe
+ *      summary: Allow to update a type of class
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Class_types'
- *    description: Grâce à l'id d'un type de classe vous pouvez la modifier.
+ *    description: You can modify a type of class by its ID.
  *    responses:
  *         200:
  *          description: class_types successfully updated
@@ -119,8 +119,8 @@ router.patch('/update/:id', classTypesController.updateOneById)
  * /class_types/delete/{id}:
  *    delete:
  *      tags: [Class_types]
- *      summary: Permet La suppression d'un type de classe
- *      description: Passer l'id de la classe que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow to delete a type of class
+ *      description: Pass the id of the type of class you want to delete.
  *      responses:
  *         200:
  *          description: class_types successfully deleted

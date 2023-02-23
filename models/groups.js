@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   groups.init({
-    group_name: DataTypes.STRING
+    group_name: DataTypes.STRING(128)
   }, {
     sequelize,
     modelName: 'groups',

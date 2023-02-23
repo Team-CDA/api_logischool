@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING(128)
       },
       scolarity_year: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       createdAt: {
         allowNull: false,

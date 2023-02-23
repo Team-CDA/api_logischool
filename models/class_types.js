@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   class_types.init({
     class_type: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(128),
       unique: true,
       allowNull: false,
       validate: {

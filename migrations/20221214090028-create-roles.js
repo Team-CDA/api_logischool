@@ -10,11 +10,11 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       role: {
-        type: Sequelize.STRING(128),
+        type: Sequelize.STRING(64),
         unique: true,
         allowNull: false
       },
-      createdAt: {
+      createdAt: {  
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()

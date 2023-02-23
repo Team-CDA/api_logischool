@@ -17,16 +17,16 @@ const groupController = require ("../controllers/groups-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le groupe
+ *               description: The auto-generated id of the group
  *             group:
  *               type: string
- *               description: Le nom du groupe                
+ *               description: Group name             
  *             createdAt:
  *               type: date
- *               description: La date à laquelle le groupe a été créé
+ *               description: Date of creation of the group
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification du groupe
+ *               description: Date of the last modification of the group
  *          example: 
  *             id: 1
  *             group: "Administrateur"  
@@ -43,8 +43,8 @@ const groupController = require ("../controllers/groups-controller")
  * /groups:
  *    get:
  *      tags: [Groups]
- *      summary: Récupère la liste de tous les groupes
- *      description: Récupère la liste de tous les groupes
+ *      summary: Retrieves the list of all groups
+ *      description: Retrieves the list of all groups
  *      responses: 
  *         200:
  *            description: Success
@@ -65,8 +65,8 @@ router.get('/', groupController.getAll)
  * /groups/{id}:
  *    get:
  *      tags: [Groups]
- *      summary: Récupère un groupe en fonction de son id
- *      description: Récupère un groupe en fonction de son id
+ *      summary: Retrieves the group corresponding to the id passed in the url
+ *      description: When you pass an id in the url, you get the group corresponding to this id
  *      responses: 
  *         200:
  *            description: Success
@@ -94,8 +94,8 @@ router.get('/:id', groupController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Group'
- *      summary: Permet d'ajouter un nouveau groupe
- *      description: En fournissant un nom, vous pouvez créer un nouveau groupe.
+ *      summary: Allows you to create a group
+ *      description: When you pass a group name in the body, you create a group with this name
  *      responses: 
  *         200:
  *            description: Group successfully created
@@ -111,14 +111,14 @@ router.post('/create', groupController.createOne)
  * /groups/update/{id}:
  *    patch:
  *      tags: [Groups]
- *      summary: Permet La modification d'un groupe
+ *      summary: Allows you to update a group
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Group'
- *    description: Grâce à l'id d'un groupe vous pouvez changer le nom correspondant.
+ *    description: Pass the id of the group you want to update in the url and the new name in the body
  *    responses:
  *         200:
  *          description: Group successfully updated
@@ -133,8 +133,8 @@ router.patch('/update/:id', groupController.updateOneById)
  * /groups/delete/{id}:
  *    delete:
  *      tags: [Groups]
- *      summary: Permet La suppressin d'un groupe
- *      description: Passer l'id du groupe que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allows you to delete a group
+ *      description: Pass the id of the group you want to delete in the url
  *      responses:
  *         200:
  *          description: Group successfully deleted
@@ -149,8 +149,8 @@ router.delete('/delete/:id', groupController.deleteOneById)
  * /groups/deleteAll:
  *    delete:
  *      tags: [Groups]
- *      summary: Permet La suppression de tous les groupes (truncate)
- *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+ *      summary: Allows you to delete all groups
+ *      description: Delete all groups
  *      responses:
  *         200:
  *          description: Groups successfully deleted

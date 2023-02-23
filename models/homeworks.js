@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   homeworks.init({
-    homework_image: DataTypes.STRING,
-    correction_image: DataTypes.STRING,
-    name: DataTypes.STRING,
-    id_user: DataTypes.INTEGER,
-    id_subjects: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER
+    homework_image: DataTypes.STRING(64),
+    correction_image: DataTypes.STRING(64),
+    name: DataTypes.STRING(128),
+    id_user: DataTypes.INTEGER.UNSIGNED,
+    id_subjects: DataTypes.INTEGER.UNSIGNED,
+    id_class: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'homeworks',

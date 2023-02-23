@@ -13,13 +13,13 @@ const router = Router()
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type d'alerte
+ *               description: The ID that represents the group of alerts
  *             id_alert:
  *               type: integer
- *               description: L'id qui représente l'alerte
+ *               description: The ID that represents the alert
  *             id_group:
  *               type: integer
- *               description: L'id qui représente le groupe
+ *               description: The ID that represents the group
  *          example: 
  *             id: 1
  *             id_alert: 1
@@ -33,8 +33,8 @@ const router = Router()
  * /alerts_groups:
  *    get:
  *      tags: [Alerts_groups]
- *      summary: Récupère la liste des alertes
- *      description: Récupère la liste des alertes
+ *      summary: Retrive the list of alerts
+ *      description: Retrive the list of alerts
  *      responses: 
  *         200:
  *            description: Success
@@ -56,8 +56,8 @@ router.get('/', alertsController.getAll)
  * /alerts_groups:
  *    get:
  *      tags: [Alerts_groups]
- *      summary: Récupère une alerte par son id
- *      description: Récupère une alerte par son id
+ *      summary: Retrieve a group of alerts by its ID
+ *      description: Retrieve a group of alerts by its ID
  *      responses: 
  *         200:
  *            description: Success
@@ -77,8 +77,8 @@ router.get('/:id', alertsController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Alerts_groups'
- *      summary: Permet d'ajouter une alerte
- *      description: Permet d'ajouter une alerte.
+ *      summary: Allow adding a group of alerts
+ *      description: Allow adding a group of alerts.
  *      responses: 
  *         200:
  *            description: alert successfully fetched
@@ -92,14 +92,14 @@ router.post('/create', alertsController.createOne)
  * /alerts_groups/update/{id}:
  *    patch:
  *      tags: [Alerts_groups]
- *      summary: Permet La modification d'une alerte
+ *      summary: Allow modifying a group of alerts
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Alerts_groups'
- *    description: Grâce à l'id d'une alerte vous pouvez la modifier.
+ *    description: You can modify a group of alerts by its ID.
  *    responses:
  *         200:
  *          description: alert successfully updated
@@ -113,8 +113,8 @@ router.patch('/update/:id', alertsController.updateOneById)
  * /alerts_groups/delete/{id}:
  *    delete:
  *      tags: [Alerts_groups]
- *      summary: Permet La suppressin d'une alerte
- *      description: Passer l'id due alerte que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow deleting a group of alerts
+ *      description: Pass the ID of the group of alerts you wish to delete in the URL and it's done.
  *      responses:
  *         200:
  *          description: alerts successfully deleted

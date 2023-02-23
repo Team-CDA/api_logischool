@@ -13,16 +13,16 @@ const router = Router()
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type d'alerte
+ *               description: The ID that represents the type of alert
  *             type:
  *               type: string
- *               description: Le nom du type d'alerte               
+ *               description: The name of the type of alert               
  *             createdAt:
  *               type: date
- *               description: La date à laquelle le type d'alerte a été créé
+ *               description: The date when the type of alert was created
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification du type d'alerte
+ *               description: The date of the last modification of the type of alert
  *          example: 
  *             id: 1
  *             type: "Manifestation"  
@@ -38,8 +38,8 @@ const router = Router()
  * /alert_types:
  *    get:
  *      tags: [Alert_types]
- *      summary: Récupère la liste de type d'alerte
- *      description: Récupère la liste de type d'alerte
+ *      summary: Retrieve the list of types of alerts
+ *      description: Retrieve the list of types of alerts
  *      responses: 
  *         200:
  *            description: Success
@@ -50,11 +50,11 @@ router.get('/', alertTypesController.getAll)
 /** 
  * @swagger
  * 
- * /alert_types:
+ * /alert_types/{id}:
  *    get:
  *      tags: [Alert_types]
- *      summary: Récupère un type d'alerte par son id
- *      description: Récupère un type d'alerte par son id
+ *      summary: Retrieve a type of alert by its ID
+ *      description: Retrieve a type of alert by its ID
  *      responses: 
  *         200:
  *            description: Success
@@ -74,8 +74,8 @@ router.get('/:id', alertTypesController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Alert_types'
- *      summary: Permet d'ajouter un type d'alerte
- *      description: Permet d'ajouter un type d'alerte.
+ *      summary: Allow adding a type of alert
+ *      description: Allow adding a type of alert.
  *      responses: 
  *         200:
  *            description: Alert_type successfully created
@@ -88,14 +88,14 @@ router.post('/create', alertTypesController.createOne)
  * /alert_types/update/{id}:
  *    patch:
  *      tags: [Alert_types]
- *      summary: Permet La modification d'un type d'alerte
+ *      summary: Allow modifying a type of alert
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Alert_types'
- *    description: Grâce à l'id d'un type d'alerte vous pouvez la modifier.
+ *    description: With the ID of a type of alert, you can modify it.
  *    responses:
  *         200:
  *          description: alert type successfully updated
@@ -109,8 +109,8 @@ router.patch('/update/:id', alertTypesController.updateOneById)
  * /alert_types/delete/{id}:
  *    delete:
  *      tags: [Alert_types]
- *      summary: Permet la suppressin d'un type d'alerte
- *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow deleting a type of alert
+ *      description: Pass the ID of the role you wish to delete in the URL and it's done.
  *      responses:
  *         200:
  *          description: alert types successfully deleted
@@ -125,8 +125,8 @@ router.delete('/delete/:id', alertTypesController.deleteOneById)
 //  * /alert_types/deleteAll:
 //  *    delete:
 //  *      tags: [Alert_types]
-//  *      summary: Permet la suppression de tous les type d'alerte (truncate)
-//  *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+//  *      summary: Allow deleting all types of alerts (truncate)
+//  *      description: Delete the table by truncating it, so the IDs start from 1 again
 //  *      responses:
 //  *         200:
 //  *          description: alert types successfully deleted

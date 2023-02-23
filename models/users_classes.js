@@ -1,24 +1,27 @@
+
+
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class events_group extends Model {
+  class users_classes extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
     }
   }
-  events_group.init({
-    id_event: DataTypes.INTEGER.UNSIGNED,
-    id_group: DataTypes.INTEGER.UNSIGNED
+  users_classes.init({
+    id_user: DataTypes.INTEGER.UNSIGNED,
+    id_class: DataTypes.INTEGER.UNSIGNED,
+    createdAt: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'events_group',
+    modelName: 'users_classes',
   });
-  return events_group;
+  
+  return users_classes;
 };

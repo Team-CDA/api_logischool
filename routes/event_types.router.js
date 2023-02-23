@@ -17,10 +17,10 @@ const event_typeController = require ("../controllers/event_types-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type d'event
+ *               description: The id of the event_type
  *             name:
  *               type: string
- *               description: Le nom du type d'event                
+ *               description: The name of the event_type               
  *          example: 
  *             id: 1
  *             name: "Grève"  
@@ -35,8 +35,8 @@ const event_typeController = require ("../controllers/event_types-controller")
  * /event_types:
  *    get:
  *      tags: [Event_types]
- *      summary: Récupère la liste de tous les types d'events
- *      description: Récupère la liste de tous les types d'events
+ *      summary: Retrieve the list of event_types
+ *      description: Retrieve the list of event_types.
  *      responses: 
  *         200:
  *            description: Success
@@ -57,8 +57,8 @@ router.get('/', event_typeController.getAll)
  * /event_types/{id}:
  *    get:
  *      tags: [Event_types]
- *      summary: Récupère un event en fonction de son id
- *      description: Récupère un event en fonction de son id
+ *      summary: Retrieve one event_type
+ *      description: Retrieve one event_type with the id.
  *      responses: 
  *         200:
  *            description: Success
@@ -86,8 +86,8 @@ router.get('/:id', event_typeController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Event_types'
- *      summary: Permet d'ajouter un nouveau type d'event
- *      description: En fournissant un nom, vous pouvez créer un nouveau type d'event.
+ *      summary: Allows you to create a new event_type
+ *      description: When you create a new event_type, you must enter the name of the event_type.
  *      responses: 
  *         200:
  *            description: Event_types successfully created
@@ -103,14 +103,14 @@ router.post('/create', event_typeController.createOne)
  * /event_types/update/{id}:
  *    patch:
  *      tags: [Event_types]
- *      summary: Permet La modification d'un type d'event
+ *      summary: Allows you to update an event_type
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Event_types'
- *    description: Grâce à l'id d'un type d'event vous pouvez changer le nom correspondant.
+ *    description: When you update an event_type, you must enter the name and the id of the event_type.
  *    responses:
  *         200:
  *          description: Event_types successfully updated
@@ -125,8 +125,8 @@ router.patch('/update/:id', event_typeController.updateOneById)
  * /event_types/delete/{id}:
  *    delete:
  *      tags: [Event_types]
- *      summary: Permet La suppression d'un type d'event
- *      description: Passer l'id du type d'event que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allows you to delete an event_type
+ *      description: Pass the id of the event_type you want to delete.
  *      responses:
  *         200:
  *          description: Event_types successfully deleted
@@ -141,8 +141,8 @@ router.delete('/delete/:id', event_typeController.deleteOneById)
  * /event_types/deleteAll:
  *    delete:
  *      tags: [Event_types]
- *      summary: Permet La suppression de tous les type d'event (truncate)
- *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+ *      summary: Allows you to delete all event_types
+ *      description: Delete all event_types.
  *      responses:
  *         200:
  *          description: Event_type successfully deleted

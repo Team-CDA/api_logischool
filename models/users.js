@@ -11,33 +11,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.classes, {
-        foreignKey: 'id_class'
+      this.belongsToMany(models.classes, { through: 'users_classes', foreignKey: 'id_class'
       })
     }
   }
   users.init({
     firstname: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
       validate:{
         notEmpty: true,
       }
     },
-    lastname: DataTypes.STRING,
+    lastname: DataTypes.STRING(64),
     birthdate: DataTypes.DATE,
-    gender: DataTypes.INTEGER,
+    gender: DataTypes.ENUM('M', 'F'),
     adress: DataTypes.STRING,
-    city: DataTypes.STRING,
-    zipcode: DataTypes.STRING,
+    city: DataTypes.STRING(128),
+    zipcode: DataTypes.CHAR(5),
     mail: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    ine: DataTypes.STRING,
-    first_tutor: DataTypes.INTEGER,
-    second_tutor: DataTypes.INTEGER,
-    id_establishment: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER,
-    id_role: DataTypes.INTEGER,
-    id_status: DataTypes.INTEGER
+    phone: DataTypes.CHAR(10),
+    ine: DataTypes.CHAR(11),
+    first_tutor: DataTypes.INTEGER.UNSIGNED,
+    second_tutor: DataTypes.INTEGER.UNSIGNED,
+    id_establishment: DataTypes.INTEGER.UNSIGNED,
+    id_role: DataTypes.INTEGER.UNSIGNED,
+    id_status: DataTypes.INTEGER.UNSIGNED
   }, {
     sequelize,
     modelName: 'users',

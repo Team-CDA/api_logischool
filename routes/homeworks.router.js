@@ -19,8 +19,8 @@ module.exports = router
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Homeworks'
- *      summary: Permet d'ajouter un type d'alerte
- *      description: Permet d'ajouter un type d'alerte.
+ *      summary: Allows you to create a new homework
+ *      description: When you pass a homework name in the body, you create a homework with this name
  *      responses: 
  *         200:
  *            description: alert types successfully created
