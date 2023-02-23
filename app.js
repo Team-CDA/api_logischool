@@ -26,8 +26,10 @@ const referent_teachersRouter = require('./routes/referent_teachers.router');
 const homeworksRouter = require('./routes/homeworks.router');
 const buildingsRouter = require('./routes/buildings.router');
 const eventsGroupsRouter = require('./routes/events_groups.router');
+const usersSubjectsRouter = require('./routes/users_subjects.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+const users_subjectsController = require('./controllers/users_subjects-controller');
 // const fs = require('fs');
 require('dotenv').config();
 
@@ -77,11 +79,12 @@ app.use('/timeslots', timeslotsRouter);
 app.use('/lessons', lessonsRouter);
 app.use('/referent_teachers', referent_teachersRouter);
 
-app.use('/buildings', buildingsRouter)
+app.use('/buildings', buildingsRouter);
 
-app.use('/homeworks', homeworksRouter)
-app.use('/subjects', subjectsRouter)
-app.use('/events_groups', eventsGroupsRouter)
+app.use('/homeworks', homeworksRouter);
+app.use('/subjects', subjectsRouter);
+app.use('/events_groups', eventsGroupsRouter);
+app.use('/users_subjects', usersSubjectsRouter);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
