@@ -14,12 +14,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   lessons.init({
-    lesson_datetime: DataTypes.DATE,
-    id_room: DataTypes.INTEGER.UNSIGNED,
-    id_user: DataTypes.INTEGER.UNSIGNED,
-    id_subject: DataTypes.INTEGER.UNSIGNED,
-    id_timeslot: DataTypes.INTEGER.UNSIGNED,
-    id_class: DataTypes.INTEGER.UNSIGNED
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    lesson_datetime: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    id_room: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_subject: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_timeslot: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_class: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'lessons',

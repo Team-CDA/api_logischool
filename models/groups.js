@@ -18,7 +18,27 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   groups.init({
-    group_name: DataTypes.STRING(128)
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    group_name: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      unique: true
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'groups',

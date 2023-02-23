@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   class_types.init({
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
     class_type: {
       type: DataTypes.STRING(128),
       unique: true,

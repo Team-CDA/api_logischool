@@ -17,10 +17,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   events.init({
-    message: DataTypes.TEXT('medium'),
-    starting_date: DataTypes.DATE,
-    ending_date: DataTypes.DATE,
-    id_event_type: DataTypes.INTEGER.UNSIGNED,
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    message: {
+      type: DataTypes.TEXT('medium'),
+      allowNull: false,
+    },
+    starting_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    ending_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    id_event_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'events',

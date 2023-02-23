@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       message: {
-        type: Sequelize.TEXT('medium')
+        type: Sequelize.TEXT('medium'),
+        allowNull: false
       },
       starting_date: {
         type: Sequelize.DATE
@@ -20,6 +21,7 @@ module.exports = {
       },
       id_event_type: {
         type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
         references:{
           model:'event_types',
           key:'id'

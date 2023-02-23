@@ -11,6 +11,7 @@ module.exports = {
       },
       id_class: {
         type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
         references:{
           model:'classes',
           key:'id'
@@ -18,6 +19,7 @@ module.exports = {
       },
       id_user: {
         type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
         references:{
           model:'users',
           key:'id'

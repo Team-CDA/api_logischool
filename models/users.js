@@ -1,44 +1,157 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      this.belongsToMany(models.classes, { through: 'users_classes', foreignKey: 'id_class'
-      })
+      this.belongsToMany(models.classes, {
+        through: "users_classes",
+        foreignKey: "id_class",
+      });
     }
   }
-  users.init({
-    firstname: {
-      type: DataTypes.STRING(64),
-      validate:{
-        notEmpty: true,
-      }
+  users.init(
+    {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER.UNSIGNED,
+      },
+      firstname: {
+        type: DataTypes.STRING(64),
+        validate: {
+          notEmpty: true,
+          isAlpha: true,
+          allowNull: false,
+        },
+      },
+      lastname: {
+        type: DataTypes.STRING(64),
+        validate: {
+          notEmpty: true,
+          isAlpha: true,
+          allowNull: false,
+        },
+      },
+      birthdate: {
+        type: DataTypes.DATE,
+        validate: {
+          notEmpty: true,
+          isDate: true,
+          allowNull: false,
+        },
+      },
+      gender: {
+        type: DataTypes.ENUM("M", "F"),
+        validate: {
+          notEmpty: true,
+          isAlpha: true,
+          allowNull: false,
+        },
+      },
+      adress: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+          isAlphanumeric: true,
+          allowNull: false,
+        },
+      },
+      city: {
+        type: DataTypes.STRING(128),
+        validate: {
+          notEmpty: true,
+          isAlpha: true,
+          allowNull: false,
+        },
+      },
+      zipcode: {
+        type: DataTypes.CHAR(5),
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      mail: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+          isEmail: true,
+          allowNull: false,
+        },
+      },
+      phone: {
+        type: DataTypes.CHAR(10),
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      ine: {
+        type: DataTypes.CHAR(11),
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      first_tutor: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      second_tutor: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      id_establishment: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      id_role: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+      },
+      id_status: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+          allowNull: false,
+        },
+        createdAt: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          defaultValue: DataTypes.NOW,
+        },
+        updatedAt: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          defaultValue: DataTypes.NOW,
+        },
+      },
     },
-    lastname: DataTypes.STRING(64),
-    birthdate: DataTypes.DATE,
-    gender: DataTypes.ENUM('M', 'F'),
-    adress: DataTypes.STRING,
-    city: DataTypes.STRING(128),
-    zipcode: DataTypes.CHAR(5),
-    mail: DataTypes.STRING,
-    phone: DataTypes.CHAR(10),
-    ine: DataTypes.CHAR(11),
-    first_tutor: DataTypes.INTEGER.UNSIGNED,
-    second_tutor: DataTypes.INTEGER.UNSIGNED,
-    id_establishment: DataTypes.INTEGER.UNSIGNED,
-    id_role: DataTypes.INTEGER.UNSIGNED,
-    id_status: DataTypes.INTEGER.UNSIGNED
-  }, {
-    sequelize,
-    modelName: 'users',
-  });
+    {
+      sequelize,
+      modelName: "users",
+    }
+  );
   return users;
 };

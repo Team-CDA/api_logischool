@@ -14,7 +14,27 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   event_types.init({
-    event_type_name: DataTypes.STRING(128)
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    event_type_name: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      unique: true
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'event_types',

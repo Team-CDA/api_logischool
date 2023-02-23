@@ -23,6 +23,10 @@ module.exports = {
           key:'id'
         }
       },
+      report_text: {
+        type: Sequelize.TEXT,
+        allowNull: false
+      },
       report_date: {
         type: Sequelize.DATE
       },

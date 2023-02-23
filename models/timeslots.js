@@ -14,7 +14,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   timeslots.init({
-    slot_duration: DataTypes.STRING(3),
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED
+    },
+    slot_duration: {
+      type: DataTypes.STRING(3),
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'timeslots',
