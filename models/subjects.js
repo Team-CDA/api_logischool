@@ -14,7 +14,31 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   subjects.init({
-    subject_name: DataTypes.STRING(128)
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    subject_name: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notEmpty: true,
+      }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'subjects',

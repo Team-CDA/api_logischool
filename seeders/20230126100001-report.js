@@ -9,6 +9,7 @@ module.exports = {
         id_user: 1,
         id_report_type: 1,
         report_date: new Date(),
+        report_text: 'This is a test report',
       },
     ], {}
     );

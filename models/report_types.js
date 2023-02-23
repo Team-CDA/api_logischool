@@ -15,7 +15,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   report_types.init({
-    report_name: DataTypes.STRING(128)
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    report_name: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'report_types',

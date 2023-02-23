@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       event_type_name: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(128),
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         allowNull: false,

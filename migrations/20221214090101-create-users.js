@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       firstname: {
-        type: Sequelize.STRING(64)
+        type: Sequelize.STRING(64),
+        allowNull: false
       },
       lastname: {
         type: Sequelize.STRING(64)

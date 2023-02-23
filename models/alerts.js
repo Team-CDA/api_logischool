@@ -19,8 +19,34 @@ module.exports = (sequelize, DataTypes) => {
     
   }
   alerts.init({
-    message: DataTypes.TEXT('medium'),
-    id_alert_type: DataTypes.INTEGER.UNSIGNED
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    message: {
+      type: DataTypes.TEXT('medium'),
+      allowNull: false
+    },
+    transmission_date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    id_alert_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'alerts',

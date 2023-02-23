@@ -14,8 +14,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   users_groups.init({
-    id_group: DataTypes.INTEGER.UNSIGNED,
-    id_user: DataTypes.INTEGER.UNSIGNED
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED
+    },
+    id_group: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'users_groups',

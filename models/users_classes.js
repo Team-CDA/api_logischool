@@ -15,9 +15,30 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   users_classes.init({
-    id_user: DataTypes.INTEGER.UNSIGNED,
-    id_class: DataTypes.INTEGER.UNSIGNED,
-    createdAt: DataTypes.DATE
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_class: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'users_classes',

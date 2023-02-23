@@ -19,6 +19,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   classes.init({
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_class_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
     name: {
       type : DataTypes.STRING(128),
       unique: true,

@@ -22,9 +22,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   homeworks_classes.init({
-    id_class: DataTypes.INTEGER.UNSIGNED,
-    id_homework: DataTypes.INTEGER.UNSIGNED,
-    plannified_date: DataTypes.DATE
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_class: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_homework: { 
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    plannified_date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'homeworks_classes',

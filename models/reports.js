@@ -14,9 +14,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   reports.init({
-    id_user: DataTypes.INTEGER.UNSIGNED,
-    id_report_type: DataTypes.INTEGER.UNSIGNED,
-    report_date: DataTypes.DATE
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_report_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    report_text: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    report_date: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'reports',

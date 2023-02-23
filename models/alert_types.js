@@ -14,7 +14,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   alert_types.init({
-    type: DataTypes.STRING(128)
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    type: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'alert_types',

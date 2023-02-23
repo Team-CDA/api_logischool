@@ -22,9 +22,40 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   rooms.init({
-    name: DataTypes.STRING(128),
-    id_room_type: DataTypes.INTEGER.UNSIGNED,
-    id_building: DataTypes.INTEGER.UNSIGNED
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    name: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notEmpty: true,
+      }
+    },
+    id_room_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    id_building: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     defaultScope: {

@@ -16,7 +16,8 @@ module.exports = {
         type: Sequelize.STRING(64)
       },
       name: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(128),
+        allowNull: false
       },
       id_user: {
         type: Sequelize.INTEGER.UNSIGNED,
