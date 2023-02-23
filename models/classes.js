@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     id_class_type: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Class type\'s id is required'
+        },
+      }
     },
     name: {
       type : DataTypes.STRING(128),
@@ -37,9 +42,20 @@ module.exports = (sequelize, DataTypes) => {
         is: ["^[a-zA-Z0-9À-ÿ]+$"],
         max: 64,
         notEmpty: true,
+        notNull: {
+          msg: 'Name is required'
+        },
       }
     },
-    scolarity_year: DataTypes.INTEGER.UNSIGNED
+    scolarity_year: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Scolarity year is required'
+        },
+      }
+    },
   }, {
     sequelize,
     modelName: 'classes',

@@ -27,7 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         is: ["^[a-zA-Z0-9À-ÿ]+$"],
         max: 128,
-        notEmpty: true
+        notEmpty: true,
+        notNull: {
+          msg: 'Name is required'
+        },
       },
     },
     createdAt: {

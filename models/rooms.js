@@ -40,11 +40,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_room_type: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Room_type must be a number'
+        },
+        notNull: {
+          msg: 'Room type is required'
+        },
+      }
     },
     id_building: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Building must be a number'
+        },
+        notNull: {
+          msg: 'Building is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

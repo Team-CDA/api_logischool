@@ -26,18 +26,38 @@ module.exports = (sequelize, DataTypes) => {
     message: {
       type: DataTypes.TEXT('medium'),
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Message is required'
+        },
+      }
     },
     starting_date: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Starting date is required'
+        },
+      }
     },
     ending_date: {
       type: DataTypes.DATE,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Ending date is required'
+        },
+      }
     },
     id_event_type: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Event type is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

@@ -22,11 +22,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_event: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Event\'s id is required'
+        },
+      }
     },
     id_group: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Group\'s id is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

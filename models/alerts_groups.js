@@ -31,10 +31,20 @@ module.exports = (sequelize, DataTypes) => {
     id_alert: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Alert\'s id is required'
+        },
+      }
     },
     id_group: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Group\'s id is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

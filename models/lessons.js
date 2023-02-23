@@ -22,27 +22,72 @@ module.exports = (sequelize, DataTypes) => {
     },
     lesson_datetime: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isDate: {
+          msg: 'Lesson\'s date must be a date'
+        }
+      }
     },
     id_room: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Room\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Room\'s id is required'
+        },
+      }
     },
     id_user: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'User\'s id must be a number'
+        },
+        notNull: {
+          msg: 'User\'s id is required'
+        },
+      }
     },
     id_subject: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Subject\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Subject\'s id is required'
+        },
+      }
     },
     id_timeslot: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Timeslot\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Timeslot\'s id is required'
+        },
+      }
     },
     id_class: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Class\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Class\'s id is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,
