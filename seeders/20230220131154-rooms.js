@@ -9,6 +9,16 @@ module.exports = {
         id_room_type: 1,
         id_building: 1
     },
+    {
+      name: 'Salle 2',
+      id_room_type: 2,
+      id_building: 2
+  },
+  {
+    name: 'Salle 3',
+    id_room_type: 3,
+    id_building: 3
+},
     ], {}
     );
   },
