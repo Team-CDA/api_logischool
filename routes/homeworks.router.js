@@ -48,7 +48,7 @@ module.exports = router
  * 
  * /homeworks/classes/daterange:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: startingDate
@@ -71,7 +71,7 @@ router.get('/classes/daterange', multerMultipleFiles, homeworksController.getByD
  * 
  * /homeworks/filter?:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *       - in: query
  *         name: id_teacher
@@ -102,7 +102,7 @@ router.get('/filter', multerMultipleFiles, homeworksController.getWithFilter)
  * 
  * /homeworks/:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      summary: get all homeworks
  *      description: Get list of all homeworks
  *      responses: 
@@ -124,7 +124,7 @@ router.get('/', multerMultipleFiles, homeworksController.getAll)
  * 
  * /homeworks/{id}:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      summary: get homework for a specific id
  *      description: By providing an id you can get the details of this homework
  *      parameters:
@@ -152,7 +152,7 @@ router.get('/:id', multerMultipleFiles, homeworksController.getOneById)
  * 
  * /homeworks/create:
  *    post:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      requestBody:
  *         required: true
  *         content:
@@ -172,7 +172,7 @@ router.post('/', multerMultipleFiles, homeworksController.create)
  * 
  * /homeworks/update/{id}:
  *    put:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      requestBody:
  *         required: true
  *         content:
@@ -193,7 +193,7 @@ router.put('/:id', multerMultipleFiles, homeworksController.update)
  * 
  * /homeworks/delete/{id}:
  *    delete:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: id
@@ -218,7 +218,7 @@ router.delete('/:id', multerMultipleFiles, homeworksController.deleteOneById)
  * 
  * /homeworks/{id}/{file}:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: id
@@ -285,7 +285,7 @@ router.get('/:id/:file', multerMultipleFiles, homeworksController.getOneFileById
  * 
  * /homeworks/classes/{id}:
  *    get:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: id
@@ -305,7 +305,7 @@ router.get('/classes/:id', multerMultipleFiles, homeworksController.getOneByIdHC
  * 
  * /homeworks/classes/create:
  *    post:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      requestBody:
  *         required: true
  *         content:
@@ -325,7 +325,7 @@ router.post('/classes/create', multerMultipleFiles, homeworksController.createHC
  * 
  * /homeworks/classes/update/{id}:
  *    put:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: id
@@ -351,7 +351,7 @@ router.put('/classes/update/:id', multerMultipleFiles, homeworksController.updat
  * 
  * /homeworks/classes/{id}:
  *    delete:
- *      tags: [homeworks]
+ *      tags: [Homeworks]
  *      parameters:
  *        - in: path
  *          name: id
