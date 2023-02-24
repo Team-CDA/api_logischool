@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.alerts_groups, {
         as: 'alerts_groups',
         foreignKey: 'id_group'
-      })
+      });
     }
     
   }

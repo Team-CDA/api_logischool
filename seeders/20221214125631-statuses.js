@@ -11,7 +11,7 @@ module.exports = {
         status: 'Remplaçant',
       },
       {
-        status: 'Exclu',
+        status: 'Exclu fdp',
       },
     ], {}
     );

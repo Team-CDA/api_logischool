@@ -16,12 +16,12 @@ module.exports = {
           zipcode: "75000",
           mail: "toto@gmail.com",
           phone: "0606060606",
-          ine: "12345678910T",
+          ine: "1234567891A",
           first_tutor: 1,
           second_tutor: 2,
           // id_establishment : 1,
-          // id_role : 1,
-          // id_status : 1
+          id_role : 1,
+          id_status : 1
         },
         {
           firstname: "Jeanne",
@@ -33,13 +33,13 @@ module.exports = {
           zipcode: "13000",
           mail: "toto@does.pinh",
           phone: "0690486933",
-          ine: "12345678910R",
+          ine: "1234567891B",
           first_tutor: 3,
           second_tutor: 4,
           // id_establishment : 1,
           // id_class : 1,
-          // id_role : 1,
-          // id_status : 1
+          id_role : 2,
+          id_status : 1
         },
         {
           firstname: "Sergine",
@@ -51,13 +51,13 @@ module.exports = {
           zipcode: "69000",
           mail: "Sergined-gameuse76@lamanu.pinh",
           phone: "0676341346",
-          ine: "123456789Y",
+          ine: "1234567891C",
           first_tutor: 5,
           second_tutor: 6,
           // id_establishment : 1,
           // id_class : 1,
-          // id_role : 1,
-          // id_status : 1
+          id_role : 2,
+          id_status : 1
         },
         {
           firstname: "Julien",
@@ -69,13 +69,13 @@ module.exports = {
           zipcode: "76000",
           mail: "LeMontagnard@lamanu.pinh",
           phone: "0712345678",
-          ine: "123456789M",
+          ine: "1234567891D",
           first_tutor: 7,
           second_tutor: 8,
           // id_establishment : 1,
           // id_class : 1,
-          // id_role : 1,
-          // id_status : 1
+          id_role : 3,
+          id_status : 1
         },
         {
           firstname: "Sabrina",
@@ -87,13 +87,13 @@ module.exports = {
           zipcode: "33000",
           mail: "SabroLaser@lamanu.pinh",
           phone: "0789098754",
-          ine: "123456789N",
+          ine: "1234567891E",
           first_tutor: 9,
           second_tutor: 10,
           // id_establishment : 1,
           // id_class : 1,
-          // id_role : 1,
-          // id_status : 1
+          id_role : 2,
+          id_status : 1
         }
       ],
       {}

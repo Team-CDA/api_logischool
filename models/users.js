@@ -8,18 +8,27 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_class",
       });
       
-      this.hasOne(models.roles, {
-        foreignKey: "id",
+      this.belongsToMany(models.lessons, {
+        through: "missing_students",
+        foreignKey: "id_lesson",
+      });
+
+      this.belongsTo(models.roles, {
+        foreignKey: "id_role",
         as: "roles",
       });
 
-      this.hasOne(models.establishments, {
-        foreignKey: "id",
+      this.belongsTo(models.establishments, {
+        foreignKey: "id_establishment",
         as: "establishments",
       });
       this.hasMany(models.lessons, {
         foreignKey: "id_user",
-        as: "lessons",
+        as: "user_lessons",
+      });
+      this.belongsTo(models.statuses, {
+        foreignKey: "id_status",
+        as: "status",
       });
     }
   }
@@ -107,7 +116,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.CHAR(11),
         validate: {
           notEmpty: true,
-          isNumeric: true,
+          isAlphanumeric: true,
           allowNull: false,
         },
       },

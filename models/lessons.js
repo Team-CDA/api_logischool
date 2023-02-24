@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
         as: "users",
       });
-      this.hasOne(models.classes, {
+      this.belongsToMany(models.users, {
+        through: "missing_students",
+        foreignKey: "id_user",
+      });
+      this.belongsTo(models.classes, {
         foreignKey: "id",
         as: "classes",
       });
@@ -21,10 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
         as: "subjects",
       });
-      this.hasOne(models.rooms, {
-        foreignKey: "id",
+      this.belongsTo(models.rooms, {
+        foreignKey: "id_room",
         as: "rooms",
-        });
+      });
+      this.belongsTo(models.timeslots, {
+        foreignKey: "id_timeslot",
+        as: "timeslots",
+      });
     }
   }
   lessons.init(

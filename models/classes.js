@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_class",
       });
       classes.belongsTo(models.class_types, {
-        // as: "class_type",
-        // foreignKey: "id_class_type",
+        as: "class_type",
+        foreignKey: "id_class_type",
       });
     }
   }

@@ -3,15 +3,14 @@ const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class rooms extends Model {
     static associate(models) {
-      rooms.belongsTo(models.buildings, {
-        as: "buildings",
-        foreignKey: "id",
+      this.belongsTo(models.buildings, { 
+        foreignKey: 'id_building' 
       });
-      rooms.belongsTo(models.room_types, {
+      this.belongsTo(models.room_types, {
         as: "room_types",
         foreignKey: "id_room_type",
       });
-      rooms.hasMany(models.lessons, {
+      this.hasMany(models.lessons, {
         as: "lessons",
         foreignKey: "id_room",
       });
