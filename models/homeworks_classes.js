@@ -30,15 +30,39 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_class: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Class\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Class\'s id is required'
+        },
+      }
     },
     id_homework: { 
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Homework\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Homework\'s id is required'
+        },
+      }
     },
     plannified_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isDate: {
+          msg: 'Plannified date must be a date'
+        },
+          notNull: {
+          msg: 'Plannified date is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

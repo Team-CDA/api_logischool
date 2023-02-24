@@ -22,11 +22,27 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_user: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'User\'s id must be a number'
+        },
+        notNull: {
+          msg: 'User\'s id is required'
+        },
+      }
     },
     id_lesson: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Lesson\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Lesson\'s id is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

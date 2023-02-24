@@ -27,11 +27,23 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notNull: {
+          msg: 'Name is required'
+        },
+      }
     }, 
     id_establishment: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Establishment\'s id is required'
+        },
+      }
     }
   }, {
     sequelize,

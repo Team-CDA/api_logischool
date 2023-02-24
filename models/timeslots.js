@@ -22,7 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     slot_duration: {
       type: DataTypes.STRING(3),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Slot duration must be a number'
+        },
+        notNull: {
+          msg: 'Slot duration is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

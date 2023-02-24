@@ -7,6 +7,20 @@ module.exports = (sequelize, DataTypes) => {
         through: "users_classes",
         foreignKey: "id_class",
       });
+      
+      this.hasOne(models.roles, {
+        foreignKey: "id",
+        as: "roles",
+      });
+
+      this.hasOne(models.establishments, {
+        foreignKey: "id",
+        as: "establishments",
+      });
+      this.hasMany(models.lessons, {
+        foreignKey: "id_user",
+        as: "lessons",
+      });
     }
   }
   users.init(

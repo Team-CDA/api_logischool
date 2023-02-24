@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      establishments.hasMany(models.users, {
+        as: 'users',
+        foreignKey: 'id_establishment'
+      })
     }
   }
   establishments.init({
@@ -27,7 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         is: ["^[a-zA-Z0-9À-ÿ]+$"],
         max: 128,
-        notEmpty: true
+        notEmpty: true,
+        notNull: {
+          msg: 'Name is required'
+        },
       },
     },
     createdAt: {

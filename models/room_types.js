@@ -22,7 +22,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     room_type: {
       type: DataTypes.STRING(128),
-      allowNull: false
+      allowNull: false,
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notNull: {
+          msg: 'Room type is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

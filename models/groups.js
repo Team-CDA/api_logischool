@@ -4,17 +4,19 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class groups extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-      groups.hasMany(models.alerts_groups, {
+      // Define association with alerts_groups table
+      this.hasMany(models.alerts_groups, {
         as: 'alerts_groups',
         foreignKey: 'id_group'
-      })
+      });
+
+      // Define association with events_groups table
+      this.belongsToMany(models.events, {
+        through: 'events_groups', // Specify the intermediate table name here
+        as: 'events',
+        foreignKey: 'id_group'
+      });
     }
   }
   groups.init({
@@ -27,7 +29,14 @@ module.exports = (sequelize, DataTypes) => {
     group_name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notNull: {
+          msg: 'Group name is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

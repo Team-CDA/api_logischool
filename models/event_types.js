@@ -23,7 +23,14 @@ module.exports = (sequelize, DataTypes) => {
     event_type_name: {
       type: DataTypes.STRING(128),
       allowNull: false,
-      unique: true
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notNull: {
+          msg: 'Event type name is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

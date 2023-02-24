@@ -22,19 +22,48 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_user: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'User\'s id must be a number'
+        },
+        notNull: {
+          msg: 'User\'s id is required'
+        },
+      }
     },
     id_report_type: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Report type\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Report type\'s id is required'
+        },
+      }
     },
     report_text: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Report\'s text is required'
+        },
+      }
     },
     report_date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isDate: {
+          msg: 'Report\'s date must be a date'
+        },
+        notNull: {
+          msg: 'Report\'s date is required'
+        },
+      }
     },
     createdAt: {
       allowNull: false,

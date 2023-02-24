@@ -3,13 +3,19 @@ const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table events
 const eventsTable = db['events'];
+const eventTypesTable = db['event_types'];
 
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
     //On utilise l'ORM pour SELECT toute la table
-    eventsTable.findAll()
+    eventsTable.findAll({
+        include: [{
+            model: eventTypesTable,
+            as: 'event_types',
+        }],
+    })
 
         //On utilise les promesses pour gérer les résultats de la requête.
         .then(result => {
