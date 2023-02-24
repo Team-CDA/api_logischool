@@ -5,20 +5,19 @@ module.exports = {
     await queryInterface.createTable('users_subjects', {
         id: {
             allowNull: false,
-            type: Sequelize.INTEGER.UNSIGNED,
-            primaryKey: true,
             autoIncrement: true,
-            type: Sequelize.INTEGER.UNSIGNED
+            primaryKey: true,
+            type: Sequelize.INTEGER.UNSIGNED,
         },
         id_user: {
             type: Sequelize.INTEGER.UNSIGNED,
             allowNull: false,
         references:{
-            model:'classes',
+            model:'users',
             key:'id'
         }
         },
-        id_subjects: {
+        id_subject: {
             type: Sequelize.INTEGER.UNSIGNED,
             allowNull: false,
             references:{
@@ -26,6 +25,20 @@ module.exports = {
                 key:'id'
             }
         },
+        createdAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: new Date()
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: new Date()
+        }
+    },
+    {
+        charset: 'utf8',
+        collate: 'utf8_unicode_ci'
     });
     },
     async down(queryInterface, Sequelize) {
