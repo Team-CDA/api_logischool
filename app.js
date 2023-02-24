@@ -86,12 +86,11 @@ app.use('/events_groups', eventsGroupsRouter)
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
 const port = 3000;
-
+const message = "🖕";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req, res) => {
-    const message = "🖕"
     // const data =  ''
     res.json(success(message));
 });
@@ -115,4 +114,4 @@ app.use(({res}) => {
 
 
 //On démarre l'api sur le port 3000 en affichant un message
-app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port}`));
+app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port} ${message}`));

@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class classes extends Model {
     /**
@@ -11,54 +9,64 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.users, { through: 'users_classes', foreignKey: 'id_user' });
+      this.belongsToMany(models.users, {
+        through: "users_classes",
+        foreignKey: "id_user",
+      });
       classes.hasMany(models.homeworks_classes, {
-        as: 'homeworks_classes',
-        foreignKey: 'id_class'
-      })
+        as: "homeworks_classes",
+        foreignKey: "id_class",
+      });
+      classes.hasMany(models.lessons, {
+        as: "lessons",
+        foreignKey: "id_class",
+      });
     }
   }
-  classes.init({
-    id: {
-      allowNull: false,
-      type: DataTypes.INTEGER.UNSIGNED,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    id_class_type: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Class type\'s id is required'
+  classes.init(
+    {
+      id: {
+        allowNull: false,
+        type: DataTypes.INTEGER.UNSIGNED,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      id_class_type: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Class type's id is required",
+          },
         },
-      }
-    },
-    name: {
-      type : DataTypes.STRING(128),
-      unique: true,
-      allowNull: false,
-      validate: {
-        is: ["^[a-zA-Z0-9À-ÿ]+$"],
-        max: 64,
-        notEmpty: true,
-        notNull: {
-          msg: 'Name is required'
+      },
+      name: {
+        type: DataTypes.STRING(128),
+        unique: true,
+        allowNull: false,
+        validate: {
+          is: ["^[a-zA-Z0-9À-ÿ]+$"],
+          max: 64,
+          notEmpty: true,
+          notNull: {
+            msg: "Name is required",
+          },
         },
-      }
-    },
-    scolarity_year: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Scolarity year is required'
+      },
+      scolarity_year: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          notNull: {
+            msg: "Scolarity year is required",
+          },
         },
-      }
+      },
     },
-  }, {
-    sequelize,
-    modelName: 'classes',
-  });
+    {
+      sequelize,
+      modelName: "classes",
+    }
+  );
   return classes;
 };

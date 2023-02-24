@@ -8,9 +8,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_class",
       });
       
-      this.belongsTo(models.roles, {
-        foreignKey: "id_role",
+      this.hasOne(models.roles, {
+        foreignKey: "id",
         as: "roles",
+      });
+
+      this.hasOne(models.establishments, {
+        foreignKey: "id",
+        as: "establishments",
+      });
+      this.hasMany(models.lessons, {
+        foreignKey: "id_user",
+        as: "lessons",
       });
     }
   }

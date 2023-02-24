@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      alert_types.hasMany(models.alerts, {
+        as: 'alerts',
+        foreignKey: 'id_alert_type'
+      })
     }
   }
   alert_types.init({

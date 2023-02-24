@@ -4,6 +4,7 @@ const { ValidationError } = require('sequelize');
 const usersTable = db['users'];
 const classesTable = db['classes'];
 const rolesTable = db['roles'];
+const establishmentsTable = db['establishments'];
 
 const getAllUsers = (req,res)=> {
         
@@ -12,11 +13,18 @@ const getAllUsers = (req,res)=> {
             include: [{
                 model: classesTable,
                 as: 'classes',
+                // attributes: ['id', 'name'],
             },
             {
                 model: rolesTable,
                 as: 'roles',
-            }
+                // attributes: ['id', 'role'],
+            },
+            {
+                model: establishmentsTable,
+                as: 'establishments',
+                // attributes: ['id', 'name'],
+            },
         ],
         })
 
