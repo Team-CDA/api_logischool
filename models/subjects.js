@@ -15,8 +15,13 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_subject",
         as: "lessons",
       });
-    }
+
+      this.belongsToMany(models.users, {
+        through: "users_subjects",
+        foreignKey: "id_subject",
+    });
   }
+};
   subjects.init({
     id: {
       allowNull: false,

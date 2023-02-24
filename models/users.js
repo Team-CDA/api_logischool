@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_lesson",
       });
 
+      this.belongsToMany(models.subjects, {
+        through: "users_subjects",
+        foreignKey: "id_user",
+      });
+
       this.belongsTo(models.roles, {
         foreignKey: "id_role",
         as: "roles",
