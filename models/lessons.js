@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class lessons extends Model {
     /**
@@ -11,23 +9,124 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      lessons.hasOne(models.users, {
-        as : 'users', 
-        foreignKey : 'id'
-      })
+      this.hasOne(models.users, {
+        foreignKey: "id",
+        as: "users",
+      });
+      this.belongsToMany(models.users, {
+        through: "missing_students",
+        foreignKey: "id_user",
+      });
+      this.belongsTo(models.classes, {
+        foreignKey: "id",
+        as: "classes",
+      });
+      this.hasOne(models.subjects, {
+        foreignKey: "id",
+        as: "subjects",
+      });
+      this.belongsTo(models.rooms, {
+        foreignKey: "id_room",
+        as: "rooms",
+      });
+      this.belongsTo(models.timeslots, {
+        foreignKey: "id_timeslot",
+        as: "timeslots",
+      });
     }
   }
-  
-  lessons.init({
-    lesson_datetime: DataTypes.DATE,
-    id_room: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER,
-    id_subject: DataTypes.INTEGER,
-    id_timeslot: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'lessons',
-  });
+  lessons.init(
+    {
+      id: {
+        allowNull: false,
+        type: DataTypes.INTEGER.UNSIGNED,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      lesson_datetime: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        validate: {
+          isDate: {
+            msg: "Lesson's date must be a date",
+          },
+        },
+      },
+      id_room: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          isNumeric: {
+            msg: "Room's id must be a number",
+          },
+          notNull: {
+            msg: "Room's id is required",
+          },
+        },
+      },
+      id_user: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          isNumeric: {
+            msg: "User's id must be a number",
+          },
+          notNull: {
+            msg: "User's id is required",
+          },
+        },
+      },
+      id_subject: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          isNumeric: {
+            msg: "Subject's id must be a number",
+          },
+          notNull: {
+            msg: "Subject's id is required",
+          },
+        },
+      },
+      id_timeslot: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          isNumeric: {
+            msg: "Timeslot's id must be a number",
+          },
+          notNull: {
+            msg: "Timeslot's id is required",
+          },
+        },
+      },
+      id_class: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          isNumeric: {
+            msg: "Class's id must be a number",
+          },
+          notNull: {
+            msg: "Class's id is required",
+          },
+        },
+      },
+      createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+      },
+      updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        defaultValue: new Date(),
+      },
+    },
+    {
+      sequelize,
+      modelName: "lessons",
+    }
+  );
   return lessons;
 };

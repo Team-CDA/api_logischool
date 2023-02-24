@@ -11,10 +11,41 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.lessons, {
+        foreignKey: 'id_timeslot',
+        as: 'lessons'
+      });
     }
   }
   timeslots.init({
-    slot_duration: DataTypes.STRING,
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED
+    },
+    slot_duration: {
+      type: DataTypes.STRING(3),
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Slot duration must be a number'
+        },
+        notNull: {
+          msg: 'Slot duration is required'
+        },
+      }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'timeslots',

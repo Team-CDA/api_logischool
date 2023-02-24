@@ -18,16 +18,16 @@ const classeController = require ("../controllers/classes-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente la classe
+ *               description: The id of the classe
  *             classe:
  *               type: string
- *               description: Le nom de la classe                
+ *               description: The name of the classe          
  *             createdAt:
  *               type: date
- *               description: La date à laquelle la classe a été créé
+ *               description: The date when the classe was created
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification du classe
+ *               description: The date of the last modification of the classe
  *          example: 
  *             id: 1
  *             classe: "CM2"  
@@ -44,8 +44,8 @@ const classeController = require ("../controllers/classes-controller")
  * /Classes:
  *    get:
  *      tags: [Classes]
- *      summary: Récupère la liste de toutes les Classes
- *      description: Récupère la liste de toutes les Classes
+ *      summary: Retrieve the list of classes
+ *      description: Retrieve the list of classes
  *      responses: 
  *         200:
  *            description: Success
@@ -59,8 +59,8 @@ router.get('/', ClassesController.getAll)
  * /Classes:
  *    get:
  *      tags: [Classes]
- *      summary: Récupère une Classe par son id
- *      description: Récupère une Classe par son id
+ *      summary: Retrieve a classe by its id
+ *      description: Retrieve a classe by its id
  *      responses: 
  *         200:
  *            description: Success
@@ -80,8 +80,8 @@ router.get('/:id', ClassesController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Classe'
- *      summary: Permet d'ajouter une Classe
- *      description: Permet d'ajouter une Classe.
+ *      summary: Allow you to create a new classe
+ *      description: When you create a new classe, you have to give the name of the classe.
  *      responses: 
  *         200:
  *            description: Classe successfully created
@@ -95,14 +95,14 @@ router.post('/create', ClassesController.createOne)
  * /Classes/update/{id}:
  *    patch:
  *      tags: [Classes]
- *      summary: Permet La modification d'une Classe
+ *      summary: Allow you to update a classe
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Classe'
- *    description: Grâce à l'id d'une Classe vous pouvez la modifier.
+ *    description: You have to pass the id of the classe you want to update in the url and the new name of the classe in the body.
  *    responses:
  *         200:
  *          description: alert types successfully updated
@@ -116,8 +116,8 @@ router.patch('/update/:id', ClassesController.updateOneById)
  * /Classes/delete/{id}:
  *    delete:
  *      tags: [Classes]
- *      summary: Permet La suppressin d'une Classe
- *      description: Passer l'id de la Classe que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow you to delete a classe
+ *      description: You have to pass the id of the classe you want to delete in the url.
  *      responses:
  *         200:
  *          description: class successfully deleted
@@ -132,8 +132,8 @@ router.delete('/delete/:id', ClassesController.deleteOneById)
  * /Classes/deleteAll:
  *    delete:
  *      tags: [Classes]
- *      summary: Permet La suppression de toutes les Classes (truncate)
- *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+ *      summary: Allow you to delete all the classes
+ *      description: Delete all the classes.
  *      responses:
  *         200:
  *          description: Classes successfully deleted

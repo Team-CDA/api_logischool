@@ -18,10 +18,12 @@ module.exports = {
         }
       },
       name: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(128),
+        allowNull: false,
+        unique: true
       },
       scolarity_year: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
       },
       createdAt: {
         allowNull: false,

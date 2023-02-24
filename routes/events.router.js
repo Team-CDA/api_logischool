@@ -17,16 +17,16 @@ const eventController = require ("../controllers/events-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente l'event
+ *               description: The event id.
  *             message:
  *               type: string
- *               description: Le message de l'event                
+ *               description: The event message.              
  *             starting_date:
  *               type: date
- *               description: La date à laquelle l'event a été créé
+ *               description: The event starting date.
  *             ending_date:
  *               type: date
- *               description: La date de la dernière modification de l'event
+ *               description: The event ending date.
  *          example: 
  *             id: 1
  *             message: "Bonjour, nous vous informons qu'une grève des professeurs aura lieu le 14 décembre 2022. Merci de votre compréhension."  
@@ -43,8 +43,8 @@ const eventController = require ("../controllers/events-controller")
  * /events:
  *    get:
  *      tags: [Events]
- *      summary: Récupère la liste de tous les events
- *      description: Récupère la liste de tous les events
+ *      summary: Rerieve all events
+ *      description: You can retrieve all events by using this route.
  *      responses: 
  *         200:
  *            description: Success
@@ -65,8 +65,8 @@ router.get('/', eventController.getAll)
  * /events/{id}:
  *    get:
  *      tags: [Events]
- *      summary: Récupère un event en fonction de son id
- *      description: Récupère un event en fonction de son id
+ *      summary: Retrieve one event by id
+ *      description: You can retrieve an event by passing the id of the event in the url.
  *      responses: 
  *         200:
  *            description: Success
@@ -94,8 +94,8 @@ router.get('/:id', eventController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Event'
- *      summary: Permet d'ajouter un nouveau event
- *      description: En fournissant un nom, vous pouvez créer un nouveau event.
+ *      summary: Allows you to create an event
+ *      description: When you create an event, you must pass the message, starting_date and ending_date in the body of the request.
  *      responses: 
  *         200:
  *            description: Event successfully created
@@ -111,14 +111,14 @@ router.post('/create', eventController.createOne)
  * /events/update/{id}:
  *    patch:
  *      tags: [Events]
- *      summary: Permet La modification d'un event
+ *      summary: Allows you to update an event
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Event'
- *    description: Grâce à l'id d'un event vous pouvez changer le nom correspondant.
+ *    description: When you update an event you could pass the message, starting_date and ending_date in the body of the request.
  *    responses:
  *         200:
  *          description: Event successfully updated
@@ -133,8 +133,8 @@ router.patch('/update/:id', eventController.updateOneById)
  * /events/delete/{id}:
  *    delete:
  *      tags: [Events]
- *      summary: Permet La suppression d'un event
- *      description: Passer l'id de l'event que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allows you to delete an event
+ *      description: To delete an event you must pass the id of the event in the url.
  *      responses:
  *         200:
  *          description: Event successfully deleted
@@ -149,8 +149,8 @@ router.delete('/delete/:id', eventController.deleteOneById)
  * /events/deleteAll:
  *    delete:
  *      tags: [Events]
- *      summary: Permet La suppression de tous les events (truncate)
- *      description: Supprime la table en faisant un truncate, donc les ID repartent à 1
+ *      summary: Allows you to delete all events
+ *      description: Allows you to delete all events.
  *      responses:
  *         200:
  *          description: Events successfully deleted

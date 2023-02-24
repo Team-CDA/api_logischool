@@ -11,19 +11,53 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      homeworks.hasMany(models.homeworks_classes, {
-        as: 'homeworks_classes',
-        foreignKey: 'id_homework'
-      })
+      this.belongsTo(models.users, {
+        foreignKey: "id_user",
+        as: "user",
+      });
     }
   }
   homeworks.init({
-    homework_image: DataTypes.STRING,
-    correction_image: DataTypes.STRING,
-    name: DataTypes.STRING,
-    id_user: DataTypes.INTEGER,
-    id_subjects: DataTypes.INTEGER,
-    id_class: DataTypes.INTEGER
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    homework_image: {
+      type: DataTypes.STRING(64),
+      allowNull: true,
+    },
+    correction_image: {
+      type: DataTypes.STRING(64),
+      allowNull: true,
+    },
+    name: {
+      type: DataTypes.STRING(128),
+      allowNull: false
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    id_subjects: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    id_class: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'homeworks',

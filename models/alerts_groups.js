@@ -22,8 +22,40 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   alerts_groups.init({
-    id_alert: DataTypes.INTEGER,
-    id_group: DataTypes.INTEGER
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_alert: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Alert\'s id is required'
+        },
+      }
+    },
+    id_group: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Group\'s id is required'
+        },
+      }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'alerts_groups',

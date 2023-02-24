@@ -14,13 +14,13 @@ const buildingsController = require ("../controllers/buildings-controller")
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le building
+ *               description: The ID that represents the building
  *             name:
  *               type: string
- *               description: Le nom du building
+ *               description: The name of the building
  *             id_establishment:
  *               type: integer
- *               description: L'id de l'établissement lié               
+ *               description: The ID that represents the establishment         
  *          example: 
  *             id: 1
  *             name: A  
@@ -36,8 +36,8 @@ const buildingsController = require ("../controllers/buildings-controller")
  * /buildings/:
  *    get:
  *      tags: [Buildings]
- *      summary: Récupère la liste de tout les buildings
- *      description: Récupère la liste de tout les buildings
+ *      summary: Retrieve the list of buildings
+ *      description: Retrieve the list of buildings
  *      responses: 
  *         200:
  *            description: Success
@@ -59,15 +59,15 @@ router.get('/', buildingsController.getAll)
  * /buildings/{id}:
  *    get:
  *      tags: [Buildings]
- *      summary: Récupère un building en fonction de son id
- *      description: Récupère un building en fonction de son id
+ *      summary: Retrieve a building by its ID
+ *      description: Retrieve a building by its ID
  *      parameters:
  *        - in: path
  *          name: id
  *          schema:
  *            type: integer
  *          required: true
- *          description: L'id du building que vous souhaitez récuperer.
+ *          description: The id of the building to retrieve.
  *      responses: 
  *         200:
  *            description: Success
@@ -88,15 +88,15 @@ router.get('/:id', buildingsController.getOneById)
  * /buildings/establishment/{id}:
  *    get:
  *      tags: [Buildings]
- *      summary: Récupère tous les buildings d'un établissement
- *      description: Grâce à l'id d'un établissement, permet de récuperer la liste de tout les buildings.
+ *      summary: Retrieve all buildings by their establishment ID
+ *      description: Retrieve all buildings by their establishment ID.
  *      parameters:
  *        - in: path
  *          name: id
  *          schema:
  *            type: integer
  *          required: true
- *          description: L'id de l'établissement.
+ *          description: The id of the establishment to retrieve.
  *      responses: 
  *         200:
  *            description: Success
@@ -118,14 +118,14 @@ router.get('/building/:id', buildingsController.getByEstablishment)
  * /buildings/update:
  *    put:
  *      tags: [Buildings]
- *      summary: Mettre à jour un building
+ *      summary: Update a building
  *      requestBody:
  *        required: true
  *        content:
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/buildings'
- *      description: remplace les valeurs en base par celles passées dans la requête
+ *      description: Replace the values in the database with those passed in the request.
  *      responses: 
  *         200:
  *            description: Success
@@ -152,8 +152,8 @@ router.put('/update', buildingsController.updateOneById)
  *          schema:
  *            type: integer
  *          required: true
- *          description: L'id du building que vous souhaitez supprimer.
- *      summary: Permet la suppression d'un building grâce à son id.
+ *          description: The id of the building to delete.
+ *      summary: Allows you to delete a building by its ID.
  *      description: 
  *      responses: 
  *         200:
@@ -176,8 +176,8 @@ router.delete('/delete/:id', buildingsController.deleteOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Rooms'
- *      summary: Permet d'ajouter une nouvelle room
- *      description: Permet la création d'une nouvelle room à partir des données envoyées. La combinaison name + id_building doit être unique
+ *      summary: Allow you to add a new building
+ *      description: Permet la création d'un nouveau building à partir des données envoyées. La combinaison name + id_building doit être unique
  *      responses: 
  *         200:
  *            description: building successfully created

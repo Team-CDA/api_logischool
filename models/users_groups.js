@@ -14,8 +14,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   users_groups.init({
-    id_group: DataTypes.INTEGER,
-    id_user: DataTypes.INTEGER
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER.UNSIGNED
+    },
+    id_group: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Group\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Group\'s id is required'
+        },
+      }
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'User\'s id must be a number'
+        },
+        notNull: {
+          msg: 'User\'s id is required'
+        },
+      }
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'users_groups',

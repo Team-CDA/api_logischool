@@ -11,10 +11,41 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      alert_types.hasMany(models.alerts, {
+        as: 'alerts',
+        foreignKey: 'id_alert_type'
+      })
     }
   }
   alert_types.init({
-    type: DataTypes.STRING
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    type: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+      unique: true,
+      validate: {
+        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        max: 128,
+        notNull: {
+          msg: 'Type is required'
+        },
+      }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'alert_types',

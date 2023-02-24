@@ -18,7 +18,10 @@ const router = Router()
  *               description: L'id qui représente le rôle
  *             firstname:
  *               type: string
- *               description: Le prénom de l'utilisateur                
+ *               description: Le prénom de l'utilisateur
+ *             gender:
+ *               type: string
+ *               description: Le genre de l'utilisateur                
  *             lastname:
  *               type: string
  *               description: Le nom de l'utilisateur                
@@ -52,12 +55,6 @@ const router = Router()
  *             id_establishment:
  *               type: integer
  *               description: L'id de l'établissement de l'utilisateur
- *             id_class:
- *               type: integer
- *               description: L'id de la classe de l'utilisateur
- *             id_gender:
- *               type: integer
- *               description: L'id du genre de l'utilisateur
  *             id_role:
  *               type: integer
  *               description: L'id du rôle de l'utilisateur
@@ -71,6 +68,7 @@ const router = Router()
  *             id: 1
  *             firstname: "Jean"
  *             lastname: "Dupont"
+ *             gender: "M"
  *             birthdate: 2000-12-14
  *             adress: "1 rue de la paix"
  *             city: "Paris"
@@ -81,8 +79,6 @@ const router = Router()
  *             id_first_tutor: 1
  *             id_second_tutor: 2
  *             id_establishment: 1
- *             id_class: 1
- *             id_gender: 1
  *             id_role: 1
  *             id_status: 1
  *             createdAt: 2022-12-14T12:45:48
@@ -97,7 +93,7 @@ const router = Router()
  * 
  * /users:     
  *    get:
- *      tags: [Utilisateurs]
+ *      tags: [Users]
  *      summary: Récupère la liste de tous les utilisateurs
  *      responses: 
  *         200:
@@ -119,7 +115,7 @@ router.get('/', userController.getAllUsers)
  * 
  * /users/{id}:
  *    get:
- *      tags: [Utilisateurs]
+ *      tags: [Users]
  *      summary: Récupère un utilisateurs par son id
  *      description: Récupère un utilisateurs par son id
  *      responses: 
@@ -142,7 +138,7 @@ router.get('/:id', userController.getOneById)
  * 
  * /users/create:
  *    post:
- *      tags: [Utilisateurs]
+ *      tags: [Users]
  *      requestBody:
  *         required: true
  *         content:
@@ -165,7 +161,7 @@ router.post('/create', userController.createOne)
  * 
  * /users/update/{id}:
  *    patch:
- *      tags: [Utilisateurs]
+ *      tags: [Users]
  *      summary: Permet la modification d'un utilisateur
  *      requestBody:
  *       required: true
@@ -187,7 +183,7 @@ router.patch('/update/:id', userController.updateOneById)
  * 
  * /users/delete/{id}:
  *    delete:
- *      tags: [Utilisateurs]
+ *      tags: [Users]
  *      summary: Permet la suppression d'un utilisateur
  *      description: Passer l'id du rôle que vous souhaitez supprimer en url et le tour est joué.
  *      responses:

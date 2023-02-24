@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       report_name: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(128),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

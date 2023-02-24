@@ -14,8 +14,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   missing_students.init({
-    id_user: DataTypes.INTEGER,
-    id_lesson: DataTypes.INTEGER
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    id_user: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'User\'s id must be a number'
+        },
+        notNull: {
+          msg: 'User\'s id is required'
+        },
+      }
+    },
+    id_lesson: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        isNumeric: {
+          msg: 'Lesson\'s id must be a number'
+        },
+        notNull: {
+          msg: 'Lesson\'s id is required'
+        },
+      }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    }
   }, {
     sequelize,
     modelName: 'missing_students',

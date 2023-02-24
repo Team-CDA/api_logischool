@@ -13,22 +13,22 @@ const router = Router()
  *          properties: 
  *             id:
  *               type: integer
- *               description: L'id qui représente le type d'alerte
+ *               description: The id of the alert
  *             message:
  *               type: string
- *               description: Le nom du type d'alerte               
+ *               description: The message of the alert               
  *             transmission_date:
  *               type: date
- *               description: La date à laquelle l'alerte a été créé
+ *               description: The date of the alert transmission
  *             id_alert_type:
  *              type: integer
- *              description: L'id qui représente l'alerte
+ *              description: The id of the alert type
  *             createdAt:
  *               type: date
- *               description: La date à laquelle l'alerte a été créé
+ *               description: The date of the creation of the alert
  *             updatedAt:
  *               type: date
- *               description: La date de la dernière modification de l'alerte
+ *               description: The date of the update of the alert
  *          example: 
  *             id: 1
  *             message: "Manifestation des enseignants"
@@ -46,8 +46,8 @@ const router = Router()
  * /alerts:
  *    get:
  *      tags: [Alerts]
- *      summary: Récupère la liste des alertes
- *      description: Récupère la liste des alertes
+ *      summary: Retrieve the list of alerts
+ *      description: Retrieve the list of alerts
  *      responses: 
  *         200:
  *            description: Success
@@ -69,8 +69,8 @@ router.get('/', alertsController.getAll)
  * /alerts:
  *    get:
  *      tags: [Alerts]
- *      summary: Récupère une alerte par son id
- *      description: Récupère une alerte par son id
+ *      summary: Retrieve an alert by its ID
+ *      description: Retrieve an alert by its ID
  *      responses: 
  *         200:
  *            description: Success
@@ -90,8 +90,8 @@ router.get('/:id', alertsController.getOneById)
  *           application/json:
  *              schema:
  *                 $ref: '#/components/schemas/Alerts'
- *      summary: Permet d'ajouter une alerte
- *      description: Permet d'ajouter une alerte.
+ *      summary: Allow adding an alert
+ *      description: Allow adding an alert.
  *      responses: 
  *         200:
  *            description: alert successfully fetched
@@ -105,14 +105,14 @@ router.post('/create', alertsController.createOne)
  * /alerts/update/{id}:
  *    patch:
  *      tags: [Alerts]
- *      summary: Permet La modification d'une alerte
+ *      summary: Allow modifying of an alert
  *      requestBody:
  *       required: true
  *       content:
  *         application/json:
  *            schema:
  *               $ref: '#/components/schemas/Alerts'
- *    description: Grâce à l'id d'une alerte vous pouvez la modifier.
+ *    description: You can modify an alert by its ID.
  *    responses:
  *         200:
  *          description: alert successfully updated
@@ -126,8 +126,8 @@ router.patch('/update/:id', alertsController.updateOneById)
  * /alerts/delete/{id}:
  *    delete:
  *      tags: [Alerts]
- *      summary: Permet La suppressin d'une alerte
- *      description: Passer l'id due alerte que vous souhaitez supprimer en url et le tour est joué.
+ *      summary: Allow deleting an alert
+ *      description: Pass the ID of the role you wish to delete in the URL and it's done.
  *      responses:
  *         200:
  *          description: alerts successfully deleted

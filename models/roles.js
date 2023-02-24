@@ -12,9 +12,19 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // define association here
+      this.hasMany(models.users, {
+        foreignKey: 'id_role',
+        as: 'roles'
+      });
     }
   }
   roles.init({
+    id: {
+      allowNull: false,
+      type: DataTypes.INTEGER.UNSIGNED,
+      primaryKey: true,
+      autoIncrement: true
+    },
     role: {
       type: DataTypes.STRING(64),
       unique: true,
@@ -24,6 +34,16 @@ module.exports = (sequelize, DataTypes) => {
         max: 64,
         notEmpty: true,
       }
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: new Date()
     }
   }, {
     sequelize,

@@ -4,15 +4,21 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('rooms', [
-      {room : 'A01'},
-      {room : 'A02'},
-      {room : 'A05'},
-      {room : 'B01'},
-      {room : 'B02'},
-      {room : 'B03'},
-      {room : 'C01'},
-      {room : 'C02'},
-      {room : 'C02'},
+      {
+        name: 'Salle 1',
+        id_room_type: 1,
+        id_building: 1
+    },
+    {
+      name: 'Salle 2',
+      id_room_type: 2,
+      id_building: 2
+  },
+  {
+    name: 'Salle 3',
+    id_room_type: 3,
+    id_building: 3
+},
     ], {}
     );
   },

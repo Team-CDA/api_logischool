@@ -10,10 +10,14 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       firstname: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(64),
+        allowNull: false
       },
       lastname: {
-        type: Sequelize.STRING(128)
+        type: Sequelize.STRING(64)
+      },
+      gender: {
+        type: Sequelize.ENUM('M', 'F')
       },
       birthdate: {
         type: Sequelize.DATE
@@ -49,22 +53,8 @@ module.exports = {
           key:'id'
         }
       },
-      id_class: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        references:{
-          model:'classes',
-          key:'id'
-        }
-      },
-      id_gender: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        references:{
-          model:'genders',
-          key:'id'
-        }
-      },
       id_role: {
-        type: Sequelize.INTEGER.UNSIGNED.UNSIGNED,
+        type: Sequelize.INTEGER.UNSIGNED,
         references:{
           model:'roles',
           key:'id'

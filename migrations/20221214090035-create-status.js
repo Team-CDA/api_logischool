@@ -10,7 +10,9 @@ module.exports = {
         type: Sequelize.INTEGER.UNSIGNED
       },
       status: {
-        type: Sequelize.STRING(64)
+        type: Sequelize.STRING(64),
+        allowNull: false,
+        unique: true
       },
       createdAt: {
         allowNull: false,

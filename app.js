@@ -14,19 +14,23 @@ const alertsRouter = require('./routes/alerts.router');
 const alertsGroupsRouter = require('./routes/alerts_groups.router');
 const classTypesRouter = require('./routes/class_types.router');
 const classesRouter = require('./routes/classes.router');
+const usersClassesRouter = require('./routes/users_classes.router');
 const eventsRouter = require('./routes/events.router');
 const roomTypesRouter = require('./routes/room_types.router');
 const roomsRouter = require ('./routes/rooms.router');
 const roomsTypesRouter = require ('./routes/room_types.router')
 const eventTypesRouter = require('./routes/event_types.router');
 const timeslotsRouter = require('./routes/timeslots.router');
-// const lessonsRouter = require('./routes/lessons.router');
-const gendersRouter = require('./routes/genders-router');
+const lessonsRouter = require('./routes/lessons.router');
+const subjectsRouter = require('./routes/subjects.router');
 const referent_teachersRouter = require('./routes/referent_teachers.router');
-const homeworksRouter = require('./routes/homeworks.router')
-const buildingsRouter = require('./routes/buildings.router')
+const homeworksRouter = require('./routes/homeworks.router');
+const buildingsRouter = require('./routes/buildings.router');
+const eventsGroupsRouter = require('./routes/events_groups.router');
+const usersSubjectsRouter = require('./routes/users_subjects.router');
 const swaggerUI = require('swagger-ui-express');
 const jwt = require('jsonwebtoken');
+const users_subjectsController = require('./controllers/users_subjects-controller');
 // const fs = require('fs');
 require('dotenv').config();
 
@@ -63,6 +67,8 @@ app.use('/alerts_groups', alertsGroupsRouter);
 app.use('/class_types', classTypesRouter);
 app.use('/classes', classesRouter);
 
+app.use('/users_classes', usersClassesRouter);
+
 app.use('/events', eventsRouter);
 app.use('/event_types', eventTypesRouter);
 
@@ -71,25 +77,26 @@ app.use('/rooms', roomsRouter);
 
 app.use('/timeslots', timeslotsRouter);
 
-// app.use('/lessons', lessonsRouter);
-app.use('/genders', gendersRouter);
+app.use('/lessons', lessonsRouter);
 app.use('/referent_teachers', referent_teachersRouter);
 
-app.use('/buildings', buildingsRouter)
+app.use('/buildings', buildingsRouter);
 
-app.use('/homeworks', homeworksRouter)
+app.use('/homeworks', homeworksRouter);
+app.use('/subjects', subjectsRouter);
+app.use('/events_groups', eventsGroupsRouter);
+app.use('/users_subjects', usersSubjectsRouter);
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
 const port = 3000;
-
+const message = "🖕";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
 app.get('/', (req, res) => {
-    const message = "Bouffes mes nouilles !"
-    const data =  '100'
-    res.json(success(message,data));
+    // const data =  ''
+    res.json(success(message));
 });
 
 app.get('/getToken', (req, res) => {
@@ -111,4 +118,4 @@ app.use(({res}) => {
 
 
 //On démarre l'api sur le port 3000 en affichant un message
-app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port}`));
+app.listen(port, () => console.log(`Notre application est démarré sur http://localhost:${port} ${message}`));

@@ -13,10 +13,11 @@ module.exports = {
         type: Sequelize.STRING(64)
       },
       correction_image: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(64)
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(128),
+        allowNull: false
       },
       id_user: {
         type: Sequelize.INTEGER.UNSIGNED,
