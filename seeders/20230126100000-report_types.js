@@ -7,6 +7,12 @@ module.exports = {
       {
         report_name: 'Grève',
       },
+      {
+        report_name: 'Blocus',
+      },
+      {
+        report_name: 'Manifestation Retraite 64ans',
+      },
     ], {}
     );
   },

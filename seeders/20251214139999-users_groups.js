@@ -8,6 +8,14 @@ module.exports = {
             id_group: 1,
             id_user: 1
           },
+          {
+            id_group: 2,
+            id_user: 2
+          },
+          {
+            id_group: 3,
+            id_user: 3
+          },
         ], {}
         );
   },

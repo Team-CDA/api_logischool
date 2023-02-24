@@ -8,6 +8,14 @@ module.exports = {
         id_class: 1,
         id_user: 1
       },
+      {
+        id_class: 2,
+        id_user: 2
+      },
+      {
+        id_class: 3,
+        id_user: 3
+      },
     ], {}
     );
   },
