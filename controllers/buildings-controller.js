@@ -66,7 +66,6 @@ const getByEstablishment = async (req, res) => {
 
 const updateOneById = (req, res) => {
 
-    console.log(req.body)
     let isUpdatePossible = true
     buildingsTable.findAll({
         where: {
