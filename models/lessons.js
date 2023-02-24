@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id",
         as: "subjects",
       });
+      this.hasOne(models.rooms, {
+        foreignKey: "id",
+        as: "rooms",
+        });
     }
   }
   lessons.init(

@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       rooms.belongsTo(models.room_types, {
         as : 'room_types',
         foreignKey: 'id_room_type'
+      }),
+      rooms.hasMany(models.lessons, {
+        as : 'lessons',
+        foreignKey: 'id_room'
       })
     }
   }
