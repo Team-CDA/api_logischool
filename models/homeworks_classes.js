@@ -24,9 +24,13 @@ module.exports = (sequelize, DataTypes) => {
   homeworks_classes.init({
     id_class: DataTypes.INTEGER,
     id_homework: DataTypes.INTEGER,
-    plannified_date: DataTypes.DATE
+    plannified_date: DataTypes.DATE,
+    correction_date: DataTypes.DATE
   }, {
     sequelize,
+    defaultScope: {
+      attributes: { exclude: ['createdAt', 'updatedAt'] }
+    },
     modelName: 'homeworks_classes',
   });
   return homeworks_classes;

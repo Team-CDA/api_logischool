@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     correction_image: DataTypes.STRING,
     name: DataTypes.STRING,
     id_user: DataTypes.INTEGER,
-    id_subjects: DataTypes.INTEGER,
+    id_subject: DataTypes.INTEGER,
     id_class: DataTypes.INTEGER
   }, {
     sequelize,

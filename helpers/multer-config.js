@@ -3,7 +3,8 @@ const multer = require('multer');
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
-  'image/png': 'png'
+  'image/png': 'png',
+  'application/pdf': 'pdf'
 };
 
 const storage = multer.diskStorage({
@@ -17,4 +18,9 @@ const storage = multer.diskStorage({
   }
 });
 
-module.exports = multer({storage: storage}).array('images', 2);
+// module.exports = multer({storage: storage}).array('images', 2);
+module.exports = multer({storage: storage}).fields([{
+    name: 'exercice', maxCount: 1
+  }, {
+    name: 'correction', maxCount: 1
+  }])
