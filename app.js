@@ -98,14 +98,14 @@ app.get('/', (req, res) => {
     res.json(success(message));
 });
 
-app.get('/getToken', (req, res) => {
-    const payload = {id: 1, email: 'pif@fmail.com'};
-    const secret = process.env.JWT_SECRET;
-    const options = { expiresIn: '2min' };
-    const token = jwt.sign(payload, secret, options);
-    console.log(token);
-    res.status(200).json({message: 'Token generated', token: token});
-});
+// app.get('/getToken', (req, res) => {
+//     const payload = {id: 1, email: 'pif@fmail.com'};
+//     const secret = process.env.JWT_SECRET;
+//     const options = { expiresIn: '2min' };
+//     const token = jwt.sign(payload, secret, options);
+//     console.log(token);
+//     res.status(200).json({message: 'Token generated', token: token});
+// });
 
 
 

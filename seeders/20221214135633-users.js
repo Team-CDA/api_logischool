@@ -1,8 +1,10 @@
 "use strict";
+const bcrypt = require("bcrypt");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const passwordHash = await bcrypt.hash("examplePassword", 10);
     await queryInterface.bulkInsert(
       "users",
       [
@@ -14,7 +16,8 @@ module.exports = {
           adress: "1 rue de la paix",
           city: "Paris",
           zipcode: "75000",
-          mail: "toto@gmail.com",
+          email: "toto@gmail.com",
+          password: passwordHash,
           phone: "0606060606",
           ine: "1234567891A",
           first_tutor: 1,
@@ -31,7 +34,8 @@ module.exports = {
           adress: "10 rue des bois",
           city: "Marseille",
           zipcode: "13000",
-          mail: "toto@does.pinh",
+          email: "toto@does.pinh",
+          password: passwordHash,
           phone: "0690486933",
           ine: "1234567891B",
           first_tutor: 3,
@@ -49,7 +53,8 @@ module.exports = {
           adress: "3 rue du Pont",
           city: "Lyon",
           zipcode: "69000",
-          mail: "Sergined-gameuse76@lamanu.pinh",
+          email: "Sergined-gameuse76@lamanu.pinh",
+          password: passwordHash,
           phone: "0676341346",
           ine: "1234567891C",
           first_tutor: 5,
@@ -67,7 +72,8 @@ module.exports = {
           adress: "4 chemin des pres",
           city: "Rouen",
           zipcode: "76000",
-          mail: "LeMontagnard@lamanu.pinh",
+          email: "LeMontagnard@lamanu.pinh",
+          password: passwordHash,
           phone: "0712345678",
           ine: "1234567891D",
           first_tutor: 7,
@@ -85,7 +91,8 @@ module.exports = {
           adress: "150 avenue des champs",
           city: "Bordeaux",
           zipcode: "33000",
-          mail: "SabroLaser@lamanu.pinh",
+          email: "SabroLaser@lamanu.pinh",
+          password: passwordHash,
           phone: "0789098754",
           ine: "1234567891E",
           first_tutor: 9,

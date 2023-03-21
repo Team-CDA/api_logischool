@@ -39,7 +39,7 @@ Création de la table classes :
 
 Création de la table Utilisateurs :
 
-    npx sequelize-cli model:create --name users --attributes firstname:string,lastname:string,birthdate:date,adress:string,city:string,zipcode:string,mail:string,phone:string,ine:string,first_tutor:integer,second_tutor:integer,id_establishment:integer,id_class:integer,id_gender:integer,id_role:integer,id_status:integer
+    npx sequelize-cli model:create --name users --attributes firstname:string,lastname:string,birthdate:date,adress:string,city:string,zipcode:string,email:string,phone:string,ine:string,first_tutor:integer,second_tutor:integer,id_establishment:integer,id_class:integer,id_gender:integer,id_role:integer,id_status:integer
 
 Création de la table referent_teacher :
 

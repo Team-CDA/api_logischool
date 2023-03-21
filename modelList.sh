@@ -7,7 +7,7 @@
     npx sequelize-cli model:create --name rooms --attributes name:string,id_room_type:integer,id_building:integer
     npx sequelize-cli model:create --name class_types --attributes class_type:string
     npx sequelize-cli model:create --name classes --attributes name:string,scolarity_year:integer,id_class_type:integer
-    npx sequelize-cli model:create --name users --attributes firstname:string,lastname:string,birthdate:date,adress:string,city:string,zipcode:string,mail:string,phone:string,ine:string,first_tutor:integer,second_tutor:integer,id_establishment:integer,id_class:integer,id_gender:integer,id_role:integer,id_status:integer
+    npx sequelize-cli model:create --name users --attributes firstname:string,lastname:string,birthdate:date,adress:string,city:string,zipcode:string,email:string,phone:string,ine:string,first_tutor:integer,second_tutor:integer,id_establishment:integer,id_class:integer,id_gender:integer,id_role:integer,id_status:integer
     npx sequelize-cli model:create --name referent_teachers --attributes id_class:integer,id_user:integer
     npx sequelize-cli model:create --name subjects --attributes subject_name:string
     npx sequelize-cli model:create --name homeworks --attributes correction_file:string, homework_file:string,id_user:integer,id_subject:integer,id_class:integer,name:string

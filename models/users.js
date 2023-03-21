@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const bcrypt = require("bcrypt"); // Importez bcrypt
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     static associate(models) {
@@ -35,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_status",
         as: "status",
       });
-    }
+    };
+    static async comparePassword(plainPassword, hashedPassword) {
+      return await bcrypt.compare(plainPassword, hashedPassword);
+    };
   }
   users.init(
     {
@@ -101,12 +105,21 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
       },
-      mail: {
+      email: {
         type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isEmail: true,
-          allowNull: false,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [8, 128], // Spécifiez une longueur minimale et maximale pour le mot de passe
         },
       },
       phone: {
@@ -175,6 +188,19 @@ module.exports = (sequelize, DataTypes) => {
           defaultValue: DataTypes.NOW,
         },
       },
+    },
+    {
+      hooks: {
+        // Ajout d'un hook beforeCreate pour crypter le mot de passe avant de l'enregistrer
+        beforeCreate: async (user) => {
+          if (user.password) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(user.password, salt);
+          }
+        },
+      },
+      sequelize,
+      modelName: "users",
     },
     {
       sequelize,
