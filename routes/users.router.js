@@ -20,6 +20,9 @@ const { checkUserCredentials } = userController;
  *             firstname:
  *               type: string
  *               description: Le prénom de l'utilisateur
+ *             password:
+ *               type: string
+ *               description: Le mot de passe de l'utilisateur
  *             gender:
  *               type: string
  *               description: Le genre de l'utilisateur
@@ -69,6 +72,7 @@ const { checkUserCredentials } = userController;
  *             id: 1
  *             firstname: "Jean"
  *             lastname: "Dupont"
+ *             password: "123456"
  *             gender: "M"
  *             birthdate: 2000-12-14
  *             adress: "1 rue de la paix"
@@ -229,7 +233,7 @@ router.post("/login", async (req, res) => {
     // Si les informations d'identification sont correctes, générez un token
     const payload = { id: user.id, email: user.email };
     const secret = process.env.JWT_SECRET;
-    const options = { expiresIn: "2min" };
+    const options = { expiresIn: "60min" };
     const token = jwt.sign(payload, secret, options);
 
     res.status(200).json({ message: "Token generated", token: token });

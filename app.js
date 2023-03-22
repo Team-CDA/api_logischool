@@ -86,9 +86,11 @@ app.use('/subjects', subjectsRouter);
 app.use('/events_groups', eventsGroupsRouter);
 app.use('/users_subjects', usersSubjectsRouter);
 
+
+
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
 //On définit un port par défaut
-const port = 3000;
+const port = 3001;
 const message = "🖕";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).

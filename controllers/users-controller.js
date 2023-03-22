@@ -177,22 +177,22 @@ const deleteAll = (req, res) => {
 const getallUsersClasse = (req, res) => {};
 
 const checkUserCredentials = async (email, password) => {
-    try {
-      const user = await usersTable.findOne({
-        where: {
-          email: email,
-        },
-      });
-  
-      if (user && bcrypt.compareSync(password, user.password)) {
-        return user;
-      } else {
-        return null;
-      }
-    } catch (error) {
-      throw new Error(error.message);
+  try {
+    const user = await usersTable.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (user && bcrypt.compareSync(password, user.password)) {
+      return user;
+    } else {
+      return null;
     }
-  };
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 const userController = {
   getAllUsers,
@@ -201,7 +201,7 @@ const userController = {
   updateOneById,
   deleteOneById,
   deleteAll,
-  checkUserCredentials
+  checkUserCredentials,
 };
 
 module.exports = userController;
