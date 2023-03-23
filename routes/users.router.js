@@ -239,7 +239,7 @@ router.post("/login", async (req, res) => {
     res.status(200).json({ message: "Token generated", token: token });
   } else {
     // Si les informations d'identification ne sont pas correctes, renvoyez une erreur
-    res.status(401).json({ message: "Invalid email or password" });
+    res.status(422).json({ message: "Invalid email or password" });
   }
 });
 

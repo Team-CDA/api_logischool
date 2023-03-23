@@ -37,6 +37,7 @@ const eventsGroupsRouter = require('./routes/events_groups.router');
 const usersSubjectsRouter = require('./routes/users_subjects.router');
 const swaggerUI = require('swagger-ui-express');
 const users_subjectsController = require('./controllers/users_subjects-controller');
+const cors = require('cors');
 // const fs = require('fs');
 require('dotenv').config();
 
@@ -47,6 +48,7 @@ require('dotenv').config();
 
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express();
+app.use(cors());
 
 app.use(publicMiddleware);
 
@@ -98,8 +100,8 @@ app.use('/users_subjects', usersSubjectsRouter);
 
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(getSwagger()))
-//On définit un port par défaut
-const port = 3001;
+
+const port = 3000;
 const message = "🖕";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
