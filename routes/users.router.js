@@ -2,7 +2,7 @@ const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const userController = require("../controllers/users-controller");
 const router = Router();
-const { checkUserCredentials } = userController;
+const { checkUserCredentials, getUserByMail } = userController;
 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
@@ -236,7 +236,12 @@ router.post("/login", async (req, res) => {
     const options = { expiresIn: "60min" };
     const token = jwt.sign(payload, secret, options);
 
-    res.status(200).json({ message: "Token generated", token: token });
+    const userInfo = await getUserByMail(email);
+
+    res.status(200).json({
+      token: token,
+      userInfo: userInfo
+    });
   } else {
     // Si les informations d'identification ne sont pas correctes, renvoyez une erreur
     res.status(422).json({ message: "Invalid email or password" });

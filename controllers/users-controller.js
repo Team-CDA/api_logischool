@@ -156,6 +156,25 @@ const deleteOneById = (req, res) => {
   });
 };
 
+const getUserByMail = async (email) => {
+  try {
+    const user = await usersTable.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+
 const deleteAll = (req, res) => {
   rolesTable
     .destroy({
@@ -171,7 +190,7 @@ const deleteAll = (req, res) => {
         message,
         error,
       });
-    });
+    }); 
 };
 
 const getallUsersClasse = (req, res) => {};
@@ -202,6 +221,7 @@ const userController = {
   deleteOneById,
   deleteAll,
   checkUserCredentials,
+  getUserByMail
 };
 
 module.exports = userController;
