@@ -165,7 +165,11 @@ const getUserByMail = async (email) => {
     });
 
     if (user) {
-      return user;
+      return {
+        "id": user.id,
+        "email": user.email,
+        "role": user.id_role,
+      };
     } else {
       return null;
     }
