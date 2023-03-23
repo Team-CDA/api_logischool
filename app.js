@@ -1,4 +1,12 @@
-// const checkAuth = require('./helpers/jwt');
+const checkAuth = require('./helpers/jwt');
+const publicRoutes = ['/doc', '/users/login'];
+const publicMiddleware = (req, res, next) => {
+    if (publicRoutes.includes(req.path)) {
+      return next();
+    }
+    checkAuth(req, res, next);
+  };
+  
 const express = require('express');
 const morgan = require('morgan');
 const {success,getSwagger} = require('./helper');
@@ -28,7 +36,6 @@ const buildingsRouter = require('./routes/buildings.router');
 const eventsGroupsRouter = require('./routes/events_groups.router');
 const usersSubjectsRouter = require('./routes/users_subjects.router');
 const swaggerUI = require('swagger-ui-express');
-const jwt = require('jsonwebtoken');
 const users_subjectsController = require('./controllers/users_subjects-controller');
 // const fs = require('fs');
 require('dotenv').config();
@@ -40,6 +47,8 @@ require('dotenv').config();
 
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express();
+
+app.use(publicMiddleware);
 
 app.get('/');
 app.use(express.json());
