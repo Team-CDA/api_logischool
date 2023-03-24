@@ -169,6 +169,8 @@ const getUserByMail = async (email) => {
         "id": user.id,
         "email": user.email,
         "role": user.id_role,
+        "firstname": user.firstname,
+        "lastname": user.lastname
       };
     } else {
       return null;
