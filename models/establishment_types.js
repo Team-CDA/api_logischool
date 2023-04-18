@@ -3,23 +3,16 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class establishments extends Model {
+  class establishment_types extends Model {
+  
     static associate(models) {
-      establishments.belongsTo(models.establishment_types, {
-        as: 'establishmentType',
-        foreignKey: 'id'
-      });
-      establishments.hasMany(models.users, {
-        as: 'users',
-        foreignKey: 'id_establishment'
-      });
-      establishments.hasMany(models.buildings, {
-        as: 'buildings',
-        foreignKey: 'id_establishment'
+      establishment_types.hasMany(models.establishments, {
+        as: 'establishments',
+        foreignKey: 'id_establishment_type'
       });
     }
   }
-  establishments.init({
+  establishment_types.init({
     id: {
       allowNull: false,
       type: DataTypes.INTEGER.UNSIGNED,
@@ -39,14 +32,6 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    id_establishment_type: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      validate: {
-        notEmpty: true,
-        isNumeric: true,
-        allowNull: false,
-      },
-    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
@@ -59,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'establishments',
+    modelName: 'establishment_types',
   });
-  return establishments;
+  return establishment_types;
 };
