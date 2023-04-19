@@ -59,6 +59,11 @@ const etablishmentController = require ("../controllers/establishments-controlle
  */
 router.get('/', etablishmentController.getAll)
 
+router.get('/all', etablishmentController.getAllWithBuildingsAndRooms)
+
+router.get('/one/:id', etablishmentController.getOneWithBuildingsAndRoomsById)
+
+
 /** 
  * @swagger
  * 

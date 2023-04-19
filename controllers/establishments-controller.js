@@ -4,6 +4,7 @@ const { ValidationError } = require("sequelize");
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classes
 const establishmentsTable = db["establishments"];
 const buildingsTable = db["buildings"];
+const roomsTable = db["rooms"];
 // const usersTable = db['users'];
 
 //On déclare toutes les méthodes
@@ -44,6 +45,82 @@ const getAll = (req, res) => {
       });
     });
 };
+
+const getAllWithBuildingsAndRooms = (req, res) => {
+  establishmentsTable
+    .findAll({
+      include: [
+        {
+          model: buildingsTable,
+          as: "buildings",
+          include: [
+            {
+              model: roomsTable,
+              as: "rooms",
+            },
+          ],
+        },
+      ],
+    })
+    .then((result) => {
+      if (result.length === 0) {
+        //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
+        res.json({
+          Message: "Aucun établissement présent en base de données.",
+        });
+      } else {
+        // Sinon, on renvoie le résultat de notre requête
+        res.json(result, 200);
+      }
+    })
+    //en cas d'erreur, on passe dans le catch
+    .catch((error) => {
+      //On définit un status d'erreur et un message a renvoyer
+      const message =
+        "La liste des établissements n'a pas pu être récupérée. Réessayez dans quelques instants.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
+
+const getOneWithBuildingsAndRoomsById = (req, res) => {
+  establishmentsTable
+    .findByPk(req.params.id, {
+      include: [
+        {
+          model: buildingsTable,
+          as: "buildings",
+          include: [
+            {
+              model: roomsTable,
+              as: "rooms",
+            },
+          ],
+        },
+      ],
+    })
+    .then((classe) => {
+      if (!classe) {
+        return res
+          .status(404)
+          .json({ message: "Aucun établissements n'a été trouvé" });
+      }
+      res.status(200).json(classe);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération de l'établissements.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
+
+
+
 
 const getOneById = (req, res) => {
   establishmentsTable
@@ -172,30 +249,44 @@ const deleteAll = (req, res) => {
 };
 
 const createEstablishment = async (req, res) => {
-    const { establishment, buildings } = req.body;
-  
-    try {
-      const newEstablishment = await establishmentsTable.create({
-        name: establishment.name,
-        id_establishment_type: establishment.establishment_type_id,
-      });
-  
-      const newBuildings = await Promise.all(
-        buildings.map((building) => {
-          return buildingsTable.create({
-            name: building.name,
-            id_establishment: newEstablishment.id,
-          });
-        })
-      );
-  
-      res.status(201).json({ newEstablishment, newBuildings });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Erreur lors de la création des données", error, details: error.errors });
-    }
-  };
+  const { establishment, buildings } = req.body;
+
+  try {
+    const newEstablishment = await establishmentsTable.create({
+      name: establishment.name,
+      id_establishment_type: establishment.establishment_type_id,
+    });
+
+    const newBuildings = await Promise.all(
+      buildings.map(async (building) => {
+        const newBuilding = await buildingsTable.create({
+          name: building.name,
+          id_establishment: newEstablishment.id,
+        });
+
+        const newClassrooms = await Promise.all(
+          building.classrooms.map(async (classroom) => {
+            return roomsTable.create({
+              name: classroom.name,
+              id_room_type: classroom.room_type_id,
+              id_building: newBuilding.id,
+            });
+          })
+        );
+
+        // Ajoutez les salles de classe au nouvel objet bâtiment
+        return { ...newBuilding.toJSON(), classrooms: newClassrooms };
+      })
+    );
+
+    res.status(201).json({ newEstablishment, newBuildings });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Erreur lors de la création des données", error, details: error.errors });
+  }
+};
+
   
   
 
@@ -208,6 +299,8 @@ const classeController = {
   getOneById,
   deleteAll,
   createEstablishment,
+  getAllWithBuildingsAndRooms,
+  getOneWithBuildingsAndRoomsById
 };
 
 module.exports = classeController;
