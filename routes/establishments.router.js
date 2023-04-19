@@ -158,4 +158,27 @@ router.delete('/delete/:id', etablishmentController.deleteOneById)
  */
 router.delete('/deleteAll', etablishmentController.deleteAll)
 
+
+/**
+ * @swagger
+ * 
+ * /establishments/createEstablishment:
+ *    post:
+ *      tags: [establishments]
+ *      summary: Allow you to create a new etablishment
+ *      description: When you create a new etablishment, you have to give the name of the etablishment.
+ *      requestBody:
+ *          required: true
+ *      content:
+ *          application/json:
+ *      schema:
+ *          $ref: '#/components/schemas/Etablishment'
+ *      responses:
+ *          200:
+ *      description: Etablishment successfully created
+ * 
+ * 
+ */
+router.post('/createEstablishment', etablishmentController.createEstablishment);
+
 module.exports = router

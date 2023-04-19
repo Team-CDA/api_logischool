@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       establishments.belongsTo(models.establishment_types, {
         as: 'establishmentType',
-        foreignKey: 'id'
+        foreignKey: 'id_establishment_type'
       });
       establishments.hasMany(models.users, {
         as: 'users',
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
-        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        is: ["^[a-zA-Z0-9À-ÿ ]+$"],
         max: 128,
         notEmpty: true,
         notNull: {
@@ -41,12 +41,17 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_establishment_type: {
       type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
       validate: {
-        notEmpty: true,
-        isNumeric: true,
-        allowNull: false,
+        notEmpty: {
+          msg: "Establishment type is required",
+        },
+        isNumeric: {
+          msg: "Establishment type must be a number",
+        },
       },
     },
+    
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
