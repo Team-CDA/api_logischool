@@ -1,5 +1,5 @@
 const checkAuth = require('./helpers/jwt');
-const publicRoutes = ['/doc', '/users/login'];
+const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types'];
 const publicMiddleware = (req, res, next) => {
     if (publicRoutes.includes(req.path)) {
       return next();
@@ -11,6 +11,8 @@ const express = require('express');
 const morgan = require('morgan');
 const {success,getSwagger} = require('./helper');
 const usersRouter  = require('./routes/users.router');
+const establishmentsRouter  = require('./routes/establishments.router');
+const establishmentTypesRouter  = require('./routes/establishment_types.router');
 const usersGroup = require('./routes/users_groups.router');
 const statusesRouter  = require('./routes/statuses.router');
 const groupsRouter  = require('./routes/groups.router');
@@ -56,6 +58,9 @@ app.get('/');
 app.use(express.json());
 app.use(morgan('dev'));
 // app.use(morgan('combined', { stream: logStream }));
+
+app.use('/establishments', establishmentsRouter);
+app.use('/establishment_types', establishmentTypesRouter);
 
 app.use('/users', usersRouter);
 app.use('/users_groups', usersGroup);

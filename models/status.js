@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'Status is required'
         },
         is: {
-          args: ["^[a-zA-Z0-9À-ÿ]+$"],
+          args: ["^[a-zA-Z0-9À-ÿ ]+$"],
           msg: 'Status must be alphanumeric'
         },
         max: {

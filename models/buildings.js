@@ -2,11 +2,6 @@
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class buildings extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
       // define association here
       this.hasMany(models.rooms, { 
@@ -35,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         unique: true,
         validate: {
-          is: ["^[a-zA-Z0-9À-ÿ]+$"],
+          is: ["^[a-zA-Z0-9À-ÿ ]+$"],
           max: 128,
           notNull: {
             msg: "Name is required",

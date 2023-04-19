@@ -3,40 +3,34 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class groups extends Model {
+  class establishment_types extends Model {
+  
     static associate(models) {
-      // Define association with alerts_groups table
-      this.hasMany(models.alerts_groups, {
-        as: 'alerts_groups',
-        foreignKey: 'id_group'
-      });
-
-      // Define association with events_groups table
-      this.belongsToMany(models.events, {
-        through: 'events_groups', // Specify the intermediate table name here
-        as: 'events',
-        foreignKey: 'id_group'
+      establishment_types.hasMany(models.establishments, {
+        as: 'establishments',
+        foreignKey: 'id_establishment_type'
       });
     }
   }
-  groups.init({
+  establishment_types.init({
     id: {
       allowNull: false,
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
       autoIncrement: true
     },
-    group_name: {
+    name: {
       type: DataTypes.STRING(128),
-      allowNull: false,
       unique: true,
+      allowNull: false,
       validate: {
         is: ["^[a-zA-Z0-9À-ÿ ]+$"],
         max: 128,
+        notEmpty: true,
         notNull: {
-          msg: 'Group name is required'
+          msg: 'Name is required'
         },
-      }
+      },
     },
     createdAt: {
       allowNull: false,
@@ -50,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'groups',
+    modelName: 'establishment_types',
   });
-  return groups;
+  return establishment_types;
 };
