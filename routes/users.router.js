@@ -140,6 +140,29 @@ router.get("/:id", userController.getOneById);
 /**
  * @swagger
  *
+ * /users/{id}:
+ *    get:
+ *      tags: [Users]
+ *      summary: Récupère un utilisateurs par l'id de son tuteur
+ *      description: Récupère un utilisateurs par l'id de son tuteur
+ *      responses:
+ *         200:
+ *            description: Success
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Users'
+ *         404:
+ *            description: the table was not found
+ *
+ */
+router.get("/parent/:id", userController.getByParent);
+
+/**
+ * @swagger
+ *
  * /users/create:
  *    post:
  *      tags: [Users]
@@ -233,14 +256,14 @@ router.post("/login", async (req, res) => {
     // Si les informations d'identification sont correctes, générez un token
     const payload = { id: user.id, email: user.email };
     const secret = process.env.JWT_SECRET;
-    const options = { expiresIn: "60min" };
+    const options = { expiresIn: "1440min" };
     const token = jwt.sign(payload, secret, options);
 
     const userInfo = await getUserByMail(email);
 
     res.status(200).json({
       token: token,
-      userInfo: userInfo
+      userInfo: userInfo,
     });
   } else {
     // Si les informations d'identification ne sont pas correctes, renvoyez une erreur
