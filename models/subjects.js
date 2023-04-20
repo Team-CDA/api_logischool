@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(128),
       allowNull: false,
       validate: {
-        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        is: ["^[a-zA-Z0-9À-ÿ ]+$"],
         max: 128,
         notEmpty: true,
       }

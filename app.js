@@ -1,7 +1,37 @@
 const checkAuth = require("./helpers/jwt");
-const publicRoutes = ["/doc", "/users/login"];
+const publicRoutes = [
+  "/",
+  "/users/login",
+  "/classes",
+  "/users",
+  "/buildings",
+  "/establishments",
+  "/establishment_types",
+  "/events",
+  "/groups",
+  "/lessons",
+  "/rooms",
+  "/subjects",
+  "/users_groups",
+  "/users_classes",
+  "/roles",
+  "/statuses",
+  "/report_types",
+  "/reports",
+  "/alert_types",
+  "/alerts",
+  "/alerts_groups",
+  "/class_types",
+  "/event_types",
+  "/timeslots",
+  "/referent_teachers",
+  "/room_types",
+  "/establishments/all",
+  "/establishments/one",
+  "/establishments/updateEstablishment",
+];
 const publicMiddleware = (req, res, next) => {
-  if (publicRoutes.includes(req.path)) {
+  if (publicRoutes.some((route) => req.path.startsWith(route))) {
     return next();
   }
   checkAuth(req, res, next);
@@ -11,6 +41,8 @@ const express = require("express");
 const morgan = require("morgan");
 const { success, getSwagger } = require("./helper");
 const usersRouter = require("./routes/users.router");
+const establishmentsRouter = require("./routes/establishments.router");
+const establishmentTypesRouter = require("./routes/establishment_types.router");
 const usersGroup = require("./routes/users_groups.router");
 const statusesRouter = require("./routes/statuses.router");
 const groupsRouter = require("./routes/groups.router");
@@ -55,6 +87,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
 
+app.use("/establishment_types", establishmentTypesRouter);
+
 app.use("/users", usersRouter);
 app.use("/users_groups", usersGroup);
 
@@ -95,10 +129,14 @@ app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 
+// app.use('/establishments', establishmentsRouter)
+
+app.use("/establishments", establishmentsRouter);
+
 app.use("/doc", swaggerUI.serve, swaggerUI.setup(getSwagger()));
 
 const port = 3000;
-const message = "🖕";
+const message = "❤️";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message

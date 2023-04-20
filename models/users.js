@@ -59,58 +59,58 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstname: {
         type: DataTypes.STRING(64),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlpha: true,
-          allowNull: false,
         },
       },
       lastname: {
         type: DataTypes.STRING(64),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlpha: true,
-          allowNull: false,
         },
       },
       birthdate: {
         type: DataTypes.DATE,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isDate: true,
-          allowNull: false,
         },
       },
       gender: {
         type: DataTypes.ENUM("M", "F"),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlpha: true,
-          allowNull: false,
         },
       },
       adress: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlphanumeric: true,
-          allowNull: false,
         },
       },
       city: {
         type: DataTypes.STRING(128),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlpha: true,
-          allowNull: false,
         },
       },
       zipcode: {
         type: DataTypes.CHAR(5),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       email: {
@@ -132,58 +132,58 @@ module.exports = (sequelize, DataTypes) => {
       },
       phone: {
         type: DataTypes.CHAR(10),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       ine: {
         type: DataTypes.CHAR(11),
+        allowNull: false,
         validate: {
           notEmpty: true,
           isAlphanumeric: true,
-          allowNull: false,
         },
       },
       first_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       second_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       id_establishment: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       id_role: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
       },
       id_status: {
         type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
         validate: {
           notEmpty: true,
           isNumeric: true,
-          allowNull: false,
         },
         createdAt: {
           type: DataTypes.DATE,

@@ -4,13 +4,11 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class establishments extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      establishments.belongsTo(models.establishment_types, {
+        as: 'establishmentType',
+        foreignKey: 'id_establishment_type'
+      });
       establishments.hasMany(models.users, {
         as: 'users',
         foreignKey: 'id_establishment'
@@ -33,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
-        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        is: ["^[a-zA-Z0-9À-ÿ ]+$"],
         max: 128,
         notEmpty: true,
         notNull: {
@@ -41,6 +39,19 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
+    id_establishment_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: "Establishment type is required",
+        },
+        isNumeric: {
+          msg: "Establishment type must be a number",
+        },
+      },
+    },
+    
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
