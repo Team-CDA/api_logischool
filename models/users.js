@@ -85,8 +85,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          notEmpty: true,
-          isAlphanumeric: true,
+          is: ["^[a-zA-Z0-9À-ÿ ]+$"]
         },
       },
       city: {
@@ -140,25 +139,25 @@ module.exports = (sequelize, DataTypes) => {
       },
       first_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
           isNumeric: true,
         },
       },
       second_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
           isNumeric: true,
         },
       },
       id_establishment: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
           isNumeric: true,
         },
       },
@@ -172,9 +171,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       id_status: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
           isNumeric: true,
         },
         createdAt: {
