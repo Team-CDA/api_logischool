@@ -3,8 +3,10 @@ const db = require("../models/index");
 const { ValidationError } = require("sequelize");
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classes
 const establishmentsTable = db["establishments"];
+const establishmentTypesTable = db["establishment_types"];
 const buildingsTable = db["buildings"];
 const roomsTable = db["rooms"];
+const roomTypes = db["room_types"];
 // const usersTable = db['users'];
 
 //On déclare toutes les méthodes
