@@ -29,6 +29,7 @@ const publicRoutes = [
   "/establishments/all",
   "/establishments/one",
   "/establishments/updateEstablishment",
+  "/establishments/one/:id",
 ];
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {

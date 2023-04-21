@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_building' 
       });
       this.belongsTo(models.room_types, {
-        as: "room_types",
+        as: "roomType",
         foreignKey: "id_room_type",
       });
       this.hasMany(models.lessons, {
