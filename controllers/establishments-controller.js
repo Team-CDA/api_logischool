@@ -53,12 +53,22 @@ const getAllWithBuildingsAndRooms = (req, res) => {
     .findAll({
       include: [
         {
+          model: establishmentTypesTable,
+          as: "establishmentType",
+        },
+        {
           model: buildingsTable,
           as: "buildings",
           include: [
             {
               model: roomsTable,
               as: "rooms",
+              include: [
+                {
+                  model: roomTypes,
+                  as: "roomType",
+                },
+              ],
             },
           ],
         },

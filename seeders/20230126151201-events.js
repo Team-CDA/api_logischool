@@ -5,7 +5,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('events', [
       {
-        message: 'Un élève s\'est enfui de l\'établissement, il est noir, il porte un pull bleu et il a les cheveux courts très roux et un tatouage représentant un chat sur le bras gauche.',
+        message: 'Un élève s\'est enfui de l\'établissement, il porte un pull bleu et il a les cheveux courts et un tatouage représentant un chat sur le bras gauche.',
         id_event_type: 3
       },
       {
