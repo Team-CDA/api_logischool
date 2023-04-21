@@ -1,6 +1,6 @@
 //On importe db qui contient tous nos modèles.
 const db = require("../models/index");
-const { ValidationError } = require("sequelize");
+const { ValidationError, Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const usersTable = db["users"];
 const classesTable = db["classes"];
@@ -15,6 +15,7 @@ const getAllUsers = (req, res) => {
         {
           model: classesTable,
           as: "classes",
+          through: "users_classes",
           // attributes: ['id', 'name'],
         },
         {
@@ -26,6 +27,14 @@ const getAllUsers = (req, res) => {
           model: establishmentsTable,
           as: "establishments",
           // attributes: ['id', 'name'],
+        },
+        {
+          model: usersTable,
+          as: "tutor",
+        },
+        {
+          model: usersTable,
+          as: "tutor2",
         },
       ],
     })
@@ -55,6 +64,34 @@ const getAllUsers = (req, res) => {
 const getOneById = (req, res) => {
   usersTable
     .findByPk(req.params.id)
+    .then((users) => {
+      if (!users) {
+        return res
+          .status(404)
+          .json({ message: "Aucun utilisateur n'a été trouvé" });
+      }
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
+      res.status(500).json({
+        message,
+        data: error.message,
+      });
+    });
+};
+
+const getByParent = (req, res) => {
+  usersTable
+    .findAll({
+      where: {
+        [Op.or]: [
+          { first_tutor: req.params.id },
+          { second_tutor: req.params.id },
+        ],
+      },
+    })
     .then((users) => {
       if (!users) {
         return res
@@ -166,11 +203,11 @@ const getUserByMail = async (email) => {
 
     if (user) {
       return {
-        "id": user.id,
-        "email": user.email,
-        "role": user.id_role,
-        "firstname": user.firstname,
-        "lastname": user.lastname
+        id: user.id,
+        email: user.email,
+        role: user.id_role,
+        firstname: user.firstname,
+        lastname: user.lastname,
       };
     } else {
       return null;
@@ -179,7 +216,6 @@ const getUserByMail = async (email) => {
     throw new Error(error.message);
   }
 };
-
 
 const deleteAll = (req, res) => {
   rolesTable
@@ -196,7 +232,7 @@ const deleteAll = (req, res) => {
         message,
         error,
       });
-    }); 
+    });
 };
 
 const getallUsersClasse = (req, res) => {};
@@ -227,7 +263,8 @@ const userController = {
   deleteOneById,
   deleteAll,
   checkUserCredentials,
-  getUserByMail
+  getUserByMail,
+  getByParent,
 };
 
 module.exports = userController;
