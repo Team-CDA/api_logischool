@@ -1,3 +1,4 @@
+const { QueryTypes } = require('sequelize');
 //On importe db qui contient tous nos modèles.
 const db = require("../models/index");
 const { ValidationError } = require("sequelize");
@@ -181,38 +182,82 @@ const createOne = (req, res) => {
     });
 };
 
-const updateOneById = (req, res) => {
-  establishmentsTable.findByPk(req.params.id).then((classe) => {
-    if (!classe) {
-      return res.status(404).json({ message: "Aucune classe n'a été trouvé" });
-    }
+const updateOneById = async (req, res) => {
+  const { establishment, buildings } = req.body;
 
-    establishmentsTable
-      .update(req.body, {
+  try {
+    // Mise à jour de l'établissement
+    await establishmentsTable.update(
+      {
+        name: establishment.name,
+        id_establishment_type: establishment.establishment_type_id,
+      },
+      {
         where: {
           id: req.params.id,
         },
-        returning: true,
-      })
-      .then((result) => {
-        const message = "Classe correctement mise à jour.";
-        res.status(201).json({
-          message,
+      }
+    );
+
+    // Mise à jour des bâtiments et des salles
+    for (const building of buildings) {
+      let currentBuilding;
+      if (building.id) {
+        await buildingsTable.update(
+          {
+            name: building.name,
+          },
+          {
+            where: {
+              id: building.id,
+            },
+          }
+        );
+        currentBuilding = await buildingsTable.findByPk(building.id);
+      } else {
+        currentBuilding = await buildingsTable.create({
+          name: building.name,
+          id_establishment: req.params.id,
         });
-      })
-      .catch((error) => {
-        const message = "Une erreur a eu lieu lors de la modification.";
-        if (error instanceof ValidationError) {
-          res.status(400).send(error.errors[0].message);
+      }
+
+      // Mise à jour des salles
+      for (const room of building.classrooms) {
+        if (room.id) {
+          await roomsTable.update(
+            {
+              name: room.name,
+              id_room_type: room.room_type_id,
+            },
+            {
+              where: {
+                id: room.id,
+              },
+            }
+          );
         } else {
-          res.status(500).json({
-            message,
-            error,
+          await roomsTable.create({
+            name: room.name,
+            id_room_type: room.room_type_id,
+            id_building: currentBuilding.id,
           });
         }
-      });
-  });
+      }
+    }
+
+    res.status(200).json({ message: "Établissement mis à jour avec succès" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour de l'établissement",
+      error,
+      details: error.errors || [{ message: error.message }],
+    });
+  }
 };
+
+
+
+
 
 const deleteOneById = (req, res) => {
   establishmentsTable.findByPk(req.params.id).then((classe) => {
@@ -286,7 +331,7 @@ const createEstablishment = async (req, res) => {
           })
         );
 
-        // Ajoutez les salles de classe au nouvel objet bâtiment
+        // Ajout des salles de classe au nouvel objet bâtiment
         return { ...newBuilding.toJSON(), classrooms: newClassrooms };
       })
     );
