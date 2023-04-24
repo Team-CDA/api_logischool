@@ -39,11 +39,6 @@ module.exports = {
       }
     },
     {
-      uniqueKeys: {
-        actions_unique: {
-          fields: ['id_building', 'name']
-        }
-      },
       charset: 'utf8',
       collate: 'utf8_unicode_ci'
     });
