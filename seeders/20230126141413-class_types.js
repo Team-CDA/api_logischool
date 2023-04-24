@@ -4,18 +4,18 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('class_types', [
-      {class_type: 'CP'},
-      {class_type: 'CE1'},
-      {class_type: 'CE2'},
-      {class_type: 'CM1'},
-      {class_type: 'CM2'},
-      {class_type: '6ème'},
-      {class_type: '5ème'},
-      {class_type: '4ème'},
-      {class_type: '3ème'},
-      {class_type: '2nde'},
-      {class_type: '1ère'},
-      {class_type: 'Tle'},
+      {class_type: 'CP', id_establishment_type: 1},
+      {class_type: 'CE1', id_establishment_type: 1},
+      {class_type: 'CE2', id_establishment_type: 1},
+      {class_type: 'CM1', id_establishment_type: 1},
+      {class_type: 'CM2', id_establishment_type: 1},
+      {class_type: '6ème', id_establishment_type: 1},
+      {class_type: '5ème', id_establishment_type: 1},
+      {class_type: '4ème', id_establishment_type: 1},
+      {class_type: '3ème', id_establishment_type: 1},
+      {class_type: '2nde', id_establishment_type: 1},
+      {class_type: '1ère', id_establishment_type: 1},
+      {class_type: 'Tle', id_establishment_type: 1},
     ], {}
     );
   },
