@@ -132,66 +132,146 @@ const deleteOneById = (req, res) => {
     })
 } 
 
-const create = (req, res) => {
+// const create = (req, res) => {
 
-        let body = JSON.parse(req.body.body)
-        homeworksTable.create({name: body.name, id_user: body.id_user, id_subject: body.id_subject})
-        .then(homework => {
+//         let body = JSON.parse(req.body.body)
+//         homeworksTable.create({name: body.name, id_user: body.id_user, id_subject: body.id_subject})
+//         .then(homework => {
         
-            let exerciceName = ''
-            let correctionName = ''
-            if (req.files.exercice.length != 0){
-                const img = req.files.exercice[0].path
-                exerciceName = 'exercice-' + homework.id + '.'+MIME_TYPES[req.files.exercice[0].mimetype]
-                fs.renameSync(img, 'images/' + exerciceName);
-            } 
+//             let exerciceName = ''
+//             let correctionName = ''
+//             if (req.files.exercice.length != 0){
+//                 const img = req.files.exercice[0].path
+//                 exerciceName = 'exercice-' + homework.id + '.'+MIME_TYPES[req.files.exercice[0].mimetype]
+//                 fs.renameSync(img, 'images/' + exerciceName);
+//             } 
 
-            if (req.files.correction.length != 0){
-                const img = req.files.correction[0].path
-                correctionName = 'correction-' + homework.id + '.'+MIME_TYPES[req.files.correction[0].mimetype]
-                fs.renameSync(img, 'images/' + correctionName);
-            }
+//             if (req.files.correction.length != 0){
+//                 const img = req.files.correction[0].path
+//                 correctionName = 'correction-' + homework.id + '.'+MIME_TYPES[req.files.correction[0].mimetype]
+//                 fs.renameSync(img, 'images/' + correctionName);
+//             }
 
-            homeworksTable.update(
-                {
-                    homework_image: exerciceName,
-                    correction_image: correctionName
-                }, {
-                    where : {id: homework.id}
-                }
-            )
-            const message = "Un homework est ajouté à la base de données."
+//             homeworksTable.update(
+//                 {
+//                     homework_image: exerciceName,
+//                     correction_image: correctionName
+//                 }, {
+//                     where : {id: homework.id}
+//                 }
+//             )
+//             const message = "Un homework est ajouté à la base de données."
 
-            res.status(201).json({
-                message,
-                data: homework
-            })
-        })
+//             res.status(201).json({
+//                 message,
+//                 data: homework
+//             })
+//         })
 
-        .catch(error => {
-            const message = "Une erreur a eu lieu lors de l'insertion du homework en base de donnée."
-            if (error instanceof ValidationError) {
-                if (req.files.exercice) {
-                    fs.unlinkSync(req.files.exercice[0].path)
-                }
-                if (req.files.correction){
-                    fs.unlinkSync(req.files.correction[0].path)
-                }
-                res.status(400).send(error.errors[0].message)
-            } else {
-                if (req.files.exercice) {
-                    fs.unlinkSync(req.files.exercice[0].path)
-                }
-                if (req.files.correction){
-                    fs.unlinkSync(req.files.correction[0].path)
-                }
-                res.status(500).json({
-                    message,
-                    error
-                })
-            }
-        })
+//         .catch(error => {
+//             const message = "Une erreur a eu lieu lors de l'insertion du homework en base de donnée."
+//             if (error instanceof ValidationError) {
+//                 if (req.files.exercice) {
+//                     fs.unlinkSync(req.files.exercice[0].path)
+//                 }
+//                 if (req.files.correction){
+//                     fs.unlinkSync(req.files.correction[0].path)
+//                 }
+//                 res.status(400).send(error.errors[0].message)
+//             } else {
+//                 if (req.files.exercice) {
+//                     fs.unlinkSync(req.files.exercice[0].path)
+//                 }
+//                 if (req.files.correction){
+//                     fs.unlinkSync(req.files.correction[0].path)
+//                 }
+//                 res.status(500).json({
+//                     message,
+//                     error
+//                 })
+//             }
+//         })
+//     }
+
+const create = (req, res) => {
+    let body = req.body;
+    console.log(body.category);
+
+    let fileKey = "";
+
+    if (req.file) {
+        const category = body.category;
+        console.log(category);
+        if (category === "homework_image") {
+            const fileData = {
+                id_user: body.id_user,
+                id_subject: body.id_subject,
+                id_class: body.id_class,
+                name: "x",
+                homework_image: body.name
+            };
+        } else if (category === "correction_image") {
+            const fileData = {
+                id_user: body.id_user,
+                id_subject: body.id_subject,
+                id_class: body.id_class,
+                name: "x",
+                correction_image: body.name
+            };
+        } else { 
+            const fileData = {
+                id_user: body.id_user,
+                id_subject: body.id_subject,
+                id_class: body.id_class,
+                name: "x",
+                course_image: body.name
+            };
+        }
+    }   
+
+    const fileData = {
+        id_user: body.id_user,
+        id_subject: body.id_subject,
+        id_class: body.id_class,
+        name: "lol",
+        homework_image: body.name
+    };
+    console.log(fileData);
+
+    if (fileKey) {
+        fileData[fileKey] = fileName;
     }
+
+    homeworksTable.create(fileData)
+        .then(homework => {
+            const message = "Un homework est ajouté à la base de données.";
+
+        res.status(201).json({
+            message,
+            data: homework
+        })
+    })
+    .catch(error => {
+        const message = "Une erreur a eu lieu lors de l'insertion du homework en base de donnée.";
+        if (error instanceof ValidationError) {
+            if (req.file) {
+                fs.unlinkSync(req.file.path)
+            }
+            res.status(400).send(error.errors[0].message)
+        } else {
+            if (req.file) {
+            fs.unlinkSync(req.file.path)
+            }
+            res.status(500).json({
+            message,
+            error
+            })
+        }
+    })
+}
+
+
+
 
 
 
