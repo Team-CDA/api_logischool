@@ -27,7 +27,12 @@ module.exports = {
             updatedAt: new Date()
         },
         {
-            subject_name: "Science",
+            subject_name: "Biologie",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "Géographie",
             createdAt: new Date(),
             updatedAt: new Date()  
         },
