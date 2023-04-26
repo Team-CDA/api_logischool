@@ -4,6 +4,7 @@ const homeworksTable = db['homeworks'];
 const homeworksClassesTable = db['homeworks_classes']
 const { Op } = require("sequelize");
 const fs = require('fs')
+const path = require('path')
 
 
 const MIME_TYPES = {
@@ -89,48 +90,80 @@ const getWithFilter = (req, res) => {
 }
 
 
-const deleteOneById = (req, res) => {
-    homeworksTable.findByPk(req.params.id)
-    .then(homework => {
-        if(!homework) {
-            return res.status(404).json({message: "Aucune homework n'a été trouvé"})
+const deleteOneById = async (req, res) => {
+    const homeworkId = req.params.id;
+
+    try {
+        const homework = await homeworksTable.findOne({ where: { id: homeworkId } });
+        
+        if (!homework) {
+            res.status(404).json({ message: "Homework not found." });
+            return;
         }
-
-        const exoPath = 'images/' +homework.dataValues.homework_image
-        const correctionName = 'images/' +homework.dataValues.correction_image
-
-        homeworksTable.destroy({
-            where: {
-                id: req.params.id
+        
+        // On supprime les fichiers du serveur si nécessaire
+        const fileCategories = ['course_image', 'homework_image', 'correction_image'];
+        
+        fileCategories.forEach(category => {
+            if (homework[category]) {
+                // Assurez-vous que le répertoire des images est correctement défini ici
+                const filePath = path.join(__dirname, '..', 'images', homework[category]);
+                if (fs.existsSync(filePath)) {
+                    fs.unlinkSync(filePath);
+                }
             }
-        })
+        });
+    
+    // On supprime l'entrée de la base de données
+    await homeworksTable.destroy({ where: { id: homeworkId } });
+    res.status(200).json({ message: "Homework successfully deleted." });
+    } catch (error) {
+        res.status(500).json({ message: "Error occurred while deleting the homework.", error });
+    }
+};
 
-        .then(r => {
+// const deleteOneById = (req, res) => {
+//     homeworksTable.findByPk(req.params.id)
+//     .then(homework => {
+//         if(!homework) {
+//             return res.status(404).json({message: "Aucune homework n'a été trouvé"})
+//         }
 
-            if (fs.existsSync(exoPath)) {
-                fs.unlinkSync(exoPath)
-            }
+//         const exoPath = 'images/' + homework.dataValues.homework_image
+//         const correctionName = 'images/' + homework.dataValues.correction_image
 
-            if (fs.existsSync(correctionName)) {
-                fs.unlinkSync(correctionName)
-            }
+//         homeworksTable.destroy({
+//             where: {
+//                 id: req.params.id
+//             }
+//         })
 
-            const message = "L'élément a bien été supprimé."
-            res.status(200).send(message)
-        })
-        .catch(error => {
-            const message = "Une erreur a eu lieu."
-            if (error instanceof ValidationError) {
-                res.status(400).send(error.errors[0].message)
-            } else {
-                res.status(500).json({
-                    message,
-                    error
-                })
-            }
-        }) 
-    })
-} 
+//         .then(r => {
+
+//             if (fs.existsSync(exoPath)) {
+//                 fs.unlinkSync(exoPath)
+//             }
+
+//             if (fs.existsSync(correctionName)) {
+//                 fs.unlinkSync(correctionName)
+//             }
+
+//             const message = "L'élément a bien été supprimé."
+//             res.status(200).send(message)
+//         })
+//         .catch(error => {
+//             const message = "Une erreur a eu lieu."
+//             if (error instanceof ValidationError) {
+//                 res.status(400).send(error.errors[0].message)
+//             } else {
+//                 res.status(500).json({
+//                     message,
+//                     error
+//                 })
+//             }
+//         }) 
+//     })
+// } 
 
 // const create = (req, res) => {
 
@@ -194,221 +227,262 @@ const deleteOneById = (req, res) => {
 //     }
 
 const create = (req, res) => {
-    let body = req.body;
-    console.log(body.category);
-    console.log('Received files:', req.files); // Ajout d'un log de console
-  
-    let fileData = "";
-  
-    if (body) {
-      const category = body.category;
-      console.log(category);
-  
-      const uploadedFile = req.files[category] && req.files[category][0];
-      const fileName = uploadedFile ? uploadedFile.filename : body.name;
-  
-      if (category === "homework_image") {
-        fileData = {
-          id_user: body.id_user,
-          id_subject: body.id_subject,
-          id_class: body.id_class,
-          name: "x",
-          homework_image: fileName,
-        };
-      } else if (category === "correction_image") {
-        fileData = {
-          id_user: body.id_user,
-          id_subject: body.id_subject,
-          id_class: body.id_class,
-          name: "x",
-          correction_image: fileName,
-        };
-      } else {
-        fileData = {
-          id_user: body.id_user,
-          id_subject: body.id_subject,
-          id_class: body.id_class,
-          name: "x",
-          course_image: fileName,
-        };
-      }
-    }  
+    const body = req.body;
 
-    homeworksTable.create(fileData)
-        .then(homework => {
-            const message = "Un homework est ajouté à la base de données.";
-
+    if (!body.category) {
+        res.status(400).json({ message: "Category is missing." });
+        return;
+    }
+    
+    const category = body.category;
+    console.log(category);
+    console.log("Received files:", req.files);
+    
+    const uploadedFile = req.files[category] && req.files[category][0];
+    const fileName = uploadedFile ? uploadedFile.filename : null;
+    
+    if (!fileName) {
+        res.status(400).json({ message: "File is missing." });
+        return;
+    }
+    
+    const metadata = JSON.parse(body.metadata); // Ajoutez cette ligne
+    
+    let fileData = {
+        id_user: metadata.id_user,
+        id_subject: metadata.id_subject,
+        id_class: metadata.id_class,
+        name: metadata.name,
+    };
+    
+    if (category === "homework_image") {
+        fileData.homework_image = fileName;
+    } else if (category === "correction_image") {
+        fileData.correction_image = fileName;
+    } else {
+        fileData.course_image = fileName;
+    }
+    
+    homeworksTable
+    .create(fileData)
+    .then((homework) => {
+        const message = "Un homework est ajouté à la base de données.";
+    
         res.status(201).json({
             message,
-            data: homework
-        })
+            data: homework,
+            id: homework.id
+        });
     })
-    .catch(error => {
+    .catch((error) => {
         const message = "Une erreur a eu lieu lors de l'insertion du homework en base de donnée.";
         if (error instanceof ValidationError) {
             if (req.file) {
-                fs.unlinkSync(req.file.path)
-            }
-            res.status(400).send(error.errors[0].message)
+            fs.unlinkSync(req.file.path);
+        }
+        res.status(400).send(error.errors[0].message);
         } else {
             if (req.file) {
-            fs.unlinkSync(req.file.path)
-            }
-            res.status(500).json({
-            message,
-            error
-            })
+            fs.unlinkSync(req.file.path);
         }
-    })
-}
+            res    .status(500).json({
+            message,
+            error,
+            });
+        }
+    });
+};      
 
 
 
 
 
 
-    const update = (req, res ) => {
+
+    // const update = (req, res ) => {
 
 
-        homeworksTable.findOne({
-            where: {
-                id: {[Op.eq]: req.params.id}
-            }
-        })
+    //     homeworksTable.findOne({
+    //         where: {
+    //             id: {[Op.eq]: req.params.id}
+    //         }
+    //     })
 
-        .then (r => {
+    //     .then (r => {
 
-            let result = r.dataValues
-            let exoName = ''
-            let correctionName = ''
-            if (req.files.exercice){
-                exoName = 'exercice-' + result.id + '.'+MIME_TYPES[req.files.exercice[0].mimetype]
-            }
-            if (req.files.correction){
-                correctionName = 'correction-' + result.id + '.'+MIME_TYPES[req.files.correction[0].mimetype]
-            }
+    //         let result = r.dataValues
+    //         let exoName = ''
+    //         let correctionName = ''
+    //         if (req.files.exercice){
+    //             exoName = 'exercice-' + result.id + '.'+MIME_TYPES[req.files.exercice[0].mimetype]
+    //         }
+    //         if (req.files.correction){
+    //             correctionName = 'correction-' + result.id + '.'+MIME_TYPES[req.files.correction[0].mimetype]
+    //         }
 
-            if (req.body.body && r.length != 0){
+    //         if (req.body.body && r.length != 0){
 
-                let body = JSON.parse(req.body.body)
+    //             let body = JSON.parse(req.body.body)
                     
-                    homeworksTable.update({
-                        ...body
-                    },
-                    {
-                        where : {id: req.params.id}
-                    })
+    //                 homeworksTable.update({
+    //                     ...body
+    //                 },
+    //                 {
+    //                     where : {id: req.params.id}
+    //                 })
     
-                    .then(resultBool => {
+    //                 .then(resultBool => {
     
-                        if (resultBool == 0 ){
-                            const message = "Une erreur a eu lieu"
-                            if (req.files.exercice) {
-                                fs.unlinkSync(req.files.exercice[0].path)
-                            }
-                            if (req.files.correction){
-                                fs.unlinkSync(req.files.correction[0].path)
-                            }
-                            res.status(202).send(message)
-                        } else {
+    //                     if (resultBool == 0 ){
+    //                         const message = "Une erreur a eu lieu"
+    //                         if (req.files.exercice) {
+    //                             fs.unlinkSync(req.files.exercice[0].path)
+    //                         }
+    //                         if (req.files.correction){
+    //                             fs.unlinkSync(req.files.correction[0].path)
+    //                         }
+    //                         res.status(202).send(message)
+    //                     } else {
     
-                            if (req.files.exercice){
-                                const img = req.files.exercice[0].path
-                                if (fs.existsSync('images/'+result.homework_image) && result.homework_image) {
-                                    fs.unlinkSync('images/'+result.homework_image)
-                                }
-                                fs.renameSync(img, 'images/' + exoName);
-                                exoUpdated = true
-                                body.homework_image = exoName
-                            }
+    //                         if (req.files.exercice){
+    //                             const img = req.files.exercice[0].path
+    //                             if (fs.existsSync('images/'+result.homework_image) && result.homework_image) {
+    //                                 fs.unlinkSync('images/'+result.homework_image)
+    //                             }
+    //                             fs.renameSync(img, 'images/' + exoName);
+    //                             exoUpdated = true
+    //                             body.homework_image = exoName
+    //                         }
                 
-                            if (req.files.correction){
-                                const img = req.files.correction[0].path
-                                if (fs.existsSync('images/'+result.correction_image) && result.correction_image) {
-                                    fs.unlinkSync('images/'+result.correction_image)
-                                }
-                                fs.renameSync(img, 'images/' + correctionName);
-                                correctionUpdated = true
-                                body.correction_image = correctionName
-                            }
+    //                         if (req.files.correction){
+    //                             const img = req.files.correction[0].path
+    //                             if (fs.existsSync('images/'+result.correction_image) && result.correction_image) {
+    //                                 fs.unlinkSync('images/'+result.correction_image)
+    //                             }
+    //                             fs.renameSync(img, 'images/' + correctionName);
+    //                             correctionUpdated = true
+    //                             body.correction_image = correctionName
+    //                         }
     
-                            const message = "Mise à jour réussie."
-                            res.status(201).json({
-                                message,
-                                data: resultBool
-                            })
-                        }
-                    })
+    //                         const message = "Mise à jour réussie."
+    //                         res.status(201).json({
+    //                             message,
+    //                             data: resultBool
+    //                         })
+    //                     }
+    //                 })
     
-                    .catch(error => {
-                        const message = "Une erreur a eu lieu lors de la mise à jour."
-                        if (error instanceof ValidationError) {
-                            if (req.files.exercice) {
-                                fs.unlinkSync(req.files.exercice[0].path)
-                            }
-                            if (req.files.correction){
-                                fs.unlinkSync(req.files.correction[0].path)
-                            }
-                            res.status(400).send(error.errors[0].message)
-                        } else {
-                            if (req.files.exercice) {
-                                fs.unlinkSync(req.files.exercice[0].path)
-                            }
-                            if (req.files.correction){
-                                fs.unlinkSync(req.files.correction[0].path)
-                            }
-                            res.status(500).json({
-                                message,
-                                error
-                            })
-                        }
-                    })
-            } else {
+    //                 .catch(error => {
+    //                     const message = "Une erreur a eu lieu lors de la mise à jour."
+    //                     if (error instanceof ValidationError) {
+    //                         if (req.files.exercice) {
+    //                             fs.unlinkSync(req.files.exercice[0].path)
+    //                         }
+    //                         if (req.files.correction){
+    //                             fs.unlinkSync(req.files.correction[0].path)
+    //                         }
+    //                         res.status(400).send(error.errors[0].message)
+    //                     } else {
+    //                         if (req.files.exercice) {
+    //                             fs.unlinkSync(req.files.exercice[0].path)
+    //                         }
+    //                         if (req.files.correction){
+    //                             fs.unlinkSync(req.files.correction[0].path)
+    //                         }
+    //                         res.status(500).json({
+    //                             message,
+    //                             error
+    //                         })
+    //                     }
+    //                 })
+    //         } else {
 
-                let body = {}
-                if (req.files.exercice){
-                    const img = req.files.exercice[0].path
-                    if (fs.existsSync('images/'+result.homework_image) && result.homework_image) {
-                        fs.unlinkSync('images/'+result.homework_image)
-                    }
-                    fs.renameSync(img, 'images/' + exoName);
-                    exoUpdated = true
-                    body.homework_image = exoName
-                }
+    //             let body = {}
+    //             if (req.files.exercice){
+    //                 const img = req.files.exercice[0].path
+    //                 if (fs.existsSync('images/'+result.homework_image) && result.homework_image) {
+    //                     fs.unlinkSync('images/'+result.homework_image)
+    //                 }
+    //                 fs.renameSync(img, 'images/' + exoName);
+    //                 exoUpdated = true
+    //                 body.homework_image = exoName
+    //             }
     
-                if (req.files.correction){
-                    const img = req.files.correction[0].path
-                    if (fs.existsSync('images/'+result.correction_image) && result.correction_image) {
-                        fs.unlinkSync('images/'+result.correction_image)
-                    }
-                    fs.renameSync(img, 'images/' + correctionName);
-                    correctionUpdated = true
-                    body.correction_image = correctionName
-                }
-                homeworksTable.update({
-                    ...body
-                },
-                {
-                    where : {id: req.params.id}
-                })
+    //             if (req.files.correction){
+    //                 const img = req.files.correction[0].path
+    //                 if (fs.existsSync('images/'+result.correction_image) && result.correction_image) {
+    //                     fs.unlinkSync('images/'+result.correction_image)
+    //                 }
+    //                 fs.renameSync(img, 'images/' + correctionName);
+    //                 correctionUpdated = true
+    //                 body.correction_image = correctionName
+    //             }
+    //             homeworksTable.update({
+    //                 ...body
+    //             },
+    //             {
+    //                 where : {id: req.params.id}
+    //             })
 
-                .then (r=>{
-                    const message = "Mise à jour réussie."
-                            res.status(201).json({
-                                message
-                            })
-                })
-                .catch(error =>{
-                    const message = "Une erreur a eu lieu lors de la mise à jour."
-                    res.status(500).json({
-                        message,
-                        error
-                    })
-                })
+    //             .then (r=>{
+    //                 const message = "Mise à jour réussie."
+    //                         res.status(201).json({
+    //                             message
+    //                         })
+    //             })
+    //             .catch(error =>{
+    //                 const message = "Une erreur a eu lieu lors de la mise à jour."
+    //                 res.status(500).json({
+    //                     message,
+    //                     error
+    //                 })
+    //             })
+    //         }
+    //     })
+    // }
+
+    const update = async (req, res) => {
+        const homeworkId = req.params.id;
+        const newName = req.body.name;
+    
+        try {
+            const homework = await homeworksTable.findOne({ where: { id: homeworkId } });
+    
+            if (!homework) {
+                res.status(404).json({ message: "Homework not found." });
+                return;
             }
-        })
-    }
-
+    
+            let updated = false;
+            const fileCategories = ['course_image', 'homework_image', 'correction_image'];
+    
+            for (const category of fileCategories) {
+                if (homework[category]) {
+                    const oldFilePath = path.join(__dirname, '..', 'images', homework[category]);
+                    const fileExt = path.extname(homework[category]);
+                    const newFileName = newName + fileExt;
+                    const newFilePath = path.join(__dirname, '..', 'images', newFileName);
+    
+                    if (fs.existsSync(oldFilePath)) {
+                        fs.renameSync(oldFilePath, newFilePath);
+                        homework[category] = newFileName;
+                        updated = true;
+                    }
+                }
+            }
+    
+            if (updated) {
+                await homework.save();
+                res.status(200).json({ message: "Homework file name successfully updated.", data: homework });
+            } else {
+                res.status(500).json({ message: "Failed to update homework file name." });
+            }
+    
+        } catch (error) {
+            res.status(500).json({ message: "Error occurred while updating the homework file name.", error });
+        }
+    };
+    
     const getOneFileById = (req, res) => {
 
         homeworksTable.findByPk(req.params.id)
