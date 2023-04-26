@@ -19,8 +19,17 @@ const storage = multer.diskStorage({
 });
 
 // module.exports = multer({storage: storage}).array('images', 2);
-module.exports = multer({storage: storage}).fields([{
-    name: 'exercice', maxCount: 1
-  }, {
-    name: 'correction', maxCount: 1
-  }])
+module.exports = multer({ storage: storage }).fields([
+  {
+    name: "course_image",
+    maxCount: 1,
+  },
+  {
+    name: "homework_image",
+    maxCount: 1,
+  },
+  {
+    name: "correction_image",
+    maxCount: 1,
+  },
+]);

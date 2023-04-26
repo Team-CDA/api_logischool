@@ -196,51 +196,43 @@ const deleteOneById = (req, res) => {
 const create = (req, res) => {
     let body = req.body;
     console.log(body.category);
-
-    let fileKey = "";
-
-    if (req.file) {
-        const category = body.category;
-        console.log(category);
-        if (category === "homework_image") {
-            const fileData = {
-                id_user: body.id_user,
-                id_subject: body.id_subject,
-                id_class: body.id_class,
-                name: "x",
-                homework_image: body.name
-            };
-        } else if (category === "correction_image") {
-            const fileData = {
-                id_user: body.id_user,
-                id_subject: body.id_subject,
-                id_class: body.id_class,
-                name: "x",
-                correction_image: body.name
-            };
-        } else { 
-            const fileData = {
-                id_user: body.id_user,
-                id_subject: body.id_subject,
-                id_class: body.id_class,
-                name: "x",
-                course_image: body.name
-            };
-        }
-    }   
-
-    const fileData = {
-        id_user: body.id_user,
-        id_subject: body.id_subject,
-        id_class: body.id_class,
-        name: "lol",
-        homework_image: body.name
-    };
-    console.log(fileData);
-
-    if (fileKey) {
-        fileData[fileKey] = fileName;
-    }
+    console.log('Received files:', req.files); // Ajout d'un log de console
+  
+    let fileData = "";
+  
+    if (body) {
+      const category = body.category;
+      console.log(category);
+  
+      const uploadedFile = req.files[category] && req.files[category][0];
+      const fileName = uploadedFile ? uploadedFile.filename : body.name;
+  
+      if (category === "homework_image") {
+        fileData = {
+          id_user: body.id_user,
+          id_subject: body.id_subject,
+          id_class: body.id_class,
+          name: "x",
+          homework_image: fileName,
+        };
+      } else if (category === "correction_image") {
+        fileData = {
+          id_user: body.id_user,
+          id_subject: body.id_subject,
+          id_class: body.id_class,
+          name: "x",
+          correction_image: fileName,
+        };
+      } else {
+        fileData = {
+          id_user: body.id_user,
+          id_subject: body.id_subject,
+          id_class: body.id_class,
+          name: "x",
+          course_image: fileName,
+        };
+      }
+    }  
 
     homeworksTable.create(fileData)
         .then(homework => {
