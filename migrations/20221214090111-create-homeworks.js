@@ -9,6 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED
       },
+      course_image: {
+        type: Sequelize.STRING(64)
+      },
       homework_image: {
         type: Sequelize.STRING(64)
       },

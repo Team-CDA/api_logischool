@@ -1,35 +1,5 @@
-const checkAuth = require("./helpers/jwt");
-const publicRoutes = [
-  "/",
-  "/users/login",
-  "/classes",
-  "/users",
-  "/buildings",
-  "/establishments",
-  "/establishment_types",
-  "/events",
-  "/groups",
-  "/lessons",
-  "/rooms",
-  "/subjects",
-  "/users_groups",
-  "/users_classes",
-  "/roles",
-  "/statuses",
-  "/report_types",
-  "/reports",
-  "/alert_types",
-  "/alerts",
-  "/alerts_groups",
-  "/class_types",
-  "/event_types",
-  "/timeslots",
-  "/referent_teachers",
-  "/room_types",
-  "/establishments/all",
-  "/establishments/one",
-  "/establishments/updateEstablishment",
-  "/establishments/one/:id",
+const checkAuth = require('./helpers/jwt');
+const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
 ];
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
@@ -68,6 +38,7 @@ const homeworksRouter = require("./routes/homeworks.router");
 const buildingsRouter = require("./routes/buildings.router");
 const eventsGroupsRouter = require("./routes/events_groups.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
+const menusRouter = require("./routes/menus.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -119,6 +90,8 @@ app.use("/room_types", roomTypesRouter);
 app.use("/rooms", roomsRouter);
 
 app.use("/timeslots", timeslotsRouter);
+
+app.use("/menus", menusRouter);
 
 app.use("/lessons", lessonsRouter);
 app.use("/referent_teachers", referent_teachersRouter);

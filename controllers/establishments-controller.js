@@ -12,34 +12,22 @@ const roomTypes = db["room_types"];
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
-  //On utilise l'ORM pour SELECT toute la table
   establishmentsTable
-    .findAll
-    // {
-    //     include: [
-    //         {
-    //             model: usersTable,
-    //             as: 'users',
-    //         }
-    //     ]
-    // }
-    ()
-
-    //On utilise les promesses pour gérer les résultats de la requête.
+    .findAll({
+      order: [
+        ['id', 'ASC'],
+      ],
+    })
     .then((result) => {
       if (result.length === 0) {
-        //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
         res.json({
           Message: "Aucun établissement présent en base de données.",
         });
       } else {
-        // Sinon, on renvoie le résultat de notre requête
         res.json(result, 200);
       }
     })
-    //en cas d'erreur, on passe dans le catch
     .catch((error) => {
-      //On définit un status d'erreur et un message a renvoyer
       const message =
         "La liste des établissements n'a pas pu être récupérée. Réessayez dans quelques instants.";
       res.status(500).json({
@@ -48,6 +36,7 @@ const getAll = (req, res) => {
       });
     });
 };
+
 
 const getAllWithBuildingsAndRooms = (req, res) => {
   establishmentsTable
@@ -73,6 +62,9 @@ const getAllWithBuildingsAndRooms = (req, res) => {
             },
           ],
         },
+      ],
+      order: [
+        ['id', 'ASC'],
       ],
     })
     .then((result) => {
