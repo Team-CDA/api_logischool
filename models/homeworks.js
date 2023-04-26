@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
-    id_subjects: {
+    id_subject: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
