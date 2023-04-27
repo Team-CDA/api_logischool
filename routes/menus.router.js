@@ -124,7 +124,7 @@ router.post('/', menuController.createOne)
  *          description: Menus successfully updated
  *         
  */
-router.patch('/update/:id', menuController.updateOneById)
+router.put('/update/:id', menuController.updateOneById)
 
 
 /** 

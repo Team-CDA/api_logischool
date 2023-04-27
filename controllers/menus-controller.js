@@ -80,39 +80,50 @@ const createOne = (req, res) => {
 
 
 const updateOneById = (req, res) => {
-    menusTable.findByPk(req.params.id)
-        .then(menu => {
-            if(!menu) {
-                return res.status(404).json({message: "Aucun menu n'a été trouvé"})
-            }
-        
-            menusTable.update(
-                req.body,
-                    {
-                    where: {
-                        id: req.params.id
-                    },
-                    returning: true,
-                })
-                .then(result => {
-                    const message = "Type de menu correctement mise à jour."
-                    res.status(201).json({
-                        message
-                    });
-                })
-                .catch(error => {
-                    const message = "Une erreur a eu lieu lors de la modification."
-                    if (error instanceof ValidationError) {
-                        res.status(400).send(error.errors[0].message)
-                    } else {
-                        res.status(500).json({
-                            message,
-                            error
-                        })
-                    }
+    menusTable
+        .findByPk(req.params.id)
+        .then((menu) => {
+        if (!menu) {
+            return res.status(404).json({ message: "Aucun menu n'a été trouvé" });
+        }
+
+        const { menu_date, starter, main_course, dessert } = req.body;
+
+        const updatedMenuData = {
+            // menu_date,
+            starter,
+            main_course,
+            dessert,
+        };
+    
+        menusTable
+            .update(updatedMenuData, {
+            where: {
+                id: req.params.id,
+            },
+            returning: true,
+            })
+            .then((result) => {
+            const message = "Type de menu correctement mise à jour.";
+            res.status(201).json({
+                message,
+                success: true,
+            });
+            })
+            .catch((error) => {
+            const message = "Une erreur a eu lieu lors de la modification.";
+            if (error instanceof ValidationError) {
+                res.status(400).send(error.errors[0].message);
+            } else {
+                res.status(500).json({
+                message,
+                error,
                 });
+            }
         });
-}
+    });
+};
+
 
 
 const deleteOneById = (req, res) => {
