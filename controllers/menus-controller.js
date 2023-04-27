@@ -51,9 +51,6 @@ const getOneById = (req, res) => {
         })
 }
 
-
-
-
 const createOne = (req, res) => {
     menusTable.create(req.body)
         .then(menu => {
