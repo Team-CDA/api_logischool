@@ -2,6 +2,7 @@ const db = require('../models/index');
 const { ValidationError } = require('sequelize');
 const alertsTable = db['alerts'];
 const alertTypesTable = db['alert_types'];
+const alertsGroupsTable = db['alerts_groups'];
 
 const getAll = (req,res)=> {
 
@@ -54,29 +55,46 @@ const getOneById = (req, res) => {
         })
 }
 
-const createOne = (req, res) => {
-    alertsTable.create(req.body)
+const createOne = async (req, res) => {
+    console.log("Request body:", req.body);
 
-        .then(alerts => {
-            const message = "Une alerte est ajoutée à la base de données."
-            res.status(201).json({
+    try {
+        const alert = await alertsTable.create(req.body);
+
+        // Récupérer les groupes à partir du corps de la requête
+        const groups = req.body.groups;
+
+        // Créer des entrées pour chaque groupe dans la table alerts_groups
+        // Créer des entrées pour chaque groupe dans la table alerts_groups
+const alertsGroupsPromises = groups.map(groupId => {
+    return alertsGroupsTable.create({
+        id_alert: alert.id,
+        id_group: groupId
+    });
+});
+
+
+        await Promise.all(alertsGroupsPromises);
+
+        const message = "Une alerte est ajoutée à la base de données."
+        res.status(201).json({
+            message,
+            data: alert
+        });
+    } catch (error) {
+        console.log("Error:", error)
+        const message = "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée."
+        if (error instanceof ValidationError) {
+            res.status(400).send(error.errors[0].message)
+        } else {
+            res.status(500).json({
                 message,
-                data: alerts
+                error
             })
-        })
-
-        .catch(error => {
-            const message = "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée."
-            if (error instanceof ValidationError) {
-                res.status(400).send(error.errors[0].message)
-            } else {
-                res.status(500).json({
-                    message,
-                    error
-                })
-            }
-        })
+        }
+    }
 }
+
 
 const updateOneById = (req, res) => {
     alertsTable.update(
