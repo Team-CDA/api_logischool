@@ -21,7 +21,7 @@ const rolesRouter = require("./routes/roles.router");
 const reportTypesRouter = require("./routes/report_types.router");
 const reportsRouter = require("./routes/reports.router");
 const alertTypesRouter = require("./routes/alert_types.router");
-const alertsRouter = require("./routes/alerts.router");
+
 const alertsGroupsRouter = require("./routes/alerts_groups.router");
 const classTypesRouter = require("./routes/class_types.router");
 const classesRouter = require("./routes/classes.router");
@@ -50,6 +50,14 @@ require("dotenv").config();
 
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: "http://localhost:3001", // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
+  },
+});
+const alertsRouter = require("./routes/alerts.router");
+const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
@@ -74,7 +82,8 @@ app.use("/report_types", reportTypesRouter);
 app.use("/reports", reportsRouter);
 
 app.use("/alert_types", alertTypesRouter);
-app.use("/alerts", alertsRouter);
+app.use("/alerts", configuredAlertsRouter);
+
 
 app.use("/alerts_groups", alertsGroupsRouter);
 
@@ -136,8 +145,17 @@ app.use(({ res }) => {
 });
 
 //On démarre l'api sur le port 3000 en affichant un message
-app.listen(port, () =>
+http.listen(port, () =>
   console.log(
     `Notre application est démarré sur http://localhost:${port} ${message}`
   )
 );
+
+io.on("connection", (socket) => {
+  console.log("Un client s'est connecté");
+
+  socket.on("disconnect", () => {
+    console.log("Un client s'est déconnecté");
+  });
+});
+
