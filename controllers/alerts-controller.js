@@ -24,7 +24,7 @@ const getAll = (req, res) => {
       } else {
         // Sinon, on renvoie le résultat de notre requête
         res.json(result, 200);
-      }
+      } 
     })
     //en cas d'erreur, on passe dans le catch
     .catch((error) => {
