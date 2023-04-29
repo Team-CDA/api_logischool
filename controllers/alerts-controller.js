@@ -67,9 +67,9 @@ const createOne = async (io, req, res) => {
 
     // Récupérer les groupes à partir du corps de la requête
     const groups = req.body.groups;
+    
     io.emit("newAlert", alert);
 
-    // Créer des entrées pour chaque groupe dans la table alerts_groups
     // Créer des entrées pour chaque groupe dans la table alerts_groups
     const alertsGroupsPromises = groups.map((groupId) => {
       return alertsGroupsTable.create({
