@@ -1,5 +1,5 @@
 const checkAuth = require('./helpers/jwt');
-const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
+const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/signatures', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
 ];
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
@@ -21,7 +21,7 @@ const rolesRouter = require("./routes/roles.router");
 const reportTypesRouter = require("./routes/report_types.router");
 const reportsRouter = require("./routes/reports.router");
 const alertTypesRouter = require("./routes/alert_types.router");
-
+const signaturesRouter = require("./routes/signatures.router");
 const alertsGroupsRouter = require("./routes/alerts_groups.router");
 const classTypesRouter = require("./routes/class_types.router");
 const classesRouter = require("./routes/classes.router");
@@ -83,14 +83,14 @@ app.use("/reports", reportsRouter);
 
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
-
-
 app.use("/alerts_groups", alertsGroupsRouter);
 
 app.use("/class_types", classTypesRouter);
 app.use("/classes", classesRouter);
 
 app.use("/users_classes", usersClassesRouter);
+
+app.use("/signatures", signaturesRouter);
 
 app.use("/events", eventsRouter);
 app.use("/event_types", eventTypesRouter);
@@ -152,7 +152,7 @@ http.listen(port, () =>
 );
 
 io.on("connection", (socket) => {
-  console.log("Un client s'est connecté");
+  console.log("User connected");
 
   socket.on("disconnect", () => {
     console.log("Un client s'est déconnecté");
