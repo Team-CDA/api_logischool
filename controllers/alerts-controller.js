@@ -70,7 +70,6 @@ const createOne = async (io, req, res) => {
     io.emit("newAlert", alert);
 
     // Créer des entrées pour chaque groupe dans la table alerts_groups
-    // Créer des entrées pour chaque groupe dans la table alerts_groups
     const alertsGroupsPromises = groups.map((groupId) => {
       return alertsGroupsTable.create({
         id_alert: alert.id,
