@@ -31,8 +31,14 @@ module.exports = {
       zipcode: {
         type: Sequelize.CHAR(5)
       },
-      mail: {
-        type: Sequelize.STRING
+      email: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       phone: {
         type: Sequelize.CHAR(10)

@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         as: "classes",
         foreignKey: "id_class_type",
       });
+      this.belongsTo(models.establishment_types, {
+        as: 'establishment_type',
+        foreignKey: 'id_establishment_type',
+      });
+    
     }
   }
   class_types.init({
@@ -29,11 +34,19 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: false,
       validate: {
-        is: ["^[a-zA-Z0-9À-ÿ]+$"],
+        is: ["^[a-zA-Z0-9À-ÿ ]+$"],
         max: 64,
         notEmpty: true,
       }
-    }
+    },
+    id_establishment_type: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'establishment_types', // Nom du modèle lié
+        key: 'id',
+      },
+    },
   }, {
     sequelize,
     modelName: 'class_types',

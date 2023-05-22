@@ -1,47 +1,44 @@
-const { Router } = require ("express")
-const router = Router()
+const { Router } = require("express");
+const router = Router();
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const users_classController = require ("../controllers/users_classes-controller")
-
-
+const users_classController = require("../controllers/users_classes-controller");
 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
- *  components: 
+ *  components:
  *    schemas:
  *       Users_class:
  *          type: object
- *          required: 
+ *          required:
  *              - users_class
- *          properties: 
+ *          properties:
  *             id_user:
  *               type: integer
- *               description: L'id de l'utilisateur                
+ *               description: L'id de l'utilisateur
  *             id_class:
  *               type: integer
  *               description: L'id de la classe
  *             createdAt:
  *               type: integer
  *               description: La date de création de l'association
- *          example: 
+ *          example:
  *             id: 1
- *             id_group: 1  
+ *             id_group: 1
  *             id_user: 1
- * 
- * 
+ *
+ *
  */
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /users_classes:
  *    get:
  *      tags: [Users_classes]
  *      summary: Récupère la liste de tous les groupes
  *      description: Récupère la liste de tous les groupes
- *      responses: 
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -53,17 +50,19 @@ const users_classController = require ("../controllers/users_classes-controller"
  *         404:
  *            description: the Users_classes table was not found
  */
-router.get('/', users_classController.getAll)
+router.get("/", users_classController.getAll);
 
-/** 
+router.get("/class/:idClass", users_classController.getCount);
+
+/**
  * @swagger
- * 
+ *
  * /users_classes/{id}:
  *    get:
  *      tags: [Users_classes]
  *      summary: Récupère un groupe en fonction de son id
  *      description: Récupère un groupe en fonction de son id
- *      responses: 
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -75,12 +74,11 @@ router.get('/', users_classController.getAll)
  *         404:
  *            description: the Users_classes table was not found
  */
-router.get('/:id', users_classController.getOneById)
+router.get("/:id", users_classController.getOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /users_classes/create:
  *    post:
  *      tags: [Users_classes]
@@ -92,18 +90,17 @@ router.get('/:id', users_classController.getOneById)
  *                 $ref: '#/components/schemas/Users_group'
  *      summary: Permet d'ajouter un nouveau groupe
  *      description: En fournissant un nom, vous pouvez créer un nouveau groupe d'utilisateur.
- *      responses: 
+ *      responses:
  *         200:
  *            description: Users_class successfully created
- * 
- *         
+ *
+ *
  */
-router.post('/create', users_classController.createOne)
+router.post("/create", users_classController.createOne);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /users_classes/update/{id}:
  *    patch:
  *      tags: [Users_classes]
@@ -118,14 +115,13 @@ router.post('/create', users_classController.createOne)
  *    responses:
  *         200:
  *          description: Users_class successfully updated
- *         
+ *
  */
-router.patch('/update/:id', users_classController.updateOneById)
+router.patch("/update/:id", users_classController.updateOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /users_classes/delete/{id}:
  *    delete:
  *      tags: [Users_groups]
@@ -134,14 +130,13 @@ router.patch('/update/:id', users_classController.updateOneById)
  *      responses:
  *         200:
  *          description: Users_class successfully deleted
- *         
+ *
  */
-router.delete('/delete/:id', users_classController.deleteOneById)
+router.delete("/delete/:id", users_classController.deleteOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /users_classes/deleteAll:
  *    delete:
  *      tags: [Users_classes]
@@ -150,8 +145,8 @@ router.delete('/delete/:id', users_classController.deleteOneById)
  *      responses:
  *         200:
  *          description: Users_classes successfully deleted
- *         
+ *
  */
-router.delete('/deleteAll', users_classController.deleteAll)
+router.delete("/deleteAll", users_classController.deleteAll);
 
-module.exports = router
+module.exports = router;

@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     next();
   } catch (error) {
     return res.status(401).json({
-      message: 'pas tout de suite la pause clope'
+      message: 'Access denied'
     });
   }
 };

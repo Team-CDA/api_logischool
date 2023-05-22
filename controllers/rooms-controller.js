@@ -119,36 +119,30 @@ const createOne = (req, res) => {
             }
         })
 } 
-const deleteOneById = (req, res) => {
-    roomsTable.findByPk(req.params.id)
-    .then(room => {
-        if(!room) {
-            return res.status(404).json({message: "Aucune room n'a été trouvé"})
-        }
-
-    roomsTable.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-
-        .then(r => {
-            const message = "L'élément a bien été supprimé."
-            res.status(200).send(message)
-        })
-        .catch(error => {
-            const message = "Une erreur a eu lieu."
-            if (error instanceof ValidationError) {
-                res.status(400).send(error.errors[0].message)
-            } else {
-                res.status(500).json({
-                    message,
-                    error
-                })
-            }
-        }) 
-    })
-}
+const deleteOneById = async (req, res) => {
+    const roomId = req.params.id;
+  
+    try {
+      // Trouver la room à supprimer
+      const roomToDelete = await roomsTable.findByPk(roomId);
+  
+      if (!roomToDelete) {
+        res.status(404).json({ message: "Room not found." });
+        return;
+      }
+  
+      // Supprimer la room
+      await roomToDelete.destroy();
+  
+      res.status(200).json({ message: "Room deleted successfully." });
+    } catch (error) {
+      res.status(500).json({
+        message: "An error occurred while deleting the room.",
+        error,
+      });
+    }
+  };
+  
 
 const updateOneById = (req, res) => {
 

@@ -28,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(64),
       allowNull: true,
     },
+    course_image: {
+      type: DataTypes.STRING(64),
+      allowNull: true,
+    },
     correction_image: {
       type: DataTypes.STRING(64),
       allowNull: true,
@@ -40,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },
-    id_subjects: {
+    id_subject: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
     },

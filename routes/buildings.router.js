@@ -184,6 +184,6 @@ router.delete('/delete/:id', buildingsController.deleteOneById)
  * 
  *         
  */
-// router.post('/create', buildingsController.createOne)
+router.post('/create/:id', buildingsController.createOne)
 
 module.exports = router

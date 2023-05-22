@@ -16,18 +16,6 @@ module.exports = {
         name: 'C',
         id_establishment: 3
       },
-      {
-        name: 'D',
-        id_establishment: 4
-      },
-      {
-        name: 'E',
-        id_establishment: 5
-      },
-      {
-        name: 'F',
-        id_establishment: 6
-      }
     ], {}
     );
   },

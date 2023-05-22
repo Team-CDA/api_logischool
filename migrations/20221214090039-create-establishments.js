@@ -14,6 +14,14 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      id_establishment_type: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
+        references: {
+          model: 'establishment_types',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
