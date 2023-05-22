@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'establishments',
         foreignKey: 'id_establishment_type'
       });
+      this.hasMany(models.class_types, {
+        as: 'class_types',
+        foreignKey: 'id_establishment_type',
+      });
     }
   }
   establishment_types.init({

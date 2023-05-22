@@ -1,51 +1,48 @@
-const { Router } = require ("express")
-const router = Router()
+const { Router } = require("express");
+const router = Router();
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const etablishmentController = require ("../controllers/establishments-controller")
-
-
+const etablishmentController = require("../controllers/establishments-controller");
 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
- *  components: 
+ *  components:
  *    schemas:
  *       Etablishment:
  *          type: object
- *          required: 
+ *          required:
  *              - etablishment
- *          properties: 
+ *          properties:
  *             id:
  *               type: integer
  *               description: The id of the etablishment
  *             etablishment:
  *               type: string
- *               description: The name of the etablishment          
+ *               description: The name of the etablishment
  *             createdAt:
  *               type: date
  *               description: The date when the etablishment was created
  *             updatedAt:
  *               type: date
  *               description: The date of the last modification of the etablishment
- *          example: 
+ *          example:
  *             id: 1
- *             etablishment: "CM2"  
+ *             etablishment: "CM2"
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
- * 
- * 
+ *
+ *
  */
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /establishments:
  *    get:
  *      tags: [establishments]
  *      summary: Retrieve the list of establishments
  *      description: Retrieve the list of establishments
- *      responses: 
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -57,17 +54,21 @@ const etablishmentController = require ("../controllers/establishments-controlle
  *         404:
  *            description: the establishments table was not found
  */
-router.get('/', etablishmentController.getAll)
+router.get("/", etablishmentController.getAll);
 
-/** 
+router.get("/all", etablishmentController.getAllWithBuildingsAndRooms);
+
+router.get("/one/:id", etablishmentController.getOneWithBuildingsAndRoomsById);
+
+/**
  * @swagger
- * 
+ *
  * /establishments/{id}:
  *    get:
  *      tags: [establishments]
  *      summary: Retrieve a etablishment by its id
- *      description: Retrieve a etablishment by its id
- *      responses: 
+ *      description: Retrieve a etablishment by its id.
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -79,12 +80,11 @@ router.get('/', etablishmentController.getAll)
  *         404:
  *            description: the establishments table was not found
  */
-router.get('/:id', etablishmentController.getOneById)
+router.get("/:id", etablishmentController.getOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /establishments/create:
  *    post:
  *      tags: [establishments]
@@ -96,18 +96,17 @@ router.get('/:id', etablishmentController.getOneById)
  *                 $ref: '#/components/schemas/Etablishment'
  *      summary: Allow you to create a new etablishment
  *      description: When you create a new etablishment, you have to give the name of the etablishment.
- *      responses: 
+ *      responses:
  *         200:
  *            description: Etablishment successfully created
- * 
- *         
+ *
+ *
  */
-router.post('/create', etablishmentController.createOne)
+router.post("/create", etablishmentController.createOne);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /establishments/update/{id}:
  *    patch:
  *      tags: [establishments]
@@ -122,14 +121,13 @@ router.post('/create', etablishmentController.createOne)
  *    responses:
  *         200:
  *          description: Etablishment successfully updated
- *         
+ *
  */
-router.patch('/update/:id', etablishmentController.updateOneById)
+router.patch("/update/:id", etablishmentController.updateOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /establishments/delete/{id}:
  *    delete:
  *      tags: [establishments]
@@ -138,14 +136,13 @@ router.patch('/update/:id', etablishmentController.updateOneById)
  *      responses:
  *         200:
  *          description: Etablishment successfully deleted
- *         
+ *
  */
-router.delete('/delete/:id', etablishmentController.deleteOneById)
+router.delete("/delete/:id", etablishmentController.deleteOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /establishments/deleteAll:
  *    delete:
  *      tags: [establishments]
@@ -154,14 +151,13 @@ router.delete('/delete/:id', etablishmentController.deleteOneById)
  *      responses:
  *         200:
  *          description: establishments successfully deleted
- *         
+ *
  */
-router.delete('/deleteAll', etablishmentController.deleteAll)
-
+router.delete("/deleteAll", etablishmentController.deleteAll);
 
 /**
  * @swagger
- * 
+ *
  * /establishments/createEstablishment:
  *    post:
  *      tags: [establishments]
@@ -176,9 +172,9 @@ router.delete('/deleteAll', etablishmentController.deleteAll)
  *      responses:
  *          200:
  *      description: Etablishment successfully created
- * 
- * 
+ *
+ *
  */
-router.post('/createEstablishment', etablishmentController.createEstablishment);
+router.post("/createEstablishment", etablishmentController.createEstablishment);
 
-module.exports = router
+module.exports = router;

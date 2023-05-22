@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsToMany(models.classes, {
         through: "users_classes",
-        foreignKey: "id_class",
+        foreignKey: "id_user",
       });
-      
+
       this.belongsToMany(models.lessons, {
         through: "missing_students",
         foreignKey: "id_lesson",
@@ -36,10 +36,18 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_status",
         as: "status",
       });
-    };
+      this.belongsTo(this, {
+        as: "tutor",
+        foreignKey: "first_tutor",
+      });
+      this.belongsTo(this, {
+        as: "tutor2",
+        foreignKey: "second_tutor",
+      });
+    }
     static async comparePassword(plainPassword, hashedPassword) {
       return await bcrypt.compare(plainPassword, hashedPassword);
-    };
+    }
   }
   users.init(
     {

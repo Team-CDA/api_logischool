@@ -19,12 +19,9 @@ module.exports = {
           email: "toto@gmail.com",
           password: passwordHash,
           phone: "0606060606",
-          ine: "1234567891A",
-          first_tutor: 1,
-          second_tutor: 2,
           // id_establishment : 1,
-          id_role : 1,
-          id_status : 1
+          id_role: 2,
+          id_status: 1,
         },
         {
           firstname: "Jeanne",
@@ -37,13 +34,10 @@ module.exports = {
           email: "toto@does.pinh",
           password: passwordHash,
           phone: "0690486933",
-          ine: "1234567891B",
-          first_tutor: 3,
-          second_tutor: 4,
           // id_establishment : 1,
           // id_class : 1,
-          id_role : 2,
-          id_status : 1
+          id_role: 2,
+          id_status: 1,
         },
         {
           firstname: "Sergine",
@@ -57,12 +51,12 @@ module.exports = {
           password: passwordHash,
           phone: "0676341346",
           ine: "1234567891C",
-          first_tutor: 5,
-          second_tutor: 6,
+          first_tutor: 1,
+          second_tutor: 2,
           // id_establishment : 1,
-          // id_class : 1,
-          id_role : 2,
-          id_status : 1
+          //id_class: 1,
+          id_role: 3,
+          id_status: 1,
         },
         {
           firstname: "Julien",
@@ -76,12 +70,12 @@ module.exports = {
           password: passwordHash,
           phone: "0712345678",
           ine: "1234567891D",
-          first_tutor: 7,
-          second_tutor: 8,
+          first_tutor: 1,
+          second_tutor: 2,
           // id_establishment : 1,
-          // id_class : 1,
-          id_role : 3,
-          id_status : 1
+          //id_class: 1,
+          id_role: 3,
+          id_status: 1,
         },
         {
           firstname: "Sabrina",
@@ -95,13 +89,13 @@ module.exports = {
           password: passwordHash,
           phone: "0789098754",
           ine: "1234567891E",
-          first_tutor: 9,
-          second_tutor: 10,
+          first_tutor: 1,
+          second_tutor: 2,
           // id_establishment : 1,
-          // id_class : 1,
-          id_role : 2,
-          id_status : 1
-        }
+          //id_class: 1,
+          id_role: 3,
+          id_status: 1,
+        },
       ],
       {}
     );

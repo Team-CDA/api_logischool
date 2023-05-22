@@ -4,12 +4,14 @@ module.exports = (sequelize, DataTypes) => {
   class buildings extends Model {
     static associate(models) {
       // define association here
-      this.hasMany(models.rooms, { 
-        foreignKey: "id_building" 
+      this.hasMany(models.rooms, {
+        foreignKey: "id_building",
+        onDelete: "CASCADE", // Ajouter cette ligne
       });
       this.hasMany(models.rooms, {
         as: "building's rooms",
         foreignKey: "id_building",
+        onDelete: "CASCADE", // Ajouter cette ligne
       });
       this.belongsTo(models.establishments, {
         foreignKey: "id_establishment",

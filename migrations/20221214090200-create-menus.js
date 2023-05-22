@@ -2,25 +2,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('class_types', {
+    await queryInterface.createTable('menus', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED
       },
-      class_type: {
+      // id_menu_type: {
+      //   type: Sequelize.INTEGER.UNSIGNED,
+      //   references:{
+      //     model:'menu_types',
+      //     key:'id'
+      //   }
+      // },
+      starter: {
         type: Sequelize.STRING(128),
-        unique: true,
         allowNull: false
       },
-      id_establishment_type: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        allowNull: false,
-        references: {
-          model: 'establishment_types', // Nom de la table liée
-          key: 'id',
-        },
+      main_course: {
+        type: Sequelize.STRING(128),
+        allowNull: false
+      },
+      dessert: {
+        type: Sequelize.STRING(128),
+        allowNull: false
+      },
+      menu_date: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('class_types');
+    await queryInterface.dropTable('menus');
   }
 };
