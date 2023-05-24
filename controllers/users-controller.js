@@ -143,6 +143,24 @@ const getByParent = (req, res) => {
 };
 
 const createOne = (req, res) => {
+  const crypto = require('crypto');
+
+function generateRandomPassword(length) {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let password = '';
+
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    password += characters.charAt(randomIndex);
+  }
+
+  return password;
+}
+
+const randomPassword = generateRandomPassword(8);
+req.body.password = randomPassword;
+
+  
   usersTable
     .create(req.body)
     .then((user) => {
@@ -157,7 +175,7 @@ const createOne = (req, res) => {
         { expiresIn: '1h' } // Token expirera après 1 heure
       );
 
-      const resetLink = `http://localhost:3001/resetPassword/${token}`;
+      const resetLink = `http://localhost:3001/resetPassword/${user.id}/${token}`;
 
       try {
         sendMail(
@@ -166,7 +184,7 @@ const createOne = (req, res) => {
           `Cher(e) ${user.firstname} ${user.lastname},
 
             Bienvenue sur notre plateforme ! Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe et vous connecter pour la première fois : ${resetLink}.
-            
+
             Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter.
             
             Bienvenue parmi nous !
@@ -195,6 +213,37 @@ const createOne = (req, res) => {
           error,
         });
       }
+    });
+};
+
+const resetPassword = (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+
+  usersTable
+    .findByPk(id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "Aucun utilisateur n'a été trouvé" });
+      }
+      
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      if (decoded.userId !== user.id) {
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      user.password = password;
+      user.save();
+
+      res.status(200).json({ message: "Password updated successfully" });
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
+      res.status(500).json({
+        message,
+        data: error.message,
+      });
     });
 };
 
@@ -356,7 +405,8 @@ const userController = {
   getUserByMail,
   getByParent,
   getParents,
-  createParent
+  createParent,
+  resetPassword
 };
 
 module.exports = userController;
