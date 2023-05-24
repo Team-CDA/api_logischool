@@ -276,6 +276,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/resetPassword/:id", userController.resetPassword);
+router.patch("/resetPassword/:id/:token", userController.resetPassword);
 
 module.exports = router;
