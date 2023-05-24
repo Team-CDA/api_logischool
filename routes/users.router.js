@@ -276,4 +276,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.post("/delete/:id", userController.resetPassword);
+
 module.exports = router;
