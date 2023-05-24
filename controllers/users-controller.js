@@ -6,6 +6,8 @@ const usersTable = db["users"];
 const classesTable = db["classes"];
 const rolesTable = db["roles"];
 const establishmentsTable = db["establishments"];
+const jwt = require("jsonwebtoken");
+const sendMail = require("../helpers/sendMail");
 
 const getAllUsers = (req, res) => {
   //On utilise l'ORM pour SELECT toute la table
@@ -38,7 +40,6 @@ const getAllUsers = (req, res) => {
         },
       ],
     })
-
     //On utilise les promesses pour gérer les résultats de la requête.
     .then((result) => {
       if (result.length === 0) {
@@ -54,6 +55,37 @@ const getAllUsers = (req, res) => {
       //On définit un status d'erreur et un message a renvoyer
       const message =
         "La liste des utilisateurs n'a pas pu être récupérée. Réessayez dans quelques instants.";
+      res.status(500).json({
+        message,
+        data: error.message,
+      });
+    });
+};
+
+const getParents = (req, res) => {
+  usersTable
+    .findAll({
+      where: {
+        id_role: 2,
+      },
+      include: [
+        {
+          model: rolesTable,
+          as: "roles",
+        }
+      ],
+    })
+    .then((users) => {
+      if (!users) {
+        return res
+          .status(404)
+          .json({ message: "Aucun utilisateur n'a été trouvé" });
+      }
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
       res.status(500).json({
         message,
         data: error.message,
@@ -113,9 +145,67 @@ const getByParent = (req, res) => {
 const createOne = (req, res) => {
   usersTable
     .create(req.body)
+    .then((user) => {
+      const message = "Un utilisateur est ajouté à la base de données.";
+      // Créer un JWT pour cet utilisateur spécifique
+      const token = jwt.sign(
+        {
+          email: user.email,
+          userId: user.id,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' } // Token expirera après 1 heure
+      );
+
+      const resetLink = `http://localhost:3001/resetPassword/${token}`;
+
+      try {
+        sendMail(
+          user.email,
+          'Votre formulaire a été soumis avec succès',
+          `Cher(e) ${user.firstname} ${user.lastname},
+
+            Bienvenue sur notre plateforme ! Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe et vous connecter pour la première fois : ${resetLink}.
+            
+            Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter.
+            
+            Bienvenue parmi nous !
+            
+            Cordialement,
+            L'équipe LOGISCHOOL`
+        );
+
+        res.status(201).json({
+          message,
+          data: user,
+        });
+      } catch (error) {
+        console.error(error);
+        res.status(500).send('There was an error while creating the user');
+      }
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de l'insertion en base de donnée.";
+      if (error instanceof ValidationError) {
+        res.status(400).send(error.errors[0].message);
+      } else {
+        res.status(500).json({
+          message,
+          error,
+        });
+      }
+    });
+};
+
+
+
+const createParent = (req, res) => {
+  usersTable
+    .create(req.body)
 
     .then((users) => {
-      const message = "Un utilisateur est ajouté à la base de données.";
+      const message = "Un tuteur est ajouté à la base de données.";
       res.status(201).json({
         message,
         data: users,
@@ -265,6 +355,8 @@ const userController = {
   checkUserCredentials,
   getUserByMail,
   getByParent,
+  getParents,
+  createParent
 };
 
 module.exports = userController;
