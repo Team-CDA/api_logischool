@@ -75,7 +75,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       birthdate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isDate: true,
@@ -83,7 +85,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender: {
         type: DataTypes.ENUM("M", "F"),
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isAlpha: true,
@@ -93,7 +97,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          is: ["^[a-zA-Z0-9À-ÿ ]+$"]
+          notEmpty: true,
+          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/
         },
       },
       city: {
@@ -101,7 +106,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          isAlpha: true,
+          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/
+          ,
         },
       },
       zipcode: {
@@ -139,7 +145,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       ine: {
         type: DataTypes.CHAR(11),
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isAlphanumeric: true,
@@ -147,7 +155,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       first_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: false,
           isNumeric: true,
@@ -155,7 +165,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       second_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: false,
           isNumeric: true,

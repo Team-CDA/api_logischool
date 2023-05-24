@@ -4,6 +4,7 @@ const userController = require("../controllers/users-controller");
 const router = Router();
 const { checkUserCredentials, getUserByMail } = userController;
 
+
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
@@ -114,6 +115,8 @@ const { checkUserCredentials, getUserByMail } = userController;
  */
 router.get("/", userController.getAllUsers);
 
+
+router.get("/parents", userController.getParents);
 /**
  * @swagger
  *
@@ -181,6 +184,8 @@ router.get("/parent/:id", userController.getByParent);
  *
  */
 router.post("/create", userController.createOne);
+
+router.post("/create/parent", userController.createParent)
 
 /**
  * @swagger
