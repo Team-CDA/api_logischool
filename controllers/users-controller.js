@@ -175,7 +175,7 @@ req.body.password = randomPassword;
         { expiresIn: '1h' } // Token expirera après 1 heure
       );
 
-      const resetLink = `http://localhost:3001/resetPassword/${user.id}/${token}`;
+      const resetLink = `http://localhost:3001/resetPassword?id=${user.id}&token=${token}`;
 
       try {
         sendMail(
@@ -216,9 +216,9 @@ req.body.password = randomPassword;
     });
 };
 
-const resetPassword = (req, res) => {
+const resetPassword = async (req, res) => {
   const { id, token } = req.params;
-  const { password } = req.body;
+  const password = await bcrypt.hash(req.body.password, 10);
 
   usersTable
     .findByPk(id)
@@ -246,6 +246,7 @@ const resetPassword = (req, res) => {
       });
     });
 };
+
 
 
 
