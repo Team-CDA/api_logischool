@@ -38,7 +38,11 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       phone: {
         type: Sequelize.CHAR(10)
