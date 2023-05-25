@@ -129,11 +129,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
           len: [8, 128], // Spécifiez une longueur minimale et maximale pour le mot de passe
         },
+      },
+      token: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       phone: {
         type: DataTypes.CHAR(10),
