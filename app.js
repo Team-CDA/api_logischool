@@ -102,8 +102,7 @@ app.use("/timeslots", timeslotsRouter);
 
 app.use("/menus", menusRouter);
 
-app.use("/lessons", lessonsRouter);
-app.use("/referent_teachers", referent_teachersRouter);
+ app.use("/referent_teachers", referent_teachersRouter);
 
 app.use("/buildings", buildingsRouter);
 

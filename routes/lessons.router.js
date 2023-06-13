@@ -1,174 +1,173 @@
-const { Router } = require ("express")
-const router = Router()
-//On importe le controller avec toutes les méthodes à l'intérieur.
-const eventController = require ("../controllers/lessons-controller")
+//On importe db qui contient tous nos modèles.
+const db = require('../models/index');
+const { ValidationError } = require('sequelize');
+//On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table lessons
+const lessonsTable = db['lessons'];
+
+
+//On déclare toutes les méthodes
+const getAll = (req, res) => {
+
+    //On utilise l'ORM pour SELECT toute la table
+    lessonsTable.findAll()
+
+        //On utilise les promesses pour gérer les résultats de la requête.
+        .then(result => {
+            if (result.length === 0) {
+
+                //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
+                res.json({Message : "Aucune lesson présente en base de données."})
+            } else {
+                // Sinon, on renvoie le résultat de notre requête
+                res.json(result, 200)
+            }
+        })
+        //en cas d'erreur, on passe dans le catch
+        .catch(error => {
+            //On définit un status d'erreur et un message a renvoyer
+            const message = "La liste des lessons n'a pas pu être récupérée. Réessayez dans quelques instants."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+
+}
+
+const getOneById = (req, res) => {
+    lessonsTable.findByPk(req.params.id)
+        .then(lesson => {
+            if (!lesson) {
+                return res.status(404).json({ message: "Aucun lesson n'a été trouvée" })
+            }
+            res.status(200).json(lesson)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération de la lesson."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
 
 
 
-//On déclare un schéma pour le type de donnée qu'on est censé récupérer depuis ces routes.
-/**
- * @swagger
- *  components: 
- *    schemas:
- *       Lesson:
- *          type: object
- *          required: 
- *              - lesson
- *          properties: 
- *             id:
- *               type: integer
- *               description: Lesson id
- *             lesson_datetime:
- *               type: datetime
- *               description: Date and time of the lesson             
- *             id_room:
- *               type: integer
- *               description: Room id
- *             id_user:
- *               type: integer
- *               description: Id of the user who created the lesson
- *             id_subject:
- *               type: integer
- *               description: Id of the subject of the lesson
- *             id_timeslot:
- *               type: integer
- *               description: Id of the timeslot of the lesson
- *             id_class:
- *               type: integer
- *               description: Id of the class of the lesson
- *          example: 
- *             id: 1
- *             lesson_datetime: "2021-12-14 12:00:00"
- *             id_room: 1
- *             id_user: 1
- *             id_subject: 1
- *             id_timeslot: 1
- *             id_class: 1
- *  
- * 
- * 
- */
+
+const createOne = (req, res) => {
+    lessonsTable.create(req.body)
+
+        .then(lesson => {
+            const message = "Lesson ajoutée à la base de données."
+            res.status(201).json({
+                message,
+                data: lesson
+            })
+        })
+
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de l'insertion en base de donnée."
+            if (error instanceof ValidationError) {
+                res.status(400).send(error.errors[0].message)
+            } else {
+                res.status(500).json({
+                    message,
+                    error
+                })
+            }
+        })
+}
+
+const updateOneById = (req, res) => {
+    lessonsTable.findByPk(req.params.id)
+        .then(lesson => {
+            if(!lesson) {
+                return res.status(404).json({message: "Aucune lesson n'a été trouvée"})
+            }
+        
+            lessonsTable.update(
+                req.body,
+                    {
+                    where: {
+                        id: req.params.id
+                    },
+                    returning: true,
+                })
+                .then(result => {
+                    const message = "Lesson correctement mise à jour."
+                    res.status(201).json({
+                        message
+                    });
+                })
+                .catch(error => {
+                    const message = "Une erreur a eu lieu lors de la modification."
+                    if (error instanceof ValidationError) {
+                        res.status(400).send(error.errors[0].message)
+                    } else {
+                        res.status(500).json({
+                            message,
+                            error
+                        })
+                    }
+                });
+        });
+}
 
 
-/** 
- * @swagger
- * 
- * /lessons:
- *    get:
- *      tags: [Lessons]
- *      summary: Retrieves the list of all lessons
- *      description: Retrieves the list of all lessons
- *      responses: 
- *         200:
- *            description: Success
- *            content:
- *              application/json:
- *                schema:
- *                  type: array
- *                  items:
- *                    $ref: '#/components/schemas/Lesson'
- *         404:
- *            description: the lessons table was not found
- */
-router.get('/', eventController.getAll)
+const deleteOneById = (req, res) => {
+    lessonsTable.findByPk(req.params.id)
+    .then(lesson => {
+        if(!lesson) {
+            return res.status(404).json({message: "Aucune lesson n'a été trouvée"})
+        }
 
-/** 
- * @swagger
- * 
- * /lessons/{id}:
- *    get:
- *      tags: [Lessons]
- *      summary: Retrieves a lesson by id
- *      description: With the id of a lesson you can retrieve the corresponding lesson.
- *      responses: 
- *         200:
- *            description: Success
- *            content:
- *              application/json:
- *                schema:
- *                  type: array
- *                  items:
- *                    $ref: '#/components/schemas/Lesson'
- *         404:
- *            description: the lessons table was not found
- */
-router.get('/:id', eventController.getOneById)
+    lessonsTable.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
 
+        .then(r => {
+            const message = "L'élément a bien été supprimé."
+            res.status(200).send(message)
+        })
 
-/** 
- * @swagger
- * 
- * /lessons/create:
- *    post:
- *      tags: [Lessons]
- *      requestBody:
- *         required: true
- *         content:
- *           application/json:
- *              schema:
- *                 $ref: '#/components/schemas/Lesson'
- *      summary: Allows you to create a new lesson
- *      description: When you pass a lesson name in the body, you create a lesson with this name
- *      responses: 
- *         200:
- *            description: Lesson successfully created
- * 
- *         
- */
-router.post('/create', eventController.createOne)
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la suppression."
+            res.status(500).json({
+                message,
+                error
+            })
+        })
+    })
+}
+
+const deleteAll = (req, res) => {
+    lessonsTable.destroy({
+            truncate: true
+        })
+        .then(r => {
+            const message = "La table a bien été vidée."
+            res.status(200).send(message)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la suppression."
+            res.status(500).json({
+                message,
+                error
+            })
+        })
+}
+
+//On ajoute toutes les méthodes dans un objet pour faciliter l'export
+const lessonController = {
+    createOne,
+    updateOneById,
+    deleteOneById,
+    getAll,
+    getOneById,
+    deleteAll
+}
 
 
-/** 
- * @swagger
- * 
- * /lessons/update/{id}:
- *    patch:
- *      tags: [Lessons]
- *      summary: Allows you to update a lesson
- *      requestBody:
- *       required: true
- *       content:
- *         application/json:
- *            schema:
- *               $ref: '#/components/schemas/Lesson'
- *    description: With the id of a lesson you can update the corresponding lesson.
- *    responses:
- *         200:
- *          description: Lesson successfully updated
- *         
- */
-router.patch('/update/:id', eventController.updateOneById)
-
-
-/** 
- * @swagger
- * 
- * /lessons/delete/{id}:
- *    delete:
- *      tags: [Lessons]
- *      summary: Allows you to delete a lesson
- *      description: Pass the id of the lesson you want to delete in the URL
- *      responses:
- *         200:
- *          description: Lesson successfully deleted
- *         
- */
-router.delete('/delete/:id', eventController.deleteOneById)
-
-
-/** 
- * @swagger
- * 
- * /lessons/deleteAll:
- *    delete:
- *      tags: [Lessons]
- *      summary: Allows you to delete all lessons
- *      description: Delete all lessons
- *      responses:
- *         200:
- *          description: Lessons successfully deleted
- *         
- */
-router.delete('/deleteAll', eventController.deleteAll)
-
-module.exports = router
+module.exports = lessonController

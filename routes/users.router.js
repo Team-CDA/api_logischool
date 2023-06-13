@@ -265,6 +265,7 @@ router.post("/login", async (req, res) => {
       token: token,
       userInfo: userInfo,
     });
+    console.log(userInfo);
   } else {
     // Si les informations d'identification ne sont pas correctes, renvoyez une erreur
     res.status(422).json({ message: "Invalid email or password" });
