@@ -7,6 +7,7 @@ const classesTable = db["classes"];
 const rolesTable = db["roles"];
 const establishmentsTable = db["establishments"];
 
+
 const getAllUsers = (req, res) => {
   //On utilise l'ORM pour SELECT toute la table
   usersTable
@@ -63,7 +64,10 @@ const getAllUsers = (req, res) => {
 
 const getOneById = (req, res) => {
   usersTable
-    .findByPk(req.params.id)
+    .findByPk(req.params.id,{
+      include: { model:classesTable, include: ['class_type'] }
+      // ['tutor','classes','class_type']
+    })
     .then((users) => {
       if (!users) {
         return res
