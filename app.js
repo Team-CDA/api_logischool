@@ -85,7 +85,7 @@ app.use(publicMiddleware);
 
 app.get("/");
 app.use(express.json());
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
 
 app.use("/establishment_types", establishmentTypesRouter);
