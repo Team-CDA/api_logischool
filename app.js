@@ -1,5 +1,37 @@
-const checkAuth = require('./helpers/jwt');
-const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/signatures', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
+const checkAuth = require("./helpers/jwt");
+const publicRoutes = [
+  "/",
+  "/users/login",
+  "/classes",
+  "/users",
+  "/buildings",
+  "/establishments",
+  "/menus",
+  "/establishment_types",
+  "/events",
+  "/groups",
+  "/lessons",
+  "/rooms",
+  "/signatures",
+  "/subjects",
+  "/users_groups",
+  "/users_classes",
+  "/roles",
+  "/statuses",
+  "/report_types",
+  "/reports",
+  "/alert_types",
+  "/alerts",
+  "/alerts_groups",
+  "/class_types",
+  "/event_types",
+  "/timeslots",
+  "/referent_teachers",
+  "/room_types",
+  "/establishments/all",
+  "/establishments/one",
+  "/establishments/updateEstablishment",
+  "/establishments/one/:id",
 ];
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
@@ -158,4 +190,3 @@ io.on("connection", (socket) => {
     console.log("Un client s'est déconnecté");
   });
 });
-
