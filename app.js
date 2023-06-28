@@ -32,7 +32,9 @@ const publicRoutes = [
   "/establishments/one",
   "/establishments/updateEstablishment",
   "/establishments/one/:id",
+  "/files/:filename",
 ];
+
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
     return next();
@@ -99,6 +101,13 @@ app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
+const path = require('path');
+
+app.get('/files/:filename', (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, 'images', filename);
+  res.sendFile(filePath);
+});
 
 app.use("/establishment_types", establishmentTypesRouter);
 
