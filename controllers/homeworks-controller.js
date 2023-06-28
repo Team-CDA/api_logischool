@@ -6,6 +6,7 @@ const homeworksClassesTable = db["homeworks_classes"];
 const { Op } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
+const { log } = require("console");
 
 const MIME_TYPES = {
   "image/jpg": "jpg",
@@ -127,6 +128,40 @@ const getWithFilter = (req, res) => {
         data: error.message,
       });
     });
+};
+
+const deleteOneCorrectionById = async (req, res) => {
+  const homeworkId = req.params.id;
+  console.log(req.params.id);
+  try {
+    const homework = await homeworksTable.findOne({
+      where: { id: homeworkId },
+    });
+
+    if (!homework) {
+      res.status(404).json({ message: "Homework not found." });
+      return;
+    } else {
+      const filePath = path.join(
+        __dirname,
+        "..",
+        "images",
+        homework["correction_image"]
+      );
+
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+      homework.correction_image = null;
+      homework.date_correction = null;
+      await homework.save();
+      res.status(200).json({ message: "Homework successfully updated." });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error occurred while deleting the homework.", error });
+  }
 };
 
 const deleteOneById = async (req, res) => {
@@ -281,6 +316,7 @@ const deleteOneById = async (req, res) => {
 const create = (req, res) => {
   const body = req.body;
 
+  console.log("req/body", req.body);
   if (!body.category) {
     res.status(400).json({ message: "Category is missing." });
     return;
@@ -305,6 +341,8 @@ const create = (req, res) => {
     id_subject: metadata.id_subject,
     id_class: metadata.id_class,
     name: metadata.name,
+    date_devoir: metadata.date_devoir ? metadata.date_devoir : null,
+    date_correction: metadata.date_correction ? metadata.date_correction : null,
   };
 
   if (category === "homework_image") {
@@ -796,6 +834,7 @@ const homeworksController = {
   updateHC,
   getOneByIdHC,
   deleteOneByIdHC,
+  deleteOneCorrectionById,
   getByDateRangeHC,
   linkTwoFiles,
   getAllByIdClassAndIdSubject

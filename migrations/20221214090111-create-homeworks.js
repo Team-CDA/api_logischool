@@ -12,16 +12,16 @@ module.exports = {
           type: Sequelize.INTEGER.UNSIGNED,
         },
         course_image: {
-          type: Sequelize.STRING(64),
+          type: Sequelize.STRING(25),
         },
         homework_image: {
-          type: Sequelize.STRING(64),
+          type: Sequelize.STRING(25),
         },
         correction_image: {
-          type: Sequelize.STRING(64),
+          type: Sequelize.STRING(25),
         },
         name: {
-          type: Sequelize.STRING(128),
+          type: Sequelize.STRING(250),
           allowNull: false,
         },
         id_user: {
