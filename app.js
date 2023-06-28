@@ -40,6 +40,7 @@ const eventsGroupsRouter = require("./routes/events_groups.router");
 const scheduleRouter = require("./routes/schedule.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
+const profclassRouter = require("./routes/profclass.router");
 const swaggerUI = require("swagger-ui-express");
 const cors = require("cors");
 // const fs = require('fs');
@@ -112,10 +113,8 @@ app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 app.use("/schedule", scheduleRouter);
-// app.use('/establishments', establishmentsRouter)
-
 app.use("/establishments", establishmentsRouter);
-
+app.use("/profclass", profclassRouter);
 app.use("/doc", swaggerUI.serve, swaggerUI.setup(getSwagger()));
 
 const port = 3000;
