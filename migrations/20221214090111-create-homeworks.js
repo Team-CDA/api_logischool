@@ -12,13 +12,13 @@ module.exports = {
           type: Sequelize.INTEGER.UNSIGNED,
         },
         course_image: {
-          type: Sequelize.STRING(25),
+          type: Sequelize.STRING(250),
         },
         homework_image: {
-          type: Sequelize.STRING(25),
+          type: Sequelize.STRING(250),
         },
         correction_image: {
-          type: Sequelize.STRING(25),
+          type: Sequelize.STRING(250),
         },
         name: {
           type: Sequelize.STRING(250),
@@ -47,12 +47,12 @@ module.exports = {
         },
         date_devoir: {
           allowNull: true,
-          type: Sequelize.DATE,
+          type: Sequelize.DATEONLY,
           defaultValue: null,
         },
         date_correction: {
           allowNull: true,
-          type: Sequelize.DATE,
+          type: Sequelize.DATEONLY,
           defaultValue: null,
         },
         createdAt: {
