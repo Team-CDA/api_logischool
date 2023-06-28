@@ -71,6 +71,7 @@ const buildingsRouter = require("./routes/buildings.router");
 const eventsGroupsRouter = require("./routes/events_groups.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
+const scheduleRouter = require("./routes/schedule.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -143,6 +144,8 @@ app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
+
+app.use("/schedule", scheduleRouter);
 
 // app.use('/establishments', establishmentsRouter)
 

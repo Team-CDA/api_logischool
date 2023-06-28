@@ -61,6 +61,33 @@ const getOneById = (req, res) => {
     });
 };
 
+const getAllByIdClassAndIdSubject = (req, res) => {
+  homeworksTable
+    .findAll({
+      where: {
+        id_class: req.params.idClass,
+        id_subject: req.params.idSubject,
+      },
+    })
+    .then((homework) => {
+      if (!homework) {
+        return res
+          .status(404)
+          .json({ message: "Aucune homework n'a été trouvé" });
+      }
+      res.status(200).json(homework);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération du homework.";
+      res.status(500).json({
+        message,
+        data: error.message,
+      });
+    });
+};
+
+
 const getWithFilter = (req, res) => {
   const teacherId = req.query.id_teacher;
   const subjectId = req.query.id_subject;
@@ -771,6 +798,7 @@ const homeworksController = {
   deleteOneByIdHC,
   getByDateRangeHC,
   linkTwoFiles,
+  getAllByIdClassAndIdSubject
 };
 
 module.exports = homeworksController;

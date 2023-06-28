@@ -19,6 +19,7 @@ module.exports = {
           email: "toto@gmail.com",
           password: passwordHash,
           phone: "0606060606",
+          // id_class: 1,
           // id_establishment : 1,
           id_role: 2,
           id_status: 1,

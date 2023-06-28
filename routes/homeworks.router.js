@@ -122,6 +122,8 @@ router.get("/filter", multerMultipleFiles, homeworksController.getWithFilter);
  */
 router.get("/", multerMultipleFiles, homeworksController.getAll);
 
+router.get("/:idClass/:idSubject", homeworksController.getAllByIdClassAndIdSubject);
+
 /**
  * @swagger
  *
