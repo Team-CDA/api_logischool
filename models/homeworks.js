@@ -28,19 +28,19 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true,
       },
       homework_image: {
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING(250),
         allowNull: true,
       },
       course_image: {
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING(250),
         allowNull: true,
       },
       correction_image: {
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING(250),
         allowNull: true,
       },
       name: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(250),
         allowNull: false,
       },
       id_user: {
@@ -58,12 +58,12 @@ module.exports = (sequelize, DataTypes) => {
       date_devoir: {
         allowNull: true,
         type: DataTypes.DATE,
-        defaultValue: new Date(),
+        defaultValue: null,
       },
       date_correction: {
         allowNull: true,
         type: DataTypes.DATE,
-        defaultValue: new Date(),
+        defaultValue: null,
       },
       createdAt: {
         allowNull: false,

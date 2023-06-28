@@ -216,6 +216,12 @@ router.put("/:id", multerMultipleFiles, homeworksController.update);
  */
 router.delete("/:id", multerMultipleFiles, homeworksController.deleteOneById);
 
+router.delete(
+  "/:id/corrections",
+  multerMultipleFiles,
+  homeworksController.deleteOneCorrectionById
+);
+
 /**
  * @swagger
  *
