@@ -96,13 +96,18 @@ const getParents = (req, res) => {
 const getOneById = (req, res) => {
   usersTable
     .findByPk(req.params.id)
-    .then((users) => {
-      if (!users) {
+    .then((user) => {
+      if (!user) {
         return res
           .status(404)
           .json({ message: "Aucun utilisateur n'a été trouvé" });
       }
-      res.status(200).json(users);
+      // Obtenir les groupes de l'utilisateur
+      user.getGroups().then((groups) => {
+        // Ajouter les groupes à l'objet utilisateur avant de renvoyer la réponse
+        user.dataValues.groups = groups;
+        res.status(200).json(user);
+      });
     })
     .catch((error) => {
       const message =
@@ -113,6 +118,7 @@ const getOneById = (req, res) => {
       });
     });
 };
+
 
 const getByParent = (req, res) => {
   usersTable
