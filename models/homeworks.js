@@ -57,12 +57,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       date_devoir: {
         allowNull: true,
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: null,
       },
       date_correction: {
         allowNull: true,
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: null,
       },
       createdAt: {

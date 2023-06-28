@@ -309,13 +309,14 @@ const create = (req, res) => {
 
   const metadata = JSON.parse(body.metadata); // Ajoutez cette ligne
 
+  console.log(metadata);
   let fileData = {
     id_user: metadata.id_user,
     id_subject: metadata.id_subject,
     id_class: metadata.id_class,
     name: metadata.name,
-    date_devoir: metadata.date_devoir ? metadata.date_devoir : null,
-    date_correction: metadata.date_correction ? metadata.date_correction : null,
+    date_devoir: req.body.date_devoir ? req.body.date_devoir : null,
+    date_correction: req.body.date_correction ? req.body.date_correction : null,
   };
 
   if (category === "homework_image") {
@@ -512,6 +513,7 @@ const linkTwoFiles = async (req, res) => {
       return;
     } else {
       homework.correction_image = req.files.correction_image[0].originalname;
+      homework.date_correction = req.body.date_correction;
       await homework.save();
       res.status(200).json({
         message: "Homework file successfully updated.",
