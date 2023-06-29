@@ -34,6 +34,7 @@ const publicRoutes = [
   "/establishments/one/:id",
   "/files/:filename",
   "/liaison_books",
+  "/alerts_users",
 ];
 
 const publicMiddleware = (req, res, next) => {
@@ -76,6 +77,7 @@ const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
 const scheduleRouter = require("./routes/schedule.router");
 const liaison_booksRouter = require("./routes/liaison_books.router");
+const alertsUsersRouter = require("./routes/alerts_users.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -128,6 +130,7 @@ app.use("/reports", reportsRouter);
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
 app.use("/alerts_groups", alertsGroupsRouter);
+app.use("/alerts_users", alertsUsersRouter);
 
 app.use("/class_types", classTypesRouter);
 app.use("/classes", classesRouter);
