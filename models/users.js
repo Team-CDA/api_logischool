@@ -47,7 +47,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.groups, {
         through: "users_groups",
         foreignKey: "id_user",
-    });
+      });
     }
     static async comparePassword(plainPassword, hashedPassword) {
       return await bcrypt.compare(plainPassword, hashedPassword);

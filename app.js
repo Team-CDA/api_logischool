@@ -33,6 +33,7 @@ const publicRoutes = [
   "/establishments/updateEstablishment",
   "/establishments/one/:id",
   "/files/:filename",
+  "/liaison_books",
 ];
 
 const publicMiddleware = (req, res, next) => {
@@ -74,6 +75,7 @@ const eventsGroupsRouter = require("./routes/events_groups.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
 const scheduleRouter = require("./routes/schedule.router");
+const liaison_booksRouter = require("./routes/liaison_books.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -133,6 +135,8 @@ app.use("/classes", classesRouter);
 app.use("/users_classes", usersClassesRouter);
 
 app.use("/signatures", signaturesRouter);
+
+app.use("/liaison_books", liaison_booksRouter);
 
 app.use("/events", eventsRouter);
 app.use("/event_types", eventTypesRouter);
