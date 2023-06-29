@@ -38,6 +38,8 @@ const homeworksRouter = require("./routes/homeworks.router");
 const buildingsRouter = require("./routes/buildings.router");
 const eventsGroupsRouter = require("./routes/events_groups.router");
 const scheduleRouter = require("./routes/schedule.router");
+const missing_studentsRouter = require("./routes/missing_students.router");
+
 
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
@@ -114,6 +116,7 @@ app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 
 app.use("/schedule", scheduleRouter);
+app.use("/missing_students", missing_studentsRouter);
 
 
 // app.use('/establishments', establishmentsRouter)
