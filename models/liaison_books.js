@@ -4,11 +4,19 @@ const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
     class liaison_books extends Model {
         static associate(models) {
-            this.hasMany(models.users, {
-                foreignKey: "id",
-                as: "users",
+            this.belongsTo(models.users, {
+                foreignKey: "id_initiator",
+                as: "initiator",
             });
-    }
+            this.belongsTo(models.users, {
+                foreignKey: "id_parent",
+                as: "parent",
+            });
+            this.belongsTo(models.users, {
+                foreignKey: "id_student",
+                as: "student",
+            });
+        }
         static async comparePassword(plainPassword, hashedPassword) {
         return await bcrypt.compare(plainPassword, hashedPassword);
         }

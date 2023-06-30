@@ -34,7 +34,28 @@
     }
 
     const getOneById = (req, res) => {
-        liaison_booksTable.findByPk(req.params.id)
+        liaison_booksTable.findAll({ 
+            where: { id_student: req.params.id },
+            include: [
+                {
+                    model: db.users,
+                    as: 'initiator', 
+                    attributes: ['firstName', 'lastName'], 
+                },
+                {
+                    model: db.users,
+                    as: 'parent', 
+                    attributes: ['firstName', 'lastName'], 
+                },
+                {
+                    model: db.users,
+                    as: 'student', 
+                    attributes: ['firstName', 'lastName'], 
+                },
+            ],
+            order: [['date_message', 'DESC']] // Tri par date_message DESC
+        })
+        
             .then(liaison_book => {
                 if (!liaison_book) {
                     return res.status(404).json({ message: "Aucun liaison_book n'a été trouvé" })
@@ -77,7 +98,7 @@
 
     const updateOneById = (req, res) => {
         liaison_booksTable
-            .findAll({ where: { id_student: req.params.id } })
+            .findOne({ where: { id_student: req.params.id } })
             .then((liaison_book) => {
             if (!liaison_book) {
                 return res.status(404).json({ message: "Aucun liaison_book n'a été trouvé" });
