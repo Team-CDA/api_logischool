@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
             },
         },
         id_parent: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.INTEGER.UNSIGNED,
             references: {
                 model: "users",
@@ -64,10 +64,6 @@ module.exports = (sequelize, DataTypes) => {
                 model: "users",
                 key: "id",
             },
-        },
-        signature_parent: {
-            allowNull: false,
-            type: DataTypes.STRING
         },
         createdAt: {
             type: DataTypes.DATE,

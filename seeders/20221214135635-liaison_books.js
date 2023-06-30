@@ -21,12 +21,37 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          date_message: new Date(),
+          date_response: new Date(),
+          message: "Exemple de message 2",
+          message_object: "Objet 2",
+          response: "Réponse 2",
+          id_initiator: 3,
+          id_parent: 2,
+          id_student: 1,
+          signature_parent: "signature 2",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          date_message: new Date(),
+          date_response: new Date(),
+          message: "Exemple de message 3",
+          message_object: "Objet 3",
+          response: "",
+          id_initiator: 3,
+          id_student: 1,
+          signature_parent: "",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ],
       {}
     );
   },
 
   async down(queryInterface, Sequelize) {
-    // await queryInterface.sequelize.query('TRUNCATE TABLE liaison_books');
+    // await queryInterface.sequelize.query("TRUNCATE TABLE liaison_books");
   },
 };

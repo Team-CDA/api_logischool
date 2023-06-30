@@ -38,7 +38,7 @@ module.exports = {
         },
       },
       id_parent: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.INTEGER.UNSIGNED,
         references: {
           model: "users",
@@ -52,10 +52,6 @@ module.exports = {
           model: "users",
           key: "id",
         },
-      },
-      signature_parent: {
-        allowNull: false,
-        type: Sequelize.TEXT,
       },
       createdAt: {
         allowNull: false,
