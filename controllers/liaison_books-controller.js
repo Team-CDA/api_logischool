@@ -77,7 +77,7 @@
 
     const updateOneById = (req, res) => {
         liaison_booksTable
-            .findByPk(req.params.id)
+            .findAll({ where: { id_student: req.params.id } })
             .then((liaison_book) => {
             if (!liaison_book) {
                 return res.status(404).json({ message: "Aucun liaison_book n'a été trouvé" });
