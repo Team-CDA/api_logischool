@@ -75,8 +75,6 @@ router.get('/', users_subjectsController.getAll)
  */
 router.get('/:id', users_subjectsController.getOneById)
 
-router.get('/user/:id', users_subjectsController.getOneByUserId)
-
 /** 
  * @swagger
  * 

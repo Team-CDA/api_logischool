@@ -37,23 +37,6 @@ const getOneById = (req, res) => {
         })
 }
 
-const getOneByUserId = (req, res) => {
-        users_subjectsTable.findAll({ where: { id_user: req.params.id } })
-        .then(users_subjects => {
-            if (!users_subjects) {
-                return res.status(404).json({ message: "Aucun utilisateur relié à une matiére n'a été trouvé" })
-            }
-            res.status(200).json(users_subjects)
-        })
-        .catch(error => {
-            const message = "Une erreur a eu lieu lors de la récupération d'un utilisateur relié à une matiére."
-            res.status(500).json({
-                message,
-                data: error
-            })
-        })
-}
-
 const createOne = (req, res) => {
     users_subjectsTable.create(req.body)
 
@@ -139,8 +122,7 @@ const users_subjectsController = {
     getOneById,
     createOne,
     updateOneById,
-    deleteOneById,
-    getOneByUserId
+    deleteOneById
 }
 
 module.exports = users_subjectsController
