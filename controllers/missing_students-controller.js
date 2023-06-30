@@ -5,6 +5,7 @@ const { ValidationError } = require('sequelize');
 const missing_students = db['missing_students'];
 
 
+
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
 
@@ -50,6 +51,65 @@ const getOneById = (req, res) => {
             })
         })
 }
+
+
+const getAllByIdUser = (req, res) => {
+    missing_students.findAll({where: {id_user: req.params.id}})
+    .then(result => {
+            if (result.length === 0) {
+                res.json({Message : "Aucune absence pour cet utilisateur en base de données."})
+            } else {
+                res.json(result, 200)
+            }
+        })
+        .catch(error => {
+            const message = "La liste des absences de l'utilisateur n'a pas pu être récupérée. Réessayez dans quelques instants."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
+
+const getOneByIdUser = (req, res) => {
+    const { userId, absenceId } = req.params;
+
+    missing_students.findOne({ where: { id_user: userId, id: absenceId } })
+        .then(absence => {
+            if (!absence) {
+                return res.status(404).json({ message: "Aucune absence n'a été trouvée pour cet utilisateur" })
+            }
+            res.status(200).json(absence)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération de l'absence."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
+
+
+const getAllUnjustifiedByUserId = (req, res) => {
+    const { userId } = req.params;
+
+    missing_students.findAll({ where: { id_user: userId, justified: 0 } })
+        .then(absences => {
+            if (!absences) {
+                return res.status(404).json({ message: "Aucune absence non justifiée n'a été trouvée pour cet utilisateur" })
+            }
+            res.status(200).json(absences)
+        })
+        .catch(error => {
+            const message = "Une erreur a eu lieu lors de la récupération des absences non justifiées."
+            res.status(500).json({
+                message,
+                data: error
+            })
+        })
+}
+
 
 
 
@@ -113,12 +173,43 @@ const updateOneById = (req, res) => {
         });
 }
  
+
+const getAbsencesWithSchedule = (req, res) => {
+    const { userId } = req.params;
+  
+    missing_students.findAll({
+      where: { id_user: userId },
+      include: [{ model: Schedule, where: { lesson_id: Sequelize.col('missing_students.id_lesson') } }]
+    })
+      .then(absences => {
+        if (!absences) {
+          return res.status(404).json({ message: "Aucune absence trouvée pour cet utilisateur" })
+        }
+        res.status(200).json(absences)
+      })
+      .catch(error => {
+        const message = "Une erreur a eu lieu lors de la récupération des absences et des informations de l'emploi du temps."
+        res.status(500).json({
+          message,
+          data: error
+        })
+      })
+  }
+  
+  
+
+
 //On ajoute toutes les méthodes dans un objet pour faciliter l'export
 const missing_studentsController = {
     createOne,
     updateOneById,
     getAll,
     getOneById,
+    getAllByIdUser,
+    getOneByIdUser,
+    getAllUnjustifiedByUserId,
+    getAbsencesWithSchedule, 
+
 }
 
 
