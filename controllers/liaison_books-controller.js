@@ -53,13 +53,42 @@
                     attributes: ['firstName', 'lastName'], 
                 },
             ],
-            order: [['date_message', 'DESC']] // Tri par date_message DESC
+            order: [['date_message', 'DESC']]
         })
         
             .then(liaison_book => {
                 if (!liaison_book) {
                     return res.status(404).json({ message: "Aucun liaison_book n'a été trouvé" })
                 }
+                liaison_book.forEach((element) => {
+                    const date = new Date(element.dataValues.date_message);
+                    element.dataValues.formattedDateMessage = `le ${date.toLocaleDateString(
+                        "fr-FR",
+                        {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                        }
+                        )} à ${date.toLocaleTimeString("fr-FR", {
+                        hour: "numeric",
+                        minute: "numeric",
+                        })}`;
+                
+                        if (element.dataValues.date_response) {
+                        const dateResponse = new Date(element.dataValues.date_response);
+                        element.dataValues.formattedDateResponse = `le ${dateResponse.toLocaleDateString(
+                            "fr-FR",
+                            {
+                            month: "2-digit",
+                            day: "2-digit",
+                            year: "numeric",
+                            }
+                        )} à ${dateResponse.toLocaleTimeString("fr-FR", {
+                            hour: "numeric",
+                            minute: "numeric",
+                        })}`;
+                        }
+                    }); 
                 res.status(200).json(liaison_book)
             })
             .catch(error => {

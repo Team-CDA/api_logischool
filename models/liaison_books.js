@@ -30,11 +30,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER.UNSIGNED,
         },
         date_message: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.DATE
         },
         date_response: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.DATE
         },
         message: {
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
         response: {
-            allowNull: false,
+            allowNull: true,
             type: DataTypes.STRING
         },
         id_initiator: {
