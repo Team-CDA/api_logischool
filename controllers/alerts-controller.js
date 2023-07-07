@@ -1,9 +1,12 @@
 const db = require("../models/index");
+
 const { ValidationError } = require("sequelize");
 const alertsTable = db["alerts"];
 const alertTypesTable = db["alert_types"];
 const alertsGroupsTable = db["alerts_groups"];
+const alertsUsersTable = db["alerts_users"];
 
+const sequelize = db.sequelize;
 const getAll = (req, res) => {
   //On utilise l'ORM pour SELECT toute la table
   alertsTable
@@ -24,7 +27,7 @@ const getAll = (req, res) => {
       } else {
         // Sinon, on renvoie le résultat de notre requête
         res.json(result, 200);
-      } 
+      }
     })
     //en cas d'erreur, on passe dans le catch
     .catch((error) => {
@@ -62,32 +65,51 @@ const getOneById = (req, res) => {
 const createOne = async (io, req, res) => {
   console.log("Request body:", req.body);
 
+  let transaction;
   try {
-    const alert = await alertsTable.create(req.body);
+    transaction = await sequelize.transaction();
+    const alert = await alertsTable.create(req.body, { transaction });
 
     // Récupérer les groupes à partir du corps de la requête
     const groups = req.body.groups;
-    
-    io.emit("newAlert", alert, groups);
 
-    // Créer des entrées pour chaque groupe dans la table alerts_groups
-    const alertsGroupsPromises = groups.map((groupId) => {
-      return alertsGroupsTable.create({
-        id_alert: alert.id,
-        id_group: groupId,
+    if (req.body.receiverType == "groups") {
+      // Créer des entrées pour chaque groupe dans la table alerts_groups
+      const alertsGroupsPromises = groups.map((groupId) => {
+        return alertsGroupsTable.create(
+          {
+            id_alert: alert.id,
+            id_group: groupId,
+          },
+          { transaction }
+        );
       });
-    });
-    
-    await Promise.all(alertsGroupsPromises);
 
+      await Promise.all(alertsGroupsPromises);
+    } else if (req.body.receiverType == "users") {
+      const alertsUsersTablePromises = groups.map((userId) => {
+        return alertsUsersTable.create(
+          {
+            id_alert: alert.id,
+            id_user: userId,
+          },
+          { transaction }
+        );
+      });
+      await Promise.all(alertsUsersTablePromises);
+    }
+
+    await transaction.commit();
+    // io.emit("newAlert", alert, groups);
     const message = "Une alerte est ajoutée à la base de données.";
     res.status(201).json({
       message,
-      data: {alert, groups},
+      data: { alert, groups },
       success: true,
     });
   } catch (error) {
-    console.log("Error:", error);
+    console.log("erreur de transaction :", error.message);
+    await transaction.rollback();
     const message =
       "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée.";
     if (error instanceof ValidationError) {
@@ -175,15 +197,13 @@ const deleteOneById = (req, res) => {
 // }
 
 const alertsController = (io) => {
-    return {
-      getAll,
-      getOneById,
-      createOne: createOne.bind(null, io),
-      updateOneById,
-      deleteOneById,
-    };
+  return {
+    getAll,
+    getOneById,
+    createOne: createOne.bind(null, io),
+    updateOneById,
+    deleteOneById,
   };
-
+};
 
 module.exports = alertsController;
-
