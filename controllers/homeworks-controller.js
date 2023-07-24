@@ -27,7 +27,7 @@ const getAll = (req, res) => {
     })
     .then((result) => {
       if (result.length === 0) {
-        res.send("Aucun résultat.");
+        res.send([]);
       } else {
         res.json(result, 200);
       }
