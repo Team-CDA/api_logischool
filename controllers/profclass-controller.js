@@ -1,6 +1,9 @@
 const db = require('../models/index');
 const profclassTable = db['profclass'];
 const userClasseTable = db['users_classes'];
+const Users = db['users'];
+const Subjects = db['subjects'];
+
 
 const getAll = (req, res) => {
 
@@ -31,18 +34,24 @@ const getAllByStudentId = async (req, res) => {
             attributes: ['id_class']
         })
         const idClass = user[0].id_class
-        const prof = await profclassTable.findAll({
+        const prof = await userClasseTable.findAll({
             where: {
                 id_class: idClass,
-                role_user: 6
             },
-            attributes: {exclude: ['id']}
+            attributes: { exclude: ['id'] },
+            include: [
+                {
+                    model: Users,
+                    where: { id_role: 6 },
+                    include: [Subjects] // Ajout de l'inclusion pour récupérer les sujets
+                }
+            ]
         })
         if (prof) {
-            res.status(200).send({message: 'selected',data: prof})
+            res.status(200).send({ message: 'selected', data: prof })
         }
     } catch (error) {
-        res.status(400).send({error: error.message})
+        res.status(400).send({ error: error.message })
     }
 
 }

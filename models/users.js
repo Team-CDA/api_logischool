@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "tutor2",
         foreignKey: "second_tutor",
       });
+      this.hasMany(models.users_classes, {
+        foreignKey: "id_user",
+        as: "users_classes",
+      });
     }
     static async comparePassword(plainPassword, hashedPassword) {
       return await bcrypt.compare(plainPassword, hashedPassword);

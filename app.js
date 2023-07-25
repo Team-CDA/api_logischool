@@ -54,7 +54,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: "http://localhost:3001", // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
+    origin: ["http://localhost:3001", "http://localhost:1212"] // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
   },
 });
 const alertsRouter = require("./routes/alerts.router");
