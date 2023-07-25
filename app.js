@@ -79,7 +79,6 @@ const eventsGroupsRouter = require("./routes/events_groups.router");
 const scheduleRouter = require("./routes/schedule.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
-const scheduleRouter = require("./routes/schedule.router");
 const liaison_booksRouter = require("./routes/liaison_books.router");
 const alertsUsersRouter = require("./routes/alerts_users.router");
 const profclassRouter = require("./routes/profclass.router");
