@@ -100,7 +100,7 @@ const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
-
+  
 app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));

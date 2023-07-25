@@ -100,7 +100,7 @@ const createOne = async (io, req, res) => {
     }
 
     await transaction.commit();
-    // io.emit("newAlert", alert, groups);
+    io.emit("newAlert", alert, groups);
     const message = "Une alerte est ajoutée à la base de données.";
     res.status(201).json({
       message,
