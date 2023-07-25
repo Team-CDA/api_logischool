@@ -105,11 +105,11 @@ app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
-const path = require('path');
+const path = require("path");
 
-app.get('/files/:filename', (req, res) => {
+app.get("/files/:filename", (req, res) => {
   const { filename } = req.params;
-  const filePath = path.join(__dirname, 'images', filename);
+  const filePath = path.join(__dirname, "images", filename);
   res.sendFile(filePath);
 });
 
@@ -203,7 +203,7 @@ http.listen(port, () =>
 );
 
 io.on("connection", (socket) => {
-  console.log("User connected");
+  // console.log("User connected");
 
   socket.on("disconnect", () => {
     console.log("Un client s'est déconnecté");
