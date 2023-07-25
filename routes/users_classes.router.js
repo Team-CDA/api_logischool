@@ -52,6 +52,8 @@ const users_classController = require("../controllers/users_classes-controller")
  */
 router.get("/", users_classController.getAll);
 
+router.get("/user/:idUser", users_classController.getOneByUserId);
+
 router.get("/class/:idClass", users_classController.getCount);
 
 /**

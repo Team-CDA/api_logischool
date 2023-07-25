@@ -1,7 +1,9 @@
-const { Router } = require ("express")
+const {
+    Router
+} = require("express")
 const router = Router()
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const scheduleController = require ("../controllers/schedule-controller")
+const scheduleController = require("../controllers/schedule-controller")
 
 
 
@@ -92,5 +94,3 @@ router.get('/:id', scheduleController.getScheduleByUser)
 
 
 module.exports = router
-
-

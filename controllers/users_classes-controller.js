@@ -90,6 +90,40 @@ const getOneById = (req, res) => {
     });
 };
 
+// récupérer la classe d'un utilisateur
+const getOneByUserId = (req, res) => {
+  users_classesTable
+    .findOne({
+      include: [
+        {
+          model: db["classes"],
+          as: "classes",
+        },
+      ],
+      where: {
+        id_user: req.params.idUser,
+      },
+    })
+    .then((user) => {
+      console.log(true);
+      if (!user) {
+        return res
+          .status(404)
+          .json({ message: "Aucune classe d'utilisateur n'a été trouvée" });
+      }
+      res.status(200).json(user);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération de la classe de l'utilisateur.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
+
+
 const createOne = (req, res) => {
   users_classesTable
     .create(req.body)
@@ -206,6 +240,7 @@ const users_classController = {
   getOneById,
   deleteAll,
   getCount,
+  getOneByUserId
 };
 
 module.exports = users_classController;

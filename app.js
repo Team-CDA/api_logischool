@@ -1,6 +1,42 @@
-const checkAuth = require('./helpers/jwt');
-const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/signatures', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
+const checkAuth = require("./helpers/jwt");
+const publicRoutes = [
+  "/",
+  "/users/login",
+  "/classes",
+  "/users",
+  "/buildings",
+  "/establishments",
+  "/menus",
+  "/establishment_types",
+  "/events",
+  "/groups",
+  "/lessons",
+  "/rooms",
+  "/signatures",
+  "/subjects",
+  "/users_groups",
+  "/users_classes",
+  "/roles",
+  "/statuses",
+  "/report_types",
+  "/reports",
+  "/alert_types",
+  "/alerts",
+  "/alerts_groups",
+  "/class_types",
+  "/event_types",
+  "/timeslots",
+  "/referent_teachers",
+  "/room_types",
+  "/establishments/all",
+  "/establishments/one",
+  "/establishments/updateEstablishment",
+  "/establishments/one/:id",
+  "/files/:filename",
+  "/liaison_books",
+  "/alerts_users",
 ];
+
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
     return next();
@@ -10,7 +46,10 @@ const publicMiddleware = (req, res, next) => {
 
 const express = require("express");
 const morgan = require("morgan");
-const { success, getSwagger } = require("./helper");
+const {
+  success,
+  getSwagger
+} = require("./helper");
 const usersRouter = require("./routes/users.router");
 const establishmentsRouter = require("./routes/establishments.router");
 const establishmentTypesRouter = require("./routes/establishment_types.router");
@@ -40,6 +79,9 @@ const eventsGroupsRouter = require("./routes/events_groups.router");
 const scheduleRouter = require("./routes/schedule.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
+const scheduleRouter = require("./routes/schedule.router");
+const liaison_booksRouter = require("./routes/liaison_books.router");
+const alertsUsersRouter = require("./routes/alerts_users.router");
 const profclassRouter = require("./routes/profclass.router");
 const swaggerUI = require("swagger-ui-express");
 const cors = require("cors");
@@ -67,6 +109,15 @@ app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
+const path = require("path");
+
+app.get("/files/:filename", (req, res) => {
+  const {
+    filename
+  } = req.params;
+  const filePath = path.join(__dirname, "images", filename);
+  res.sendFile(filePath);
+});
 
 app.use("/establishment_types", establishmentTypesRouter);
 
@@ -85,6 +136,7 @@ app.use("/reports", reportsRouter);
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
 app.use("/alerts_groups", alertsGroupsRouter);
+app.use("/alerts_users", alertsUsersRouter);
 
 app.use("/class_types", classTypesRouter);
 app.use("/classes", classesRouter);
@@ -92,6 +144,8 @@ app.use("/classes", classesRouter);
 app.use("/users_classes", usersClassesRouter);
 
 app.use("/signatures", signaturesRouter);
+
+app.use("/liaison_books", liaison_booksRouter);
 
 app.use("/events", eventsRouter);
 app.use("/event_types", eventTypesRouter);
@@ -112,7 +166,11 @@ app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
+
 app.use("/schedule", scheduleRouter);
+
+// app.use('/establishments', establishmentsRouter)
+
 app.use("/establishments", establishmentsRouter);
 app.use("/profclass", profclassRouter);
 app.use("/doc", swaggerUI.serve, swaggerUI.setup(getSwagger()));
@@ -137,10 +195,14 @@ app.get("/", (req, res) => {
 // });
 
 //Gestion de l'erreur 404
-app.use(({ res }) => {
+app.use(({
+  res
+}) => {
   const message =
     "Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.";
-  res.status(404).json({ message });
+  res.status(404).json({
+    message
+  });
 });
 
 //On démarre l'api sur le port 3000 en affichant un message
@@ -151,10 +213,9 @@ http.listen(port, () =>
 );
 
 io.on("connection", (socket) => {
-  console.log("User connected");
+  // console.log("User connected");
 
   socket.on("disconnect", () => {
     console.log("Un client s'est déconnecté");
   });
 });
-
