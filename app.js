@@ -1,6 +1,42 @@
-const checkAuth = require('./helpers/jwt');
-const publicRoutes = ['/', '/users/login', '/classes', '/users', '/buildings', '/establishments', '/menus', '/establishment_types', '/events', '/groups', '/lessons', '/rooms', '/signatures', '/subjects', '/users_groups', '/users_classes', '/roles', '/statuses', '/report_types', '/reports', '/alert_types', '/alerts', '/alerts_groups', '/class_types', '/event_types', '/timeslots', '/referent_teachers', '/room_types', '/establishments/all', '/establishments/one', '/establishments/updateEstablishment', '/establishments/one/:id',
+const checkAuth = require("./helpers/jwt");
+const publicRoutes = [
+  "/",
+  "/users/login",
+  "/classes",
+  "/users",
+  "/buildings",
+  "/establishments",
+  "/menus",
+  "/establishment_types",
+  "/events",
+  "/groups",
+  "/lessons",
+  "/rooms",
+  "/signatures",
+  "/subjects",
+  "/users_groups",
+  "/users_classes",
+  "/roles",
+  "/statuses",
+  "/report_types",
+  "/reports",
+  "/alert_types",
+  "/alerts",
+  "/alerts_groups",
+  "/class_types",
+  "/event_types",
+  "/timeslots",
+  "/referent_teachers",
+  "/room_types",
+  "/establishments/all",
+  "/establishments/one",
+  "/establishments/updateEstablishment",
+  "/establishments/one/:id",
+  "/files/:filename",
+  "/liaison_books",
+  "/alerts_users",
 ];
+
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
     return next();
@@ -43,6 +79,9 @@ const missing_studentsRouter = require("./routes/missing_students.router");
 
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
+const scheduleRouter = require("./routes/schedule.router");
+const liaison_booksRouter = require("./routes/liaison_books.router");
+const alertsUsersRouter = require("./routes/alerts_users.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -57,7 +96,7 @@ const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: "http://localhost:3001", // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
+    origin: ['http://localhost:1212', 'http://localhost:3001'], // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
   },
 });
 const alertsRouter = require("./routes/alerts.router");
@@ -70,6 +109,13 @@ app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
+const path = require("path");
+
+app.get("/files/:filename", (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, "images", filename);
+  res.sendFile(filePath);
+});
 
 app.use("/establishment_types", establishmentTypesRouter);
 
@@ -88,6 +134,7 @@ app.use("/reports", reportsRouter);
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
 app.use("/alerts_groups", alertsGroupsRouter);
+app.use("/alerts_users", alertsUsersRouter);
 
 app.use("/class_types", classTypesRouter);
 app.use("/classes", classesRouter);
@@ -95,6 +142,8 @@ app.use("/classes", classesRouter);
 app.use("/users_classes", usersClassesRouter);
 
 app.use("/signatures", signaturesRouter);
+
+app.use("/liaison_books", liaison_booksRouter);
 
 app.use("/events", eventsRouter);
 app.use("/event_types", eventTypesRouter);
@@ -159,10 +208,9 @@ http.listen(port, () =>
 );
 
 io.on("connection", (socket) => {
-  console.log("User connected");
+  // console.log("User connected");
 
   socket.on("disconnect", () => {
     console.log("Un client s'est déconnecté");
   });
 });
-

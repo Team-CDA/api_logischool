@@ -1,72 +1,64 @@
-
-
 'use strict';
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class users_classes extends Model {
+  class alerts_users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      // define association here
+      this.belongsTo(models.alerts, {
+        as: 'alerts',
+        foreignKey: 'id'
+      }),
       this.belongsTo(models.users, {
-          foreignKey: "id_user",
-          as: "users",
-        });
-        this.belongsTo(models.classes, {
-          foreignKey: "id_class",
-          as: "classes",
-        });
+        as: 'users',
+        foreignKey: 'id'
+      })
     }
   }
-  users_classes.init({
+  alerts_users.init({
     id: {
       allowNull: false,
-      autoIncrement: true,
+      type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
-      type: DataTypes.INTEGER.UNSIGNED
+      autoIncrement: true
+    },
+    id_alert: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Alert\'s id is required'
+        },
+      }
     },
     id_user: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       validate: {
-        isNumeric: {
-          msg: 'User\'s id must be a number'
-        },
         notNull: {
-          msg: 'User\'s id is required'
-        },
-      }
-    },
-    id_class: {
-      type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: false,
-      validate: {
-        isNumeric: {
-          msg: 'Class\'s id must be a number'
-        },
-        notNull: {
-          msg: 'Class\'s id is required'
+          msg: 'user\'s id is required'
         },
       }
     },
     createdAt: {
-      type: DataTypes.DATE,
       allowNull: false,
+      type: DataTypes.DATE,
       defaultValue: new Date()
     },
     updatedAt: {
-      type: DataTypes.DATE,
       allowNull: false,
+      type: DataTypes.DATE,
       defaultValue: new Date()
     }
   }, {
     sequelize,
-    modelName: 'users_classes',
+    modelName: 'alerts_users',
   });
-  
-  return users_classes;
+  return alerts_users;
 };
