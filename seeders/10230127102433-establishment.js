@@ -4,9 +4,12 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('establishments', [
-      {name: 'La Manu', id_establishment_type: 1},
-      {name: 'Saint Martin', id_establishment_type: 2},
-      {name: 'Louis Thuillier', id_establishment_type: 3},
+      {
+        name: 'LA MANU',
+        id_establishment_type: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+    },
     ], {}
     );
   },

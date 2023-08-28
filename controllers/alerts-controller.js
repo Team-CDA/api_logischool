@@ -97,17 +97,16 @@ const getAllForOneUser = (req, res) => {
 
 const createOne = async (io, req, res) => {
   console.log("Request body:", req.body);
-
   let transaction;
   try {
     transaction = await sequelize.transaction();
     const alert = await alertsTable.create(req.body, { transaction });
 
-    // Récupérer les groupes à partir du corps de la requête
     const groups = req.body.groups;
+    const users = req.body.users;
 
-    if (req.body.receiverType == "groups") {
-      // Créer des entrées pour chaque groupe dans la table alerts_groups
+    // si le groupe n'est pas vide alors on crée des entrées pour chaque groupe dans la table alerts_groups
+    if (groups.length > 0) {
       const alertsGroupsPromises = groups.map((groupId) => {
         return alertsGroupsTable.create(
           {
@@ -119,8 +118,12 @@ const createOne = async (io, req, res) => {
       });
 
       await Promise.all(alertsGroupsPromises);
-    } else if (req.body.receiverType == "users") {
-      const alertsUsersTablePromises = groups.map((userId) => {
+    }
+
+    // si les utilisateurs ne sont pas vides alors on crée des entrées pour chaque utilisateur dans la table alerts_users
+
+    if (users.length > 0) {
+      const alertsUsersTablePromises = users.map((userId) => {
         return alertsUsersTable.create(
           {
             id_alert: alert.id,
@@ -133,11 +136,11 @@ const createOne = async (io, req, res) => {
     }
 
     await transaction.commit();
-    io.emit("newAlert", alert, groups);
+    io.emit("newAlert", alert, groups, users);
     const message = "Une alerte est ajoutée à la base de données.";
     res.status(201).json({
       message,
-      data: { alert, groups },
+      data: { alert, groups, users },
       success: true,
     });
   } catch (error) {
