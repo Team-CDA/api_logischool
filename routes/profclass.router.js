@@ -110,18 +110,18 @@ router.get('/', profclassController.getAll)
 /** 
  * @swagger
  * 
- * /schedule/{id}:
+ * /profclass/{id}:
  *    get:
- *      tags: [Schedule]
- *      summary: Récupère les schedules d'un utilisateur en fonction de son id
- *      description: Récupère les schedules d'un utilisateur en fonction de son id
+ *      tags: [ProfClass]
+ *      summary: Récupère les professeurs d'un utilisateur en fonction de son id
+ *      description: Récupère les professeurs d'un utilisateur en fonction de son id
  *      parameters:
  *        - in: path
  *          name: id
  *          schema:
  *            type: integer
  *          required: true
- *          description: L'id de l'utilisateur dont vous souhaitez récupérer le schedule.
+ *          description: Récupère les professeurs d'un utilisateur en fonction de son id
  *      responses: 
  *         200:
  *            description: Success
@@ -130,7 +130,7 @@ router.get('/', profclassController.getAll)
  *                schema:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Schedule'
+ *                    $ref: '#/components/schemas/ProfClass'
  *         404:
  *            description: The schedule table was not found
  */

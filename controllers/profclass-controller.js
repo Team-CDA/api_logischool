@@ -25,7 +25,7 @@ const getAll = (req, res) => {
 }
 
 const getAllByStudentId = async (req, res) => {
-    const { id } = req.params
+    const { id } = req.params;
     try {
         const user = await userClasseTable.findAll({
             where: {
@@ -42,7 +42,7 @@ const getAllByStudentId = async (req, res) => {
             include: [
                 {
                     model: Users,
-                    where: { id_role: 6 },
+                    where: { id_role: 5 },
                     include: [Subjects] // Ajout de l'inclusion pour récupérer les sujets
                 }
             ]
