@@ -126,7 +126,7 @@ router.get("/:idClass/:idSubject", homeworksController.getAllByIdClassAndIdSubje
 
 /**
  * @swagger
- *
+ *  
  * /homeworks/{id}:
  *    get:
  *      tags: [Homeworks]

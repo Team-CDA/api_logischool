@@ -10,11 +10,79 @@ module.exports = {
           },
           {
             id_user: 2,
-            id_class: 2
+            id_class: 1
           },
           {
             id_user: 3,
-            id_class: 3
+            id_class: 1
+          },
+          {
+            id_user: 4,
+            id_class: 1
+          },
+          {
+            id_user: 5,
+            id_class: 1
+          },
+          {
+            id_user: 6,
+            id_class: 1
+          },
+          {
+            id_user: 7,
+            id_class: 1
+          },
+          {
+            id_user: 8,
+            id_class: 1
+          },
+          {
+            id_user: 9,
+            id_class: 1
+          },
+          {
+            id_user: 10,
+            id_class: 1
+          },
+          {
+            id_user: 11,
+            id_class: 2
+          },
+          {
+            id_user: 12,
+            id_class: 2
+          },
+          {
+            id_user: 13,
+            id_class: 2
+          },
+          {
+            id_user: 14,
+            id_class: 2
+          },
+          {
+            id_user: 15,
+            id_class: 2
+          },
+          {
+            id_user: 16,
+            id_class: 2
+          },
+          {
+            id_user: 17,
+            id_class: 2
+          },
+          {
+            id_user: 18,
+            id_class: 2
+          },
+          {
+            id_user: 19,
+            id_class: 2
+          },
+          {
+            id_user: 20,
+            id_class: 2
           },
         ], {}
         );

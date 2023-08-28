@@ -81,7 +81,8 @@ const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
 const liaison_booksRouter = require("./routes/liaison_books.router");
 const alertsUsersRouter = require("./routes/alerts_users.router");
-const profclassRouter = require("./routes/profclass.router");
+const ratingsRouter = require("./routes/ratings.router");
+const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
 const cors = require("cors");
 // const fs = require('fs');
@@ -103,7 +104,7 @@ const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
-
+  
 app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
@@ -165,6 +166,9 @@ app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
+
+app.use("/ratings", ratingsRouter);
+app.use("/grades", gradesRouter); 
 
 app.use("/schedule", scheduleRouter);
 
