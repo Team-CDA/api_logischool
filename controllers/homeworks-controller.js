@@ -334,7 +334,7 @@ const create = (req, res) => {
     return;
   }
 
-  const metadata = JSON.parse(body.metadata); // Ajoutez cette ligne
+  const metadata = JSON.parse(body.metadata);
 
   console.log(metadata);
   let fileData = {
