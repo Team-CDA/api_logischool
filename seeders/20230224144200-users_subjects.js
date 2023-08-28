@@ -7,7 +7,7 @@ module.exports = {
         "users_subjects",
         [
         {
-            id_user: 1,
+            id_user: 26,
             id_subject: 1,
             createdAt: new Date(),
             updatedAt: new Date()
