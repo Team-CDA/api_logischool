@@ -62,6 +62,39 @@ const getOneById = (req, res) => {
     });
 };
 
+const getAllForOneUser = (req, res) => {
+  alertsUsersTable
+    .findAll({
+      where: { id_user: req.params.id, seenAt: null },
+      include: [{ model: alertsTable, as: "alerts" }],
+    })
+    .then((alertsUsers) => {
+      if (!alertsUsers) {
+        return res
+          .status(404)
+          .json({ message: "Aucune alerte n'a été trouvée" });
+      }
+      const alerts = alertsUsers.map((alertUser) => ({
+        id: alertUser.alerts.id,
+        message: alertUser.alerts.message,
+        transmission_date: alertUser.alerts.transmission_date,
+        id_alert_type: alertUser.alerts.id_alert_type,
+        createdAt: alertUser.alerts.createdAt,
+        updatedAt: alertUser.alerts.updatedAt,
+        idAlertUser: alertUser.id,
+      }));
+      res.status(200).json(alerts);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération de l'alerte.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
+
 const createOne = async (io, req, res) => {
   console.log("Request body:", req.body);
 
@@ -100,7 +133,7 @@ const createOne = async (io, req, res) => {
     }
 
     await transaction.commit();
-    // io.emit("newAlert", alert, groups);
+    io.emit("newAlert", alert, groups);
     const message = "Une alerte est ajoutée à la base de données.";
     res.status(201).json({
       message,
@@ -203,6 +236,7 @@ const alertsController = (io) => {
     createOne: createOne.bind(null, io),
     updateOneById,
     deleteOneById,
+    getAllForOneUser,
   };
 };
 
