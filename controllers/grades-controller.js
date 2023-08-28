@@ -4,7 +4,6 @@ const gradeTable = db["grades"];
 const subjectTable = db["subjects"];
 
 const getAllGrades = (req, res) => {
-  // Exemple pour récupérer toutes les notes et appréciations
   Promise.all([
     gradeTable.findAll()
   ])
@@ -27,14 +26,6 @@ const getOneById = (req, res) => {
   gradeTable.findAll({
     where: { id_student: studentId },
     include: [
-      // {
-      //   model: db.users,
-      //   as: "student"
-      // },
-      // {
-      //   model: db.users,
-      //   as: "teacher"
-      // },
       {
         model: db.subjects,
         as: "subject"
