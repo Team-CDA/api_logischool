@@ -23,7 +23,7 @@ module.exports = {
     };
 
     // Génère 8 dates aléatoires
-    const uniqueDates = generateRandomDates(8);
+    const uniqueDates = generateRandomDates(7);
     
     for (let studentId = 1; studentId <= 9; studentId++) {
       for (let i = 0; i < uniqueDates.length; i++) {
