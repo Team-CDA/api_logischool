@@ -84,6 +84,30 @@ module.exports = {
             id_user: 20,
             id_class: 2
           },
+          {
+            id_user: 21,
+            id_class: 3
+          },
+          {
+            id_user: 22,
+            id_class: 3
+          },
+          {
+            id_user: 23,
+            id_class: 3
+          },
+          {
+            id_user: 24,
+            id_class: 3
+          },
+          {
+            id_user: 25,
+            id_class: 3
+          },
+          {
+            id_user: 26,
+            id_class: 3
+          },
         ], {}
         );
   },

@@ -104,9 +104,15 @@ const getOneById = (req, res) => {
       }
       // Obtenir les groupes de l'utilisateur
       user.getGroups().then((groups) => {
-        // Ajouter les groupes à l'objet utilisateur avant de renvoyer la réponse
+        // Ajouter les groupes à l'objet utilisateur
         user.dataValues.groups = groups;
-        res.status(200).json(user);
+
+        // Obtenir les matières de l'utilisateur
+        user.getSubjects().then((subjects) => {
+          // Ajouter les matières à l'objet utilisateur
+          user.dataValues.subjects = subjects;
+          res.status(200).json(user);
+        });
       });
     })
     .catch((error) => {

@@ -102,6 +102,8 @@ const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
+app.set("view engine", "ejs");
+
   
 app.get("/");
 app.use(express.json());
@@ -179,9 +181,12 @@ const message = "❤️";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
+// app.get("/", (req, res) => {
+//   // const data =  ''
+//   res.json(success(message));
+// });
 app.get("/", (req, res) => {
-  // const data =  ''
-  res.json(success(message));
+  res.render("index");
 });
 
 // app.get('/getToken', (req, res) => {
