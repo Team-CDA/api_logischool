@@ -50,27 +50,32 @@ const deleteOneById = (req, res) => {
 };
 
 const bulkUpdate = async (req, res) => {
-  // on récupère les notes envoyées par le front
-  const grades = req.body;
-  // on crée une transaction pour pouvoir annuler toutes les modifications en cas d'erreur
-  const transaction = await db.sequelize.transaction();
-  // on récupère les matières pour pouvoir vérifier que les notes sont bien associées à une matière existante
+  console.log('EZ', req.body);
+  const grades = req.body;  // Les notes envoyées par le front
+  const transaction = await db.sequelize.transaction();  // Création d'une transaction
+
   try {
-    // pour chaque note, on vérifie que la matière existe
     for (let grade of grades) {
-      const { id, id_student, id_subject, grade_value, action } = grade;
-      if (action === 'create') {
-        await gradeTable.create({ id_student, id_subject, grade: grade_value }, { transaction });
+      // Déstructuration pour inclure 'isNew'
+      const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew } = grade;
+
+      if (action === 'create' || isNew) {
+        // Si l'action est 'create' ou si la note est nouvelle (isNew est vrai)
+        // On omet 'id' pour que la base de données génère un ID
+        await gradeTable.create({ id_student, id_subject, id_teacher, grade: grade_value }, { transaction });
       } else if (action === 'update') {
-        await gradeTable.update({ grade: grade_value }, { where: { id }, transaction });
+        // Ici, id est sûr d'être défini
+        await gradeTable.update({ grade: grade_value }, { where: { id: grade_id }, transaction });
       } else if (action === 'delete') {
-        await gradeTable.destroy({ where: { id }, transaction });
+        // Ici, id est sûr d'être défini
+        await gradeTable.destroy({ where: { id: grade_id }, transaction });
       }
     }
 
     await transaction.commit();
     res.status(200).json({ message: 'Les notes ont été mises à jour avec succès.' });
   } catch (error) {
+    console.error(error);
     await transaction.rollback();
     res.status(500).json({ message: "Une erreur s'est produite lors de la mise à jour des notes", error });
   }
