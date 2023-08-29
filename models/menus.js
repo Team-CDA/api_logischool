@@ -17,18 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    // id_menu_type: {
-    //   type: DataTypes.INTEGER.UNSIGNED,
-    //   allowNull: false,
-    //   validate: {
-    //     isNumeric: {
-    //       msg: 'Report type\'s id must be a number'
-    //     },
-    //     notNull: {
-    //       msg: 'Report type\'s id is required'
-    //     },
-    //   }
-    // },
     starter: {
       type: DataTypes.STRING(128),
       allowNull: false,

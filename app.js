@@ -82,6 +82,8 @@ const menusRouter = require("./routes/menus.router");
 const scheduleRouter = require("./routes/schedule.router");
 const liaison_booksRouter = require("./routes/liaison_books.router");
 const alertsUsersRouter = require("./routes/alerts_users.router");
+const ratingsRouter = require("./routes/ratings.router");
+const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -104,7 +106,9 @@ const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
+app.set("view engine", "ejs");
 
+  
 app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
@@ -164,6 +168,9 @@ app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 
+app.use("/ratings", ratingsRouter);
+app.use("/grades", gradesRouter); 
+
 app.use("/schedule", scheduleRouter);
 app.use("/missing_students", missing_studentsRouter);
 
@@ -179,9 +186,12 @@ const message = "❤️";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
+// app.get("/", (req, res) => {
+//   // const data =  ''
+//   res.json(success(message));
+// });
 app.get("/", (req, res) => {
-  // const data =  ''
-  res.json(success(message));
+  res.render("index");
 });
 
 // app.get('/getToken', (req, res) => {

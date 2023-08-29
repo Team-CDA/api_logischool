@@ -5,15 +5,15 @@ module.exports = {
   async up (queryInterface, Sequelize) {
         await queryInterface.bulkInsert('users_groups', [
           {
-            id_group: 1,
+            id_group: 4,
             id_user: 1
           },
           {
-            id_group: 2,
+            id_group: 5,
             id_user: 2
           },
           {
-            id_group: 3,
+            id_group: 5,
             id_user: 3
           },
         ], {}

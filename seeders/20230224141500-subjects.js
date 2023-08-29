@@ -12,9 +12,19 @@ module.exports = {
             updatedAt: new Date()
         },
         {
+            subject_name: "Mathématique",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        {
             subject_name: "Histoire",
             createdAt: new Date(),
             updatedAt: new Date()        
+        },
+        {
+            subject_name: "Géographie",
+            createdAt: new Date(),
+            updatedAt: new Date()  
         },
         {
             subject_name: "Sport",
@@ -22,17 +32,37 @@ module.exports = {
             updatedAt: new Date()        
         },
         {
-            subject_name: "Mathématique",
-            createdAt: new Date(),
-            updatedAt: new Date()
-        },
-        {
             subject_name: "Biologie",
             createdAt: new Date(),
             updatedAt: new Date()  
         },
         {
-            subject_name: "Géographie",
+            subject_name: "Anglais",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "EPS",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "Arts plastiques",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "Musique",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "Physique",
+            createdAt: new Date(),
+            updatedAt: new Date()  
+        },
+        {
+            subject_name: "Chimie",
             createdAt: new Date(),
             updatedAt: new Date()  
         },
