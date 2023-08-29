@@ -65,6 +65,7 @@ const getAllWithBuildingsAndRooms = (req, res) => {
       ],
       order: [
         ['id', 'ASC'],
+        [{ model: buildingsTable, as: 'buildings' }, 'name', 'ASC']
       ],
     })
     .then((result) => {

@@ -54,32 +54,43 @@ const bulkUpdate = async (req, res) => {
   const grades = req.body;  // Les notes envoyées par le front
   const transaction = await db.sequelize.transaction();  // Création d'une transaction
 
+  const errorMessages = [];  // Tableau pour stocker les messages d'erreur
+
   try {
     for (let grade of grades) {
       // Déstructuration pour inclure 'isNew'
       const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew } = grade;
 
-      if (action === 'create' || isNew) {
-        // Si l'action est 'create' ou si la note est nouvelle (isNew est vrai)
-        // On omet 'id' pour que la base de données génère un ID
-        await gradeTable.create({ id_student, id_subject, id_teacher, grade: grade_value }, { transaction });
-      } else if (action === 'update') {
-        // Ici, id est sûr d'être défini
-        await gradeTable.update({ grade: grade_value }, { where: { id: grade_id }, transaction });
-      } else if (action === 'delete') {
-        // Ici, id est sûr d'être défini
-        await gradeTable.destroy({ where: { id: grade_id }, transaction });
+      if (grade_value < 0 || grade_value > 20) {
+        errorMessages.push('La note doit être comprise entre 0 et 20.');
       }
+
+      if (errorMessages.length === 0) {
+        if (action === 'create' || isNew) {
+          await gradeTable.create({ id_student, id_subject, id_teacher, grade: grade_value }, { transaction });
+        } else if (action === 'update') {
+          await gradeTable.update({ grade: grade_value }, { where: { id: grade_id }, transaction });
+        } else if (action === 'delete') {
+          await gradeTable.destroy({ where: { id: grade_id }, transaction });
+        }
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      throw new Error("Validation failed");
     }
 
     await transaction.commit();
     res.status(200).json({ message: 'Les notes ont été mises à jour avec succès.' });
   } catch (error) {
-    console.error(error);
     await transaction.rollback();
-    res.status(500).json({ message: "Une erreur s'est produite lors de la mise à jour des notes", error });
+    if (error instanceof db.Sequelize.ValidationError) {
+      errorMessages.push(`Erreur Sequelize: ${error.message}`);
+    }
+    res.status(500).json({ message: "Une erreur s'est produite lors de la mise à jour des notes", error: errorMessages.join(" ") });
   }
 };
+
 
 const gradeController = {
   getAllGrades,
