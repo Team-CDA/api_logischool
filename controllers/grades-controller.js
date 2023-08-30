@@ -57,13 +57,21 @@ const bulkUpdate = async (req, res) => {
   try {
     for (let grade of grades) {
       // Déstructuration pour inclure 'isNew'
-      const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew } = grade;
+      const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew, date } = grade;
 
       if (action === 'create' || isNew) {
         // Si l'action est 'create' ou si la note est nouvelle (isNew est vrai)
         // On omet 'id' pour que la base de données génère un ID
-        await gradeTable.create({ id_student, id_subject, id_teacher, grade: grade_value }, { transaction });
-      } else if (action === 'update') {
+        await gradeTable.create({
+          id_student, 
+          id_subject, 
+          id_teacher, 
+          grade: grade_value,
+          createdAt: date, 
+        }, { transaction });
+      } 
+      
+      else if (action === 'update') {
         // Ici, id est sûr d'être défini
         await gradeTable.update({ grade: grade_value }, { where: { id: grade_id }, transaction });
       } else if (action === 'delete') {
@@ -80,6 +88,7 @@ const bulkUpdate = async (req, res) => {
     res.status(500).json({ message: "Une erreur s'est produite lors de la mise à jour des notes", error });
   }
 };
+
 
 const gradeController = {
   getAllGrades,
