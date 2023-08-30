@@ -84,6 +84,7 @@ const alertsUsersRouter = require("./routes/alerts_users.router");
 const ratingsRouter = require("./routes/ratings.router");
 const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
+const profclassRouter = require("./routes/profclass.router");
 const cors = require("cors");
 // const fs = require('fs');
 require("dotenv").config();
