@@ -4,9 +4,11 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
         await queryInterface.bulkInsert('groups', [
-          {group_name: 'Developpeurs'},
-          {group_name: 'Administrateurs'},
+          {group_name: 'Administration'},
           {group_name: 'Enseignants'},
+          {group_name: 'Encadrants'},
+          {group_name: 'Elèves'},
+          {group_name: 'Parents'},
         ], {}
         );
   },

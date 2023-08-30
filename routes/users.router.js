@@ -114,6 +114,7 @@ const { checkUserCredentials, getUserByMail } = userController;
  */
 router.get("/", userController.getAllUsers);
 
+router.get("/parents", userController.getParents);
 /**
  * @swagger
  *
@@ -181,6 +182,8 @@ router.get("/parent/:id", userController.getByParent);
  *
  */
 router.post("/create", userController.createOne);
+
+router.post("/create/parent", userController.createParent);
 
 /**
  * @swagger
@@ -270,5 +273,7 @@ router.post("/login", async (req, res) => {
     res.status(422).json({ message: "Invalid email or password" });
   }
 });
+
+router.patch("/resetPassword/:id/:token", userController.resetPassword);
 
 module.exports = router;

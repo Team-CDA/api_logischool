@@ -1,3 +1,4 @@
+const { QueryTypes } = require('sequelize');
 //On importe db qui contient tous nos modèles.
 const db = require("../models/index");
 const { ValidationError } = require("sequelize");
@@ -11,34 +12,22 @@ const roomTypes = db["room_types"];
 
 //On déclare toutes les méthodes
 const getAll = (req, res) => {
-  //On utilise l'ORM pour SELECT toute la table
   establishmentsTable
-    .findAll
-    // {
-    //     include: [
-    //         {
-    //             model: usersTable,
-    //             as: 'users',
-    //         }
-    //     ]
-    // }
-    ()
-
-    //On utilise les promesses pour gérer les résultats de la requête.
+    .findAll({
+      order: [
+        ['id', 'ASC'],
+      ],
+    })
     .then((result) => {
       if (result.length === 0) {
-        //Si la table est vide, la requête est quand même réussi mais on renvoie un message pour prévenir que la table est vide.
         res.json({
           Message: "Aucun établissement présent en base de données.",
         });
       } else {
-        // Sinon, on renvoie le résultat de notre requête
         res.json(result, 200);
       }
     })
-    //en cas d'erreur, on passe dans le catch
     .catch((error) => {
-      //On définit un status d'erreur et un message a renvoyer
       const message =
         "La liste des établissements n'a pas pu être récupérée. Réessayez dans quelques instants.";
       res.status(500).json({
@@ -47,6 +36,7 @@ const getAll = (req, res) => {
       });
     });
 };
+
 
 const getAllWithBuildingsAndRooms = (req, res) => {
   establishmentsTable
@@ -72,6 +62,11 @@ const getAllWithBuildingsAndRooms = (req, res) => {
             },
           ],
         },
+      ],
+      order: [
+        ['id', 'ASC'],
+        [{ model: buildingsTable, as: 'buildings' }, 'name', 'ASC'],
+        [{ model: buildingsTable, as: 'buildings' }, { model: roomsTable, as: 'rooms' }, 'name', 'ASC'],
       ],
     })
     .then((result) => {
@@ -181,38 +176,82 @@ const createOne = (req, res) => {
     });
 };
 
-const updateOneById = (req, res) => {
-  establishmentsTable.findByPk(req.params.id).then((classe) => {
-    if (!classe) {
-      return res.status(404).json({ message: "Aucune classe n'a été trouvé" });
-    }
+const updateOneById = async (req, res) => {
+  const { establishment, buildings } = req.body;
 
-    establishmentsTable
-      .update(req.body, {
+  try {
+    // Mise à jour de l'établissement
+    await establishmentsTable.update(
+      {
+        name: establishment.name,
+        id_establishment_type: establishment.establishment_type_id,
+      },
+      {
         where: {
           id: req.params.id,
         },
-        returning: true,
-      })
-      .then((result) => {
-        const message = "Classe correctement mise à jour.";
-        res.status(201).json({
-          message,
+      }
+    );
+
+    // Mise à jour des bâtiments et des salles
+    for (const building of buildings) {
+      let currentBuilding;
+      if (building.id) {
+        await buildingsTable.update(
+          {
+            name: building.name,
+          },
+          {
+            where: {
+              id: building.id,
+            },
+          }
+        );
+        currentBuilding = await buildingsTable.findByPk(building.id);
+      } else {
+        currentBuilding = await buildingsTable.create({
+          name: building.name,
+          id_establishment: req.params.id,
         });
-      })
-      .catch((error) => {
-        const message = "Une erreur a eu lieu lors de la modification.";
-        if (error instanceof ValidationError) {
-          res.status(400).send(error.errors[0].message);
+      }
+
+      // Mise à jour des salles
+      for (const room of building.classrooms) {
+        if (room.id) {
+          await roomsTable.update(
+            {
+              name: room.name,
+              id_room_type: room.room_type_id,
+            },
+            {
+              where: {
+                id: room.id,
+              },
+            }
+          );
         } else {
-          res.status(500).json({
-            message,
-            error,
+          await roomsTable.create({
+            name: room.name,
+            id_room_type: room.room_type_id,
+            id_building: currentBuilding.id,
           });
         }
-      });
-  });
+      }
+    }
+
+    res.status(200).json({ message: "Établissement mis à jour avec succès" });
+  } catch (error) {
+    res.status(500).json({
+      message: "Erreur lors de la mise à jour de l'établissement",
+      error,
+      details: error.errors || [{ message: error.message }],
+    });
+  }
 };
+
+
+
+
 
 const deleteOneById = (req, res) => {
   establishmentsTable.findByPk(req.params.id).then((classe) => {
@@ -286,7 +325,7 @@ const createEstablishment = async (req, res) => {
           })
         );
 
-        // Ajoutez les salles de classe au nouvel objet bâtiment
+        // Ajout des salles de classe au nouvel objet bâtiment
         return { ...newBuilding.toJSON(), classrooms: newClassrooms };
       })
     );

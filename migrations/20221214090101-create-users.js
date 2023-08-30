@@ -38,7 +38,11 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       phone: {
         type: Sequelize.CHAR(10)
@@ -82,7 +86,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()
-      }
+      },
     },
     {
       charset: 'utf8',

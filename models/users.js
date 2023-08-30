@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         as: "tutor2",
         foreignKey: "second_tutor",
       });
+      this.belongsToMany(models.groups, {
+        through: "users_groups",
+        foreignKey: "id_user",
+      });
     }
     static async comparePassword(plainPassword, hashedPassword) {
       return await bcrypt.compare(plainPassword, hashedPassword);
@@ -75,7 +79,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       birthdate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isDate: true,
@@ -83,7 +89,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender: {
         type: DataTypes.ENUM("M", "F"),
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isAlpha: true,
@@ -94,7 +102,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
+          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/
         },
       },
       city: {
@@ -102,7 +110,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          isAlpha: true,
+          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/
+          ,
         },
       },
       zipcode: {
@@ -124,11 +133,14 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
           len: [8, 128], // Spécifiez une longueur minimale et maximale pour le mot de passe
         },
+      },
+      token: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
       phone: {
         type: DataTypes.CHAR(10),
@@ -140,7 +152,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       ine: {
         type: DataTypes.CHAR(11),
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isAlphanumeric: true,
@@ -148,7 +162,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       first_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isNumeric: true,
@@ -156,7 +172,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       second_tutor: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
         validate: {
           notEmpty: true,
           isNumeric: true,
@@ -180,9 +198,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       id_status: {
         type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        allowNull: true,
         validate: {
-          notEmpty: true,
+          notEmpty: false,
           isNumeric: true,
         },
         createdAt: {
@@ -210,10 +228,6 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "users",
     },
-    {
-      sequelize,
-      modelName: "users",
-    }
   );
   return users;
 };

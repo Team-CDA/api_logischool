@@ -1,6 +1,10 @@
 const { Router } = require ("express")
-const alertsController = require("../controllers/alerts-controller")
+const alertsControllerFactory = require("../controllers/alerts-controller");
 const router = Router()
+
+
+module.exports = (io) => {
+    const alertsController = alertsControllerFactory(io);
 
 /**
  * @swagger
@@ -135,4 +139,5 @@ router.patch('/update/:id', alertsController.updateOneById)
  */
 router.delete('/delete/:id', alertsController.deleteOneById)
 
-module.exports = router
+return router
+}

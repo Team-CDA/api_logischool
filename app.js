@@ -6,11 +6,13 @@ const publicRoutes = [
   "/users",
   "/buildings",
   "/establishments",
+  "/menus",
   "/establishment_types",
   "/events",
   "/groups",
   "/lessons",
   "/rooms",
+  "/signatures",
   "/subjects",
   "/users_groups",
   "/users_classes",
@@ -30,7 +32,11 @@ const publicRoutes = [
   "/establishments/one",
   "/establishments/updateEstablishment",
   "/establishments/one/:id",
+  "/files/:filename",
+  "/liaison_books",
+  "/alerts_users",
 ];
+
 const publicMiddleware = (req, res, next) => {
   if (publicRoutes.some((route) => req.path.startsWith(route))) {
     return next();
@@ -51,7 +57,7 @@ const rolesRouter = require("./routes/roles.router");
 const reportTypesRouter = require("./routes/report_types.router");
 const reportsRouter = require("./routes/reports.router");
 const alertTypesRouter = require("./routes/alert_types.router");
-const alertsRouter = require("./routes/alerts.router");
+const signaturesRouter = require("./routes/signatures.router");
 const alertsGroupsRouter = require("./routes/alerts_groups.router");
 const classTypesRouter = require("./routes/class_types.router");
 const classesRouter = require("./routes/classes.router");
@@ -68,6 +74,12 @@ const homeworksRouter = require("./routes/homeworks.router");
 const buildingsRouter = require("./routes/buildings.router");
 const eventsGroupsRouter = require("./routes/events_groups.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
+const menusRouter = require("./routes/menus.router");
+const scheduleRouter = require("./routes/schedule.router");
+const liaison_booksRouter = require("./routes/liaison_books.router");
+const alertsUsersRouter = require("./routes/alerts_users.router");
+const ratingsRouter = require("./routes/ratings.router");
+const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
 const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
@@ -79,14 +91,31 @@ require("dotenv").config();
 
 //On créé une instance d'une application express (c'est notre serveur)
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+  cors: {
+    origin: ['http://localhost:1212', 'http://localhost:3001'], // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
+  },
+});
+const alertsRouter = require("./routes/alerts.router");
+const configuredAlertsRouter = alertsRouter(io);
 app.use(cors());
 
 app.use(publicMiddleware);
+app.set("view engine", "ejs");
 
+  
 app.get("/");
 app.use(express.json());
 // app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
+const path = require("path");
+
+app.get("/files/:filename", (req, res) => {
+  const { filename } = req.params;
+  const filePath = path.join(__dirname, "images", filename);
+  res.sendFile(filePath);
+});
 
 app.use("/establishment_types", establishmentTypesRouter);
 
@@ -103,14 +132,18 @@ app.use("/report_types", reportTypesRouter);
 app.use("/reports", reportsRouter);
 
 app.use("/alert_types", alertTypesRouter);
-app.use("/alerts", alertsRouter);
-
+app.use("/alerts", configuredAlertsRouter);
 app.use("/alerts_groups", alertsGroupsRouter);
+app.use("/alerts_users", alertsUsersRouter);
 
 app.use("/class_types", classTypesRouter);
 app.use("/classes", classesRouter);
 
 app.use("/users_classes", usersClassesRouter);
+
+app.use("/signatures", signaturesRouter);
+
+app.use("/liaison_books", liaison_booksRouter);
 
 app.use("/events", eventsRouter);
 app.use("/event_types", eventTypesRouter);
@@ -119,6 +152,8 @@ app.use("/room_types", roomTypesRouter);
 app.use("/rooms", roomsRouter);
 
 app.use("/timeslots", timeslotsRouter);
+
+app.use("/menus", menusRouter);
 
 app.use("/lessons", lessonsRouter);
 app.use("/referent_teachers", referent_teachersRouter);
@@ -129,6 +164,11 @@ app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
 app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
+
+app.use("/ratings", ratingsRouter);
+app.use("/grades", gradesRouter); 
+
+app.use("/schedule", scheduleRouter);
 
 // app.use('/establishments', establishmentsRouter)
 
@@ -141,9 +181,12 @@ const message = "❤️";
 
 //Premier point de terminaison. Dans un premier temps, le première argument est la route, le deuxième paramètre est une fonction qui recoit une requête et qui renvoie une réponse (req et res).
 // on utilise la méthode send de la réponse pour renvoyer un message
+// app.get("/", (req, res) => {
+//   // const data =  ''
+//   res.json(success(message));
+// });
 app.get("/", (req, res) => {
-  // const data =  ''
-  res.json(success(message));
+  res.render("index");
 });
 
 // app.get('/getToken', (req, res) => {
@@ -163,8 +206,16 @@ app.use(({ res }) => {
 });
 
 //On démarre l'api sur le port 3000 en affichant un message
-app.listen(port, () =>
+http.listen(port, () =>
   console.log(
     `Notre application est démarré sur http://localhost:${port} ${message}`
   )
 );
+
+io.on("connection", (socket) => {
+  // console.log("User connected");
+
+  socket.on("disconnect", () => {
+    console.log("Un client s'est déconnecté");
+  });
+});
