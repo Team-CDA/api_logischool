@@ -24,8 +24,8 @@ module.exports = {
           // id_class: 1,
           // id_establishment : 1,
           id_role: 3,
-          first_tutor: 2,
-          second_tutor: 3,
+          first_tutor: 21,
+          second_tutor: 22,
           id: 1,
         },
         {
@@ -177,8 +177,8 @@ module.exports = {
           password: passwordHash,
           phone: "0607701702",
           id_role: 3,
-          first_tutor: 20,
-          second_tutor: 21,
+          // first_tutor: 20,
+          // second_tutor: 21,
           id: 10,
         },
         {
