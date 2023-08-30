@@ -247,4 +247,6 @@ router.delete("/delete/:id", gradeController.deleteOneById);
  *            description: Adresse e-email ou mot de passe invalide
  */
 
+router.post('/bulkUpdate', gradeController.bulkUpdate);
+
 module.exports = router;

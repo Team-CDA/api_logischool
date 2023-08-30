@@ -4,7 +4,6 @@ const gradeTable = db["grades"];
 const subjectTable = db["subjects"];
 
 const getAllGrades = (req, res) => {
-  // Exemple pour récupérer toutes les notes et appréciations
   Promise.all([
     gradeTable.findAll()
   ])
@@ -27,14 +26,6 @@ const getOneById = (req, res) => {
   gradeTable.findAll({
     where: { id_student: studentId },
     include: [
-      // {
-      //   model: db.users,
-      //   as: "student"
-      // },
-      // {
-      //   model: db.users,
-      //   as: "teacher"
-      // },
       {
         model: db.subjects,
         as: "subject"
@@ -49,39 +40,45 @@ const getOneById = (req, res) => {
   });
 };
 
-
-
 const createOne = (req, res) => {
-  // Exemple pour créer une nouvelle note ou appréciation
-  const { type, ...data } = req.body;
-
-  if (type === 'grade') {
-    gradeTable.create(data)
-      .then((grade) => {
-        res.status(201).json(grade);
-      })
-      .catch((error) => {
-        res.status(400).json({ message: "Erreur lors de la création", error });
-      });
-  } else if (type === 'grade') {
-    gradeTable.create(data)
-      .then((grade) => {
-        res.status(201).json(grade);
-      })
-      .catch((error) => {
-        res.status(400).json({ message: "Erreur lors de la création", error });
-      });
-  } else {
-    res.status(400).json({ message: "Type invalide" });
-  }
 };
 
 const updateOneById = (req, res) => {
-  // Vous pouvez ajuster cette fonction pour mettre à jour une note ou une appréciation spécifique
 };
 
 const deleteOneById = (req, res) => {
-  // Vous pouvez ajuster cette fonction pour supprimer une note ou une appréciation spécifique
+};
+
+const bulkUpdate = async (req, res) => {
+  console.log('EZ', req.body);
+  const grades = req.body;  // Les notes envoyées par le front
+  const transaction = await db.sequelize.transaction();  // Création d'une transaction
+
+  try {
+    for (let grade of grades) {
+      // Déstructuration pour inclure 'isNew'
+      const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew } = grade;
+
+      if (action === 'create' || isNew) {
+        // Si l'action est 'create' ou si la note est nouvelle (isNew est vrai)
+        // On omet 'id' pour que la base de données génère un ID
+        await gradeTable.create({ id_student, id_subject, id_teacher, grade: grade_value }, { transaction });
+      } else if (action === 'update') {
+        // Ici, id est sûr d'être défini
+        await gradeTable.update({ grade: grade_value }, { where: { id: grade_id }, transaction });
+      } else if (action === 'delete') {
+        // Ici, id est sûr d'être défini
+        await gradeTable.destroy({ where: { id: grade_id }, transaction });
+      }
+    }
+
+    await transaction.commit();
+    res.status(200).json({ message: 'Les notes ont été mises à jour avec succès.' });
+  } catch (error) {
+    console.error(error);
+    await transaction.rollback();
+    res.status(500).json({ message: "Une erreur s'est produite lors de la mise à jour des notes", error });
+  }
 };
 
 const gradeController = {
@@ -90,6 +87,7 @@ const gradeController = {
   createOne,
   updateOneById,
   deleteOneById,
+  bulkUpdate
 };
 
 module.exports = gradeController;

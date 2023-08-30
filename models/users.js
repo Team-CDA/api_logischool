@@ -21,6 +21,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_user",
       });
 
+      this.belongsToMany(models.classes, {
+        through: "professors_classes",
+        foreignKey: "id_professor",
+        as: "profClass",
+      });
+
       this.belongsTo(models.roles, {
         foreignKey: "id_role",
         as: "roles",
@@ -211,11 +217,118 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
+        validate: {
+          notEmpty: true,
+          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/,
+        },
       },
       updatedAt: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
+        validate: {
+          notEmpty: true,
+          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/,
+        },
+      },
+      zipcode: {
+        type: DataTypes.CHAR(5),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isEmail: true,
+        },
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          len: [8, 128], // Spécifiez une longueur minimale et maximale pour le mot de passe
+        },
+      },
+      token: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phone: {
+        type: DataTypes.CHAR(10),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      ine: {
+        type: DataTypes.CHAR(11),
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
+        validate: {
+          notEmpty: true,
+          isAlphanumeric: true,
+        },
+      },
+      first_tutor: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      second_tutor: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: function () {
+          return this.id_role !== 2;
+        },
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      id_establishment: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      id_role: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          isNumeric: true,
+        },
+      },
+      id_status: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: true,
+        validate: {
+          notEmpty: false,
+          isNumeric: true,
+        },
+        createdAt: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          defaultValue: DataTypes.NOW,
+        },
+        updatedAt: {
+          type: DataTypes.DATE,
+          allowNull: false,
+          defaultValue: DataTypes.NOW,
+        },
       },
     },
   }, {
