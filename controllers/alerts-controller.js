@@ -62,66 +62,38 @@ const getOneById = (req, res) => {
     });
 };
 
-// const createOne = async (io, req, res) => {
-//   console.log("Request body:", req.body);
-
-//   let transaction;
-//   try {
-//     transaction = await sequelize.transaction();
-//     const alert = await alertsTable.create(req.body, { transaction });
-
-//     // Récupérer les groupes à partir du corps de la requête
-//     const groups = req.body.groups;
-
-//     if (req.body.receiverType == "groups") {
-//       // Créer des entrées pour chaque groupe dans la table alerts_groups
-//       const alertsGroupsPromises = groups.map((groupId) => {
-//         return alertsGroupsTable.create(
-//           {
-//             id_alert: alert.id,
-//             id_group: groupId,
-//           },
-//           { transaction }
-//         );
-//       });
-
-//       await Promise.all(alertsGroupsPromises);
-//     } else if (req.body.receiverType == "users") {
-//       const alertsUsersTablePromises = groups.map((userId) => {
-//         return alertsUsersTable.create(
-//           {
-//             id_alert: alert.id,
-//             id_user: userId,
-//           },
-//           { transaction }
-//         );
-//       });
-//       await Promise.all(alertsUsersTablePromises);
-//     }
-
-//     await transaction.commit();
-//     io.emit("newAlert", alert, groups);
-//     const message = "Une alerte est ajoutée à la base de données.";
-//     res.status(201).json({
-//       message,
-//       data: { alert, groups },
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.log("erreur de transaction :", error.message);
-//     await transaction.rollback();
-//     const message =
-//       "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée.";
-//     if (error instanceof ValidationError) {
-//       res.status(400).send(error.errors[0].message);
-//     } else {
-//       res.status(500).json({
-//         message,
-//         error,
-//       });
-//     }
-//   }
-// };
+const getAllForOneUser = (req, res) => {
+  alertsUsersTable
+    .findAll({
+      where: { id_user: req.params.id, seenAt: null },
+      include: [{ model: alertsTable, as: "alerts" }],
+    })
+    .then((alertsUsers) => {
+      if (!alertsUsers) {
+        return res
+          .status(404)
+          .json({ message: "Aucune alerte n'a été trouvée" });
+      }
+      const alerts = alertsUsers.map((alertUser) => ({
+        id: alertUser.alerts.id,
+        message: alertUser.alerts.message,
+        transmission_date: alertUser.alerts.transmission_date,
+        id_alert_type: alertUser.alerts.id_alert_type,
+        createdAt: alertUser.alerts.createdAt,
+        updatedAt: alertUser.alerts.updatedAt,
+        idAlertUser: alertUser.id,
+      }));
+      res.status(200).json(alerts);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération de l'alerte.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
 
 const createOne = async (io, req, res) => {
   console.log("Request body:", req.body);
@@ -129,7 +101,7 @@ const createOne = async (io, req, res) => {
   try {
     transaction = await sequelize.transaction();
     const alert = await alertsTable.create(req.body, { transaction });
-    
+
     const groups = req.body.groups;
     const users = req.body.users;
 
@@ -149,7 +121,7 @@ const createOne = async (io, req, res) => {
     }
 
     // si les utilisateurs ne sont pas vides alors on crée des entrées pour chaque utilisateur dans la table alerts_users
-    
+
     if (users.length > 0) {
       const alertsUsersTablePromises = users.map((userId) => {
         return alertsUsersTable.create(
@@ -175,7 +147,6 @@ const createOne = async (io, req, res) => {
     console.log("erreur de transaction :", error.message);
     await transaction.rollback();
     const message =
-
       "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée.";
     if (error instanceof ValidationError) {
       res.status(400).send(error.errors[0].message);
@@ -187,7 +158,6 @@ const createOne = async (io, req, res) => {
     }
   }
 };
-
 
 const updateOneById = (req, res) => {
   alertsTable
@@ -269,6 +239,7 @@ const alertsController = (io) => {
     createOne: createOne.bind(null, io),
     updateOneById,
     deleteOneById,
+    getAllForOneUser,
   };
 };
 

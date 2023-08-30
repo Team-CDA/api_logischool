@@ -3,6 +3,7 @@ const db = require("../models/index");
 const { ValidationError } = require("sequelize");
 //On initialise une nouvelle constante qui représente le modèle qui nous intéresse. Ici, la table classes
 const classesTable = db["classes"];
+const professorsClasses = db["professors_classes"];
 const users = db["users"];
 const classTypes = db["class_types"];
 // const usersTable = db['users'];
@@ -37,6 +38,48 @@ const getAll = (req, res) => {
     //en cas d'erreur, on passe dans le catch
     .catch((error) => {
       //On définit un status d'erreur et un message a renvoyer
+      const message =
+        "La liste des classes n'a pas pu être récupérée. Réessayez dans quelques instants.";
+      res.status(500).json({
+        message,
+        data: error,
+      });
+    });
+};
+
+const getAllForOneTeacher = (req, res) => {
+  const teacherId = req.params.id;
+  classesTable
+    .findAll({
+      include: [
+        {
+          model: users,
+          as: "users",
+        },
+        {
+          model: classTypes,
+          as: "class_type",
+        },
+        {
+          model: users,
+          as: "Professors",
+          where: {
+            id: teacherId,
+          },
+          through: {
+            model: professorsClasses,
+          },
+        },
+      ],
+    })
+    .then((result) => {
+      if (result.length === 0) {
+        res.json({ Message: "Aucune classe présente en base de données." });
+      } else {
+        res.json(result, 200);
+      }
+    })
+    .catch((error) => {
       const message =
         "La liste des classes n'a pas pu être récupérée. Réessayez dans quelques instants.";
       res.status(500).json({
@@ -197,6 +240,7 @@ const classeController = {
   getAll,
   getOneById,
   deleteAll,
+  getAllForOneTeacher,
 };
 
 module.exports = classeController;

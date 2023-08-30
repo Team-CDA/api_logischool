@@ -1,51 +1,48 @@
-const { Router } = require ("express")
-const router = Router()
+const { Router } = require("express");
+const router = Router();
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const classeController = require ("../controllers/classes-controller")
-
-
+const classeController = require("../controllers/classes-controller");
 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
- *  components: 
+ *  components:
  *    schemas:
  *       Classe:
  *          type: object
- *          required: 
+ *          required:
  *              - classe
- *          properties: 
+ *          properties:
  *             id:
  *               type: integer
  *               description: The id of the classe
  *             classe:
  *               type: string
- *               description: The name of the classe          
+ *               description: The name of the classe
  *             createdAt:
  *               type: date
  *               description: The date when the classe was created
  *             updatedAt:
  *               type: date
  *               description: The date of the last modification of the classe
- *          example: 
+ *          example:
  *             id: 1
- *             classe: "CM2"  
+ *             classe: "CM2"
  *             createdAt: 2022-12-14T12:45:48
  *             updatedAt: 2022-12-14T12:46:48
- * 
- * 
+ *
+ *
  */
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /classes:
  *    get:
  *      tags: [Classes]
  *      summary: Retrieve the list of classes
  *      description: Retrieve the list of classes
- *      responses: 
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -57,17 +54,39 @@ const classeController = require ("../controllers/classes-controller")
  *         404:
  *            description: the classes table was not found
  */
-router.get('/', classeController.getAll)
+router.get("/", classeController.getAll);
 
-/** 
+/**
  * @swagger
- * 
+ *
+ * /classes-for-teacher/{id}:
+ *    get:
+ *      tags: [Classes]
+ *      summary: Retrieve the list of classes for one specific teacher
+ *      description: Retrieve the list of classes for one specific teacher
+ *      responses:
+ *         200:
+ *            description: Success
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Classe'
+ *         404:
+ *            description: the classes table was not found
+ */
+router.get("/teacher/:id", classeController.getAllForOneTeacher);
+
+/**
+ * @swagger
+ *
  * /classes/{id}:
  *    get:
  *      tags: [Classes]
  *      summary: Retrieve a classe by its id
  *      description: Retrieve a classe by its id
- *      responses: 
+ *      responses:
  *         200:
  *            description: Success
  *            content:
@@ -79,12 +98,11 @@ router.get('/', classeController.getAll)
  *         404:
  *            description: the classes table was not found
  */
-router.get('/:id', classeController.getOneById)
+router.get("/:id", classeController.getOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /classes/create:
  *    post:
  *      tags: [Classes]
@@ -96,18 +114,17 @@ router.get('/:id', classeController.getOneById)
  *                 $ref: '#/components/schemas/Classe'
  *      summary: Allow you to create a new classe
  *      description: When you create a new classe, you have to give the name of the classe.
- *      responses: 
+ *      responses:
  *         200:
  *            description: Classe successfully created
- * 
- *         
+ *
+ *
  */
-router.post('/create', classeController.createOne)
+router.post("/create", classeController.createOne);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /classes/update/{id}:
  *    patch:
  *      tags: [Classes]
@@ -122,14 +139,13 @@ router.post('/create', classeController.createOne)
  *    responses:
  *         200:
  *          description: Classe successfully updated
- *         
+ *
  */
-router.patch('/update/:id', classeController.updateOneById)
+router.patch("/update/:id", classeController.updateOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /classes/delete/{id}:
  *    delete:
  *      tags: [Classes]
@@ -138,14 +154,13 @@ router.patch('/update/:id', classeController.updateOneById)
  *      responses:
  *         200:
  *          description: Classe successfully deleted
- *         
+ *
  */
-router.delete('/delete/:id', classeController.deleteOneById)
+router.delete("/delete/:id", classeController.deleteOneById);
 
-
-/** 
+/**
  * @swagger
- * 
+ *
  * /classes/deleteAll:
  *    delete:
  *      tags: [Classes]
@@ -154,8 +169,8 @@ router.delete('/delete/:id', classeController.deleteOneById)
  *      responses:
  *         200:
  *          description: Classes successfully deleted
- *         
+ *
  */
-router.delete('/deleteAll', classeController.deleteAll)
+router.delete("/deleteAll", classeController.deleteAll);
 
-module.exports = router
+module.exports = router;

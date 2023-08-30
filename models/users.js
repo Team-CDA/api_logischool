@@ -19,6 +19,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_user",
       });
 
+      this.belongsToMany(models.classes, {
+        through: "professors_classes",
+        foreignKey: "id_professor",
+        as: "profClass",
+      });
+
       this.belongsTo(models.roles, {
         foreignKey: "id_role",
         as: "roles",
@@ -102,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/
+          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/,
         },
       },
       city: {
@@ -110,8 +116,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/
-          ,
+          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/,
         },
       },
       zipcode: {
@@ -227,7 +232,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       sequelize,
       modelName: "users",
-    },
+    }
   );
   return users;
 };

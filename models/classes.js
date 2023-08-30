@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         through: "users_classes",
         foreignKey: "id_class",
       });
+      this.belongsToMany(models.users, {
+        through: "professors_classes",
+        foreignKey: "id_class",
+        as: "Professors",
+      });
       classes.hasMany(models.homeworks_classes, {
         as: "homeworks_classes",
         foreignKey: "id_class",

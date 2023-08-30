@@ -3,25 +3,25 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable(
-      "alerts_users",
+      "professors_classes",
       {
         id: {
           allowNull: false,
           autoIncrement: true,
           primaryKey: true,
-          type: Sequelize.INTEGER.UNSIGNED,
+          type: Sequelize.INTEGER,
         },
-        id_alert: {
-          type: Sequelize.INTEGER.UNSIGNED,
-          references: {
-            model: "alerts",
-            key: "id",
-          },
-        },
-        id_user: {
+        id_professor: {
           type: Sequelize.INTEGER.UNSIGNED,
           references: {
             model: "users",
+            key: "id",
+          },
+        },
+        id_class: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          references: {
+            model: "classes",
             key: "id",
           },
         },
@@ -35,10 +35,6 @@ module.exports = {
           type: Sequelize.DATE,
           defaultValue: new Date(),
         },
-        seenAt: {
-          allowNull: true,
-          type: Sequelize.DATE,
-        },
       },
       {
         charset: "utf8",
@@ -47,6 +43,6 @@ module.exports = {
     );
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("alerts_users");
+    await queryInterface.dropTable("professors_classes");
   },
 };
