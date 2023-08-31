@@ -1,6 +1,7 @@
 const db = require('../models/index');
 const profclassTable = db['profclass'];
 const userClasseTable = db['users_classes'];
+const professors_classesTable = db['professors_classes'];
 const Users = db['users'];
 const Subjects = db['subjects'];
 
@@ -34,7 +35,7 @@ const getAllByStudentId = async (req, res) => {
             attributes: ['id_class']
         })
         const idClass = user[0].id_class
-        const prof = await userClasseTable.findAll({
+        const prof = await professors_classesTable.findAll({
             where: {
                 id_class: idClass,
             },
