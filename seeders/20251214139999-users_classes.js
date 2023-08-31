@@ -106,7 +106,7 @@ module.exports = {
           },
           {
             id_user: 26,
-            id_class: 3
+            id_class: 1
           },
         ], {}
         );
