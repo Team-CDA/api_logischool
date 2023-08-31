@@ -89,6 +89,57 @@ router.get('/', scheduleController.getAll)
  */
 router.get('/:id', scheduleController.getScheduleByUser)
 
+/** 
+ * @swagger
+ * 
+ * /schedule/:
+ *    post:
+ *      tags: [Schedule]
+ *      summary: Crée un nouvel événement
+ *      description: Crée un nouvel événement
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Schedule'
+ *      responses: 
+ *         201:
+ *            description: Événement créé avec succès
+ *         500:
+ *            description: Une erreur s'est produite
+ */
+router.post('/', scheduleController.createSchedule);
+
+
+
+/** 
+ * @swagger
+ * 
+ * /schedule/class/{classId}:
+ *    get:
+ *      tags: [Schedule]
+ *      summary: Récupère les emplois du temps en fonction de l'ID de la classe
+ *      parameters:
+ *        - in: path
+ *          name: classId
+ *          schema:
+ *            type: integer
+ *          required: true
+ *          description: L'ID de la classe dont vous souhaitez récupérer les emplois du temps.
+ *      responses: 
+ *         200:
+ *            description: Success
+ *            content:
+ *              application/json:
+ *                schema:
+ *                  type: array
+ *                  items:
+ *                    $ref: '#/components/schemas/Schedule'
+ *         404:
+ *            description: The schedule table was not found
+ */
+router.get('/class/:classId', scheduleController.getScheduleByClass);
 
 
 module.exports = router

@@ -79,7 +79,6 @@ const missing_studentsRouter = require("./routes/missing_students.router");
 
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
-const scheduleRouter = require("./routes/schedule.router");
 const liaison_booksRouter = require("./routes/liaison_books.router");
 const alertsUsersRouter = require("./routes/alerts_users.router");
 const ratingsRouter = require("./routes/ratings.router");
@@ -173,6 +172,7 @@ app.use("/grades", gradesRouter);
 
 app.use("/schedule", scheduleRouter);
 app.use("/missing_students", missing_studentsRouter);
+app.use("/lessons", lessonsRouter);
 
 
 // app.use('/establishments', establishmentsRouter)

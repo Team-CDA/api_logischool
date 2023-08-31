@@ -20,5 +20,3 @@ module.exports = {
     await queryInterface.sequelize.query("TRUNCATE TABLE roles");
   },
 };
-
-
