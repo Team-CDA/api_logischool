@@ -57,6 +57,7 @@ const bulkUpdate = async (req, res) => {
   try {
     for (let grade of grades) {
       // Déstructuration pour inclure 'isNew'
+<<<<<<< HEAD
       const {
         grade_id,
         id_student,
@@ -66,15 +67,31 @@ const bulkUpdate = async (req, res) => {
         action,
         isNew,
       } = grade;
+=======
+      const { grade_id, id_student, id_teacher, id_subject, grade_value, action, isNew, date } = grade;
+>>>>>>> 2707b7ff56af1c503f0d5c57252623be739c03f5
 
       if (action === "create" || isNew) {
         // Si l'action est 'create' ou si la note est nouvelle (isNew est vrai)
         // On omet 'id' pour que la base de données génère un ID
+<<<<<<< HEAD
         await gradeTable.create(
           { id_student, id_subject, id_teacher, grade: grade_value },
           { transaction }
         );
       } else if (action === "update") {
+=======
+        await gradeTable.create({
+          id_student, 
+          id_subject, 
+          id_teacher, 
+          grade: grade_value,
+          createdAt: date, 
+        }, { transaction });
+      } 
+      
+      else if (action === 'update') {
+>>>>>>> 2707b7ff56af1c503f0d5c57252623be739c03f5
         // Ici, id est sûr d'être défini
         await gradeTable.update(
           { grade: grade_value },
@@ -99,6 +116,7 @@ const bulkUpdate = async (req, res) => {
     });
   }
 };
+
 
 const gradeController = {
   getAllGrades,
