@@ -3,8 +3,13 @@ const db = require("../models/index");
 const { ValidationError } = require("sequelize");
 const alertsTable = db["alerts"];
 const alertTypesTable = db["alert_types"];
+const groupTable = db["groups"];
+const usersGroupsTable = db["users_groups"];
+const usersTable = db["users"];
 const alertsGroupsTable = db["alerts_groups"];
 const alertsUsersTable = db["alerts_users"];
+const usercontroller = require("../controllers/users-controller");
+const userController = require("../controllers/users-controller");
 
 const sequelize = db.sequelize;
 const getAll = (req, res) => {
@@ -104,10 +109,46 @@ const createOne = async (io, req, res) => {
 
     const groups = req.body.groups;
     const users = req.body.users;
-
+    const userAlreadyAlerted = [];
     // si le groupe n'est pas vide alors on crée des entrées pour chaque groupe dans la table alerts_groups
     if (groups.length > 0) {
-      const alertsGroupsPromises = groups.map((groupId) => {
+      const alertsGroupsPromises = groups.map(async (groupId) => {
+        usersTable
+          .findAll({
+            include: [
+              {
+                model: groupTable,
+                where: { id: groupId },
+                through: {
+                  model: usersGroupsTable,
+                  attributes: [],
+                },
+              },
+            ],
+          })
+          .then((users) => {
+            if (!users) {
+              return [];
+            }
+            const userList = users.map((user) => user.get({ plain: true }));
+
+            if (users.length > 0) {
+              userList.map(async (user) => {
+                console.log(user);
+                // on push les utilisateurs ayant déjà une alerte car présent dans le groupe
+                await userAlreadyAlerted.push(user.id);
+                return alertsUsersTable.create({
+                  id_alert: alert.id,
+                  id_user: user.id,
+                });
+              });
+            }
+          })
+          .catch((error) => {
+            const message =
+              "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
+            return message;
+          });
         return alertsGroupsTable.create(
           {
             id_alert: alert.id,
@@ -124,13 +165,17 @@ const createOne = async (io, req, res) => {
 
     if (users.length > 0) {
       const alertsUsersTablePromises = users.map((userId) => {
-        return alertsUsersTable.create(
-          {
-            id_alert: alert.id,
-            id_user: userId,
-          },
-          { transaction }
-        );
+        console.log("aleradyAlerted : ", userAlreadyAlerted);
+        // On vérifie qu'ils n'otn pas déjà recu l'alerte dans le bloc groupe plus haut
+        if (!userAlreadyAlerted.includes(userId)) {
+          return alertsUsersTable.create(
+            {
+              id_alert: alert.id,
+              id_user: userId,
+            },
+            { transaction }
+          );
+        }
       });
       await Promise.all(alertsUsersTablePromises);
     }
