@@ -431,7 +431,6 @@ module.exports = {
           id: 25,
         },
         
-        
         // professeurs
         {
           firstname: "Obi-Wan",

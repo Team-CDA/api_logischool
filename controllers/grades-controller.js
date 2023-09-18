@@ -4,10 +4,25 @@ const gradeTable = db["grades"];
 const subjectTable = db["subjects"];
 
 const getAllGrades = (req, res) => {
-  Promise.all([
-    gradeTable.findAll()
-  ])
-  .then(([grades]) => {
+  gradeTable.findAll({
+    include: [
+      {
+        model: db['users_classes'],
+        as: 'studentClass',
+        include: [
+          {
+            model: db['classes'],
+            as: 'classes',
+          }
+        ],
+      },
+      {
+        model: db['subjects'],
+        as: 'subject',
+      }
+    ]
+  })
+  .then((grades) => {
     res.status(200).json({ grades });
   })
   .catch((error) => {

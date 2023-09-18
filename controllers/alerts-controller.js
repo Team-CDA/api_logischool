@@ -170,7 +170,7 @@ const updateOneById = (req, res) => {
     .then((result) => {
       const message = "Votre alerte a été mise à jour.";
       res.status(201).json({
-        message,
+        message,  
       });
     })
     .catch((error) => {

@@ -1,96 +1,133 @@
+const { use } = require("bcrypt/promises");
 const db = require("../models/index");
 const { ValidationError, Op } = require("sequelize");
 const ratingTable = db["ratings"];
+const professorsClassesTable = db["professors_classes"];
+const Users = db["users"];
+const UsersClasses = db["users_classes"];
+
 
 const getAllRatings = (req, res) => {
-  // Exemple pour récupérer toutes les notes et appréciations
-  Promise.all([
     ratingTable.findAll()
-  ])
-  .then(([ratings]) => {
-    res.status(200).json({ ratings });
-  })
-  .catch((error) => {
-    res.status(500).json({ message: "Une erreur s'est produite", error });
-  });
+    .then(ratings => {
+        res.status(200).json({ ratings });
+    })
+    .catch(error => {
+        res.status(500).json({ message: "Une erreur s'est produite", error });
+    });
 };
 
 const getOneById = (req, res) => {
-  const studentId = req.params.id;
+    const studentId = req.params.id;
 
-  if (!studentId) {
-    return res.status(400).json({ message: "L'ID de l'élève est requis" });
-  }
+    if (!studentId) {
+        return res.status(400).json({ message: "L'ID de l'élève est requis" });
+    }
 
-  // Trouver les appréciations pour l'élève spécifique
-  ratingTable.findAll({
-    where: { id_student: studentId },
-    // include: [
-    //   {
-    //     model: db.users,
-    //     as: "student"
-    //   },
-    //   {
-    //     model: db.users,
-    //     as: "teacher"
-    //   }
-    // ]
-  })
-  .then(ratings => {
-    // Trouver les notes pour l'élève spécifique (en utilisant la clé correcte `id_student`)
     ratingTable.findAll({ where: { id_student: studentId } })
-      .then(grades => {
+    .then(ratings => {
         res.status(200).json({ ratings });
-      })
-      .catch(error => {
-        res.status(500).json({ message: "Une erreur s'est produite lors de la récupération des notes", error });
+    })
+    .catch(error => {
+        res.status(500).json({ message: "Une erreur s'est produite lors de la récupération des appréciations", error });
+    });
+};
+
+const createRating = (req, res) => {
+  const { ...data } = req.body;
+  const userId = req.body.id_teacher;
+  console.log("blu", data);
+
+  Users.findOne({ where: { id: userId }, logging: console.log }).then(user => {
+      if (user.id_role !== 5) {
+          return res.status(403).json({ message: "Vous n'avez pas la permission de réaliser cette action." });
+      }
+
+      Users.findOne({ where: { id: data.id_student } }).then(student => {
+          if (!student) {
+              return res.status(404).json({ message: "Élève non trouvé." });
+          }
+
+          // Chercher dans la table users_classes pour obtenir l'id_class de cet élève
+          UsersClasses.findOne({ where: { id_user: student.id } }).then(userClass => {
+              if (!userClass) {
+                  return res.status(404).json({ message: "Classe de l'élève non trouvée." });
+              }
+
+              const studentClassId = userClass.id_class;
+
+              professorsClassesTable.findOne({
+                  where: {
+                      id_professor: userId,
+                      id_class: studentClassId
+                  }
+              }).then(professorClassAssociation => {
+                  if (!professorClassAssociation) {
+                      return res.status(403).json({ message: "Vous n'avez pas la permission de réaliser cette action pour cet élève et cette matière." });
+                  }
+
+                  ratingTable.create(data)
+                  .then(rating => {
+                      res.status(201).json(rating);
+                  })
+                  .catch(error => {
+                      res.status(400).json({ message: "Erreur lors de la création", error });
+                  });
+
+              }).catch(error => {
+                  console.error("Erreure détaillée:", error);
+                  res.status(500).json({ message: "Erreur lors de la vérification de l'association professeur-classe", error });
+              });
+
+          }).catch(error => {
+              res.status(500).json({ message: "Erreur lors de la récupération de la classe de l'élève", error });
+          });
+
+      }).catch(error => {
+          console.log("Erreur détaillée:", error);
+          res.status(500).json({ message: "Erreur lors de la récupération de l'élève", error });
       });
-  })
-  .catch(error => {
-    res.status(500).json({ message: "Une erreur s'est produite lors de la récupération des appréciations", error });
+
+  }).catch(error => {
+      console.error("Erreur détaillée:", error);
+      res.status(500).json({ message: "Erreur lors de la vérification de l'utilisateur", error });
   });
 };
 
 
-const createOne = (req, res) => {
-  // Exemple pour créer une nouvelle note ou appréciation
-  const { type, ...data } = req.body;
+const updateRating = (req, res) => {
+    const ratingId = req.params.id;
+    const data = req.body;
+    console.log("blu", ratingId);
 
-  if (type === 'grade') {
-    gradeTable.create(data)
-      .then((grade) => {
-        res.status(201).json(grade);
-      })
-      .catch((error) => {
-        res.status(400).json({ message: "Erreur lors de la création", error });
-      });
-  } else if (type === 'rating') {
-    ratingTable.create(data)
-      .then((rating) => {
-        res.status(201).json(rating);
-      })
-      .catch((error) => {
-        res.status(400).json({ message: "Erreur lors de la création", error });
-      });
-  } else {
-    res.status(400).json({ message: "Type invalide" });
-  }
+    ratingTable.update(data, { where: { id: ratingId } })
+    .then(() => {
+        res.status(200).json({ message: "Appréciation mise à jour avec succès." });
+    })
+    .catch(error => {
+      console.error("Erreur détaillée lors de la mise à jour de l'appréciation:", error);
+      res.status(500).json({ message: "Erreur lors de la mise à jour de l'appréciation.", error });
+  });
 };
 
-const updateOneById = (req, res) => {
-  // Vous pouvez ajuster cette fonction pour mettre à jour une note ou une appréciation spécifique
-};
+const deleteRating = (req, res) => {
+    const ratingId = req.params.id;
 
-const deleteOneById = (req, res) => {
-  // Vous pouvez ajuster cette fonction pour supprimer une note ou une appréciation spécifique
+    ratingTable.destroy({ where: { id: ratingId } })
+    .then(() => {
+        res.status(200).json({ message: "Appréciation supprimée avec succès." });
+    })
+    .catch(error => {
+        res.status(500).json({ message: "Erreur lors de la suppression de l'appréciation.", error });
+    });
 };
 
 const ratingController = {
-  getAllRatings,
-  getOneById,
-  createOne,
-  updateOneById,
-  deleteOneById,
+    getAllRatings,
+    getOneById,
+    createRating,
+    updateRating,
+    deleteRating
 };
 
 module.exports = ratingController;

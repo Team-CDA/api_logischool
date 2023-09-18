@@ -24,19 +24,29 @@ module.exports = {
 
     // Génère 8 dates aléatoires
     const uniqueDates = generateRandomDates(7);
-    
+
+    // Ajout de professeurs jusqu'à l'ID 34
+    const teachers = Array.from({ length: 34 - 25 }, (_, i) => i + 26);
+    // Ajout de matières pour correspondre aux professeurs
+    const subjects = Array.from({ length: 34 - 25 }, (_, i) => i + 1);
+
     for (let studentId = 1; studentId <= 9; studentId++) {
-      for (let i = 0; i < uniqueDates.length; i++) {
-        gradesData.push({
-          id_student: studentId,
-          id_teacher: 26,
-          id_subject: 1,
-          grade: generateRandomGrade(),
-          createdAt: uniqueDates[i],
-          updatedAt: new Date(),
-        });
+      for (let teacherId of teachers) {
+        for (let subjectId of subjects) {
+          for (let i = 0; i < uniqueDates.length; i++) {
+            gradesData.push({
+              id_student: studentId,
+              id_teacher: teacherId,
+              id_subject: subjectId,
+              grade: generateRandomGrade(),
+              createdAt: uniqueDates[i],
+              updatedAt: new Date(),
+            });
+          }
+        }
       }
     }
+
 
     await queryInterface.bulkInsert('grades', gradesData, {});
   },

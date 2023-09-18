@@ -42,11 +42,6 @@ module.exports = {
             updatedAt: new Date()  
         },
         {
-            subject_name: "EPS",
-            createdAt: new Date(),
-            updatedAt: new Date()  
-        },
-        {
             subject_name: "Arts plastiques",
             createdAt: new Date(),
             updatedAt: new Date()  
