@@ -108,7 +108,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/,
+          is: /^[a-zA-ZÀ-ÿ0-9-]+(?:\s[a-zA-ZÀ-ÿ0-9-]+)*$/
+          ,
         },
       },
       city: {
