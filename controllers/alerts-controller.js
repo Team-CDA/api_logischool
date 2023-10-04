@@ -106,7 +106,6 @@ const createOne = async (io, req, res) => {
   try {
     transaction = await sequelize.transaction();
     const alert = await alertsTable.create(req.body, { transaction });
-
     const groups = req.body.groups;
     const users = req.body.users;
     const userAlreadyAlerted = [];
@@ -157,12 +156,8 @@ const createOne = async (io, req, res) => {
           { transaction }
         );
       });
-
       await Promise.all(alertsGroupsPromises);
     }
-
-    // si les utilisateurs ne sont pas vides alors on crée des entrées pour chaque utilisateur dans la table alerts_users
-
     if (users.length > 0) {
       const alertsUsersTablePromises = users.map((userId) => {
         console.log("aleradyAlerted : ", userAlreadyAlerted);
@@ -179,7 +174,6 @@ const createOne = async (io, req, res) => {
       });
       await Promise.all(alertsUsersTablePromises);
     }
-
     await transaction.commit();
     io.emit("newAlert", alert, groups, users);
     const message = "Une alerte est ajoutée à la base de données.";
