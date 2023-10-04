@@ -63,6 +63,7 @@ const getAllUsers = (req, res) => {
 };
 
 const getParents = (req, res) => {
+  // On récupère tous les utilisateurs qui ont le rôle 2 (parent)
   usersTable
     .findAll({
       where: {
@@ -72,9 +73,10 @@ const getParents = (req, res) => {
         {
           model: rolesTable,
           as: "roles",
-        }
+        } 
       ],
     })
+    // Puis on renvoie le résultat
     .then((users) => {
       if (!users) {
         return res
@@ -83,6 +85,7 @@ const getParents = (req, res) => {
       }
       res.status(200).json(users);
     })
+    // En cas d'erreur, on passe dans le catch
     .catch((error) => {
       const message =
         "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
@@ -214,26 +217,31 @@ const createOne = (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
+  // Récupérer l'utilisateur avec l'id et le token
   const { id, token } = req.params;
+  // On récupère le nouveau mot de passe hashé
   const password = await bcrypt.hash(req.body.password, 10);
-
+  // On vérifie que l'utilisateur existe
   usersTable
     .findByPk(id)
     .then((user) => {
       if (!user) {
+        // si l'utilisateur n'existe pas, on renvoie une erreur
         return res.status(404).json({ message: "Aucun utilisateur n'a été trouvé" });
       }
-      
+      // On vérifie que le token est valide
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // Si le token n'est pas valide, on renvoie une erreur
       if (decoded.userId !== user.id) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-
+      // Si le token est valide, on met à jour le mot de passe
       user.password = password;
       user.save();
-
+      // et on renvoie un message de succès
       res.status(200).json({ message: "Password updated successfully" });
     })
+    // En cas d'erreur, on passe dans le catch
     .catch((error) => {
       const message =
         "Une erreur a eu lieu lors de la récupération d'un utilisateur.";

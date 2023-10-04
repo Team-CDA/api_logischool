@@ -1,15 +1,11 @@
 'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const gradesData = [];
-
     const generateRandomGrade = () => {
       // retourne un nombre aléatoire entre 0 et 20
       return Math.floor(Math.random() * 21);
-
     };
-
     const generateRandomDates = (count) => {
       const startOfYear = new Date(new Date().getFullYear(), 0, 1);
       const endOfYear = new Date(new Date().getFullYear(), 11, 31);
@@ -21,7 +17,6 @@ module.exports = {
       }
       return dates;
     };
-
     // Génère 8 dates aléatoires
     const uniqueDates = generateRandomDates(7);
 
@@ -46,11 +41,8 @@ module.exports = {
         }
       }
     }
-
-
     await queryInterface.bulkInsert('grades', gradesData, {});
   },
-
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('grades', null, {});
   },

@@ -38,7 +38,7 @@ const menuController = require ("../controllers/menus-controller")
 
 
 /** 
- * @swagger
+ * @    
  * 
  * /menus:
  *    get:
