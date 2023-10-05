@@ -6,7 +6,7 @@ module.exports = {
     const buildingNames = ['A', 'B', 'C', 'D', 'E', 'F'];
     const buildingData = buildingNames.map((name) => ({
       name: `Bâtiment ${name}`,
-      id_establishment: 1, // Remplacer par l'ID d'établissement approprié
+      id_establishment: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
     }));

@@ -103,6 +103,7 @@ const createOne = async (io, req, res) => {
     const alert = await alertsTable.create(req.body, { transaction });
     const groups = req.body.groups;
     const users = req.body.users;
+    console.log('blu', users);
     if (groups.length > 0) {
       const alertsGroupsPromises = groups.map((groupId) => {
         return alertsGroupsTable.create(
