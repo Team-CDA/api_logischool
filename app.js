@@ -60,17 +60,14 @@ const alertsGroupsRouter = require("./routes/alerts_groups.router");
 const classTypesRouter = require("./routes/class_types.router");
 const classesRouter = require("./routes/classes.router");
 const usersClassesRouter = require("./routes/users_classes.router");
-const eventsRouter = require("./routes/events.router");
 const roomTypesRouter = require("./routes/room_types.router");
 const roomsRouter = require("./routes/rooms.router");
-const eventTypesRouter = require("./routes/event_types.router");
 const timeslotsRouter = require("./routes/timeslots.router");
 const lessonsRouter = require("./routes/lessons.router");
 const subjectsRouter = require("./routes/subjects.router");
 const referent_teachersRouter = require("./routes/referent_teachers.router");
 const homeworksRouter = require("./routes/homeworks.router");
 const buildingsRouter = require("./routes/buildings.router");
-const eventsGroupsRouter = require("./routes/events_groups.router");
 const usersSubjectsRouter = require("./routes/users_subjects.router");
 const menusRouter = require("./routes/menus.router");
 const scheduleRouter = require("./routes/schedule.router");
@@ -140,9 +137,6 @@ app.use("/signatures", signaturesRouter);
 
 app.use("/liaison_books", liaison_booksRouter);
 
-app.use("/events", eventsRouter);
-app.use("/event_types", eventTypesRouter);
-
 app.use("/room_types", roomTypesRouter);
 app.use("/rooms", roomsRouter);
 
@@ -157,7 +151,6 @@ app.use("/buildings", buildingsRouter);
 
 app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
-app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 
 app.use("/ratings", ratingsRouter);
