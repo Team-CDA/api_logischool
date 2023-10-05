@@ -241,7 +241,7 @@ const createOne = (req, res) => {
       try {
         sendMail(
           user.email,
-          "Votre formulaire a été soumis avec succès",
+          'Vous êtes inscrit sur LOGISCHOOL !',
           `Cher(e) ${user.firstname} ${user.lastname},
 
             Bienvenue sur notre plateforme ! Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe et vous connecter pour la première fois : ${resetLink}.
