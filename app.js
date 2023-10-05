@@ -54,8 +54,6 @@ const usersGroup = require("./routes/users_groups.router");
 const statusesRouter = require("./routes/statuses.router");
 const groupsRouter = require("./routes/groups.router");
 const rolesRouter = require("./routes/roles.router");
-const reportTypesRouter = require("./routes/report_types.router");
-const reportsRouter = require("./routes/reports.router");
 const alertTypesRouter = require("./routes/alert_types.router");
 const signaturesRouter = require("./routes/signatures.router");
 const alertsGroupsRouter = require("./routes/alerts_groups.router");
@@ -127,9 +125,6 @@ app.use("/roles", rolesRouter);
 app.use("/statuses", statusesRouter);
 
 app.use("/groups", groupsRouter);
-
-app.use("/report_types", reportTypesRouter);
-app.use("/reports", reportsRouter);
 
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
