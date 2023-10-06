@@ -1,3 +1,4 @@
+// Ce fichier s'occupe de la gestion des routes pour les homeworks
 const { Router } = require("express");
 const router = Router();
 const homeworksController = require("../controllers/homeworks-controller");
@@ -45,6 +46,26 @@ module.exports = router;
 /**
  * @swagger
  *
+ * /homeworks/create:
+ *    post:
+ *      tags: [Homeworks]
+ *      requestBody:
+ *         required: true
+ *         content:
+ *           application/json:
+ *              schema:
+ *                 $ref: '#/components/schemas/homeworks'
+ *      summary: create homework
+ *      description: create homework linked to a specfic user.
+ *      responses:
+ *         200:
+ *            description: homeworks successfully created
+ */
+router.post("/", multerMultipleFiles, homeworksController.create);
+
+/**
+ * @swagger
+ *
  * /homeworks/classes/daterange:
  *    get:
  *      tags: [Homeworks]
@@ -63,11 +84,7 @@ module.exports = router;
  *         200:
  *            description: homeworks_classes successfully retrieved
  */
-router.get(
-  "/classes/daterange",
-  multerMultipleFiles,
-  homeworksController.getByDateRangeHC
-);
+router.get("/classes/daterange", multerMultipleFiles, homeworksController.getByDateRangeHC);
 
 /**
  * @swagger
@@ -122,6 +139,38 @@ router.get("/filter", multerMultipleFiles, homeworksController.getWithFilter);
  */
 router.get("/", multerMultipleFiles, homeworksController.getAll);
 
+/**
+ * @swagger
+ * 
+ * /homeworks/{idClass}/{idSubject}:
+ *   get:
+ *    tags: [Homeworks]
+ *    summary: get homeworks by idClass and idSubject
+ *    description: By providing an idClass and an idSubject you can get the details of this homework
+ *    parameters:
+ *      - in: path
+  *        name: idClass
+  *        schema:
+  *        type: integer
+  *        required: true
+ *      - in: path
+  *        name: idSubject
+  *        schema:
+  *        type: integer
+  *        required: true
+ *    responses:
+ *      200:
+ *        description: homework successfully retrieved
+ *        content:
+ *          application/json:
+ *        schema:
+ *          type: array
+ *        items:
+ *          $ref: '#/components/schemas/homeworks'
+ *      404:
+ *        description: this specific homework was not found
+ */
+
 router.get("/:idClass/:idSubject", homeworksController.getAllByIdClassAndIdSubject);
 
 /**
@@ -152,25 +201,6 @@ router.get("/:idClass/:idSubject", homeworksController.getAllByIdClassAndIdSubje
  */
 router.get("/:id", multerMultipleFiles, homeworksController.getOneById);
 
-/**
- * @swagger
- *
- * /homeworks/create:
- *    post:
- *      tags: [Homeworks]
- *      requestBody:
- *         required: true
- *         content:
- *           application/json:
- *              schema:
- *                 $ref: '#/components/schemas/homeworks'
- *      summary: create homework
- *      description: create homework linked to a specfic user.
- *      responses:
- *         200:
- *            description: homeworks successfully created
- */
-router.post("/", multerMultipleFiles, homeworksController.create);
 
 router.put("/link", multerMultipleFiles, homeworksController.linkTwoFiles);
 

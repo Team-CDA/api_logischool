@@ -109,6 +109,7 @@ const getOneById = (req, res) => {
       }
       // Obtenir les groupes de l'utilisateur
       user.getGroups().then((groups) => {
+        console.log('groupes de user : ', groups);
         // Ajouter les groupes à l'objet utilisateur
         user.dataValues.groups = groups;
 

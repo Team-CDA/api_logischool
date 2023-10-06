@@ -76,15 +76,9 @@ const alertsUsersRouter = require("./routes/alerts_users.router");
 const ratingsRouter = require("./routes/ratings.router");
 const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
-const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
-// const fs = require('fs');
 require("dotenv").config();
 
-// var logFilePath = '/var/log/morgan.log';
-// var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-
-//On créé une instance d'une application express (c'est notre serveur)
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
@@ -102,7 +96,7 @@ app.set("view engine", "ejs");
   
 app.get("/");
 app.use(express.json());
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 // app.use(morgan('combined', { stream: logStream }));
 const path = require("path");
 

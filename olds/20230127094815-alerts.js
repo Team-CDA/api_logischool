@@ -1,4 +1,4 @@
-'use strict';
+z'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
