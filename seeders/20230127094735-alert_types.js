@@ -9,6 +9,7 @@ module.exports = {
         { type: "Notifications" },
         { type: "Manifestation" },
         { type: "Coupure d'électricité" },
+        { type: "Signature" },
       ],
       {}
     );

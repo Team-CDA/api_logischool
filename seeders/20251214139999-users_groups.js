@@ -32,6 +32,12 @@ module.exports = {
       id_user: 26
     });
 
+    // Ajoute des id_user 26 et 34 avec id_group 4
+    bulkData.push({
+      id_group: 2,
+      id_user: 26
+    });
+
     // Insertion en bloc
     await queryInterface.bulkInsert('users_groups', bulkData, {});
   },
