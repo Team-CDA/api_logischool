@@ -1,5 +1,5 @@
 const { Router } = require ("express")
-const ClassesController = require("../controllers/Classes-controller")
+const classesController = require("../controllers/Classes-controller")
 const router = Router()
 //On importe le controller avec toutes les méthodes à l'intérieur.
  
@@ -47,7 +47,7 @@ const router = Router()
  *            description: Success
  * 
  */
-router.get('/', ClassesController.getAll)
+router.get('/', classesController.getAll)
 
 /**
  * @swagger
@@ -69,7 +69,7 @@ router.get('/', ClassesController.getAll)
  *         404:
  *            description: the classes table was not found
  */
-router.get("/teacher/:id", classeController.getAllForOneTeacher);
+router.get("/teacher/:id", classesController.getAllForOneTeacher);
 
 /**
  * @swagger
@@ -84,7 +84,7 @@ router.get("/teacher/:id", classeController.getAllForOneTeacher);
  *            description: Success
  * 
  */
-router.get('/:id', ClassesController.getOneById)
+router.get('/:id', classesController.getOneById)
 
 /** 
  * @swagger
@@ -104,7 +104,7 @@ router.get('/:id', ClassesController.getOneById)
  *         200:
  *            description: Classe successfully created
  */
-router.post('/create', ClassesController.createOne)
+router.post('/create', classesController.createOne)
 
 /**
  * @swagger
@@ -125,7 +125,7 @@ router.post('/create', ClassesController.createOne)
  *          description: alert types successfully updated
  *         
  */
-router.patch('/update/:id', ClassesController.updateOneById)
+router.patch('/update/:id', classesController.updateOneById)
 
 /** 
  * @swagger
@@ -140,7 +140,7 @@ router.patch('/update/:id', ClassesController.updateOneById)
  *          description: class successfully deleted
  *         
  */
-router.delete('/delete/:id', ClassesController.deleteOneById)
+router.delete('/delete/:id', classesController.deleteOneById)
 
 /**
  * @swagger
@@ -155,6 +155,6 @@ router.delete('/delete/:id', ClassesController.deleteOneById)
  *          description: Classes successfully deleted
  *
  */
-router.delete('/deleteAll', ClassesController.deleteAll)
+router.delete('/deleteAll', classesController.deleteAll)
 
 module.exports = router;
