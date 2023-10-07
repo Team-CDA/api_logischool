@@ -81,19 +81,28 @@ require("dotenv").config();
 
 const app = express();
 const http = require("http").createServer(app);
+const corsOptions = {
+  origin: ['http://localhost:1212', 'http://localhost:3001'],
+};
+app.use(cors(corsOptions));
+
+
+
 const io = require("socket.io")(http, {
   cors: {
     origin: ['http://localhost:1212', 'http://localhost:3001'],
   },
 });
 const alertsRouter = require("./routes/alerts.router");
+
 const configuredAlertsRouter = alertsRouter(io);
-app.use(cors());
+
+
 
 app.use(publicMiddleware);
 app.set("view engine", "ejs");
 
-  
+
 app.get("/");
 app.use(express.json());
 app.use(morgan("dev"));
@@ -195,8 +204,6 @@ http.listen(port, () =>
 );
 
 io.on("connection", (socket) => {
-  // console.log("User connected");
-
   socket.on("disconnect", () => {
     console.log("Un client s'est déconnecté");
   });

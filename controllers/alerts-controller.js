@@ -129,7 +129,9 @@ const createOne = async (io, req, res) => {
       await Promise.all(alertsUsersTablePromises);
     }
     await transaction.commit();
+
     io.emit("newAlert", alert, groups, users);
+    
     const message = "Une alerte est ajoutée à la base de données.";
     res.status(201).json({
       message,

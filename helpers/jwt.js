@@ -1,7 +1,6 @@
-// jsonwebtoken est un module qui permet de créer des tokens d'authentification.
 const jwt = require('jsonwebtoken');
 
-// On exporte une fonction qui va vérifier si l'utilisateur est authentifié.
+// Fonction qui vérifie si l'utilisateur est authentifié.
 module.exports = (req, res, next) => {
   try {
     // On récupère le token dans le header de la requête.

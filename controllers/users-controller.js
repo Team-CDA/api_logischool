@@ -179,20 +179,31 @@ const createOne = (req, res) => {
       user.save();
 
       try {
-        sendMail(
-          user.email,
-          'Vous êtes inscrit sur LOGISCHOOL !',
-          `Cher(e) ${user.firstname} ${user.lastname},
+        const resetLink = `http://localhost:3001/resetPassword?id=${user.id}&token=${token}`;
+    const htmlContent = `
+      <div style="text-align: center;">
+        <img src="cid:unique@logischool" alt="LOGISCHOOL Logo" style="width: 200px;"/>
+        <h1>Bienvenue sur LOGISCHOOL, ${user.firstname} ${user.lastname} !</h1>
+        <p>
+          Veuillez cliquer sur le lien suivant pour <a href="${resetLink}">réinitialiser votre mot de passe</a> et vous connecter pour la première fois.
+        </p>
+        <p>
+          Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter.
+        </p>
+        <p>
+          Cordialement,<br/>
+          L'équipe LOGISCHOOL
+        </p>
+      </div>
+    `;
 
-            Bienvenue sur notre plateforme ! Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe et vous connecter pour la première fois : ${resetLink}.
-
-            Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter.
-            
-            Bienvenue parmi nous !
-            
-            Cordialement,
-            L'équipe LOGISCHOOL`
-        );
+    sendMail(
+      user.email,
+      'Vous êtes inscrit sur LOGISCHOOL !',
+      htmlContent
+    ).then(() => {
+      console.log('Email sent');
+    });
 
         res.status(201).json({
           message,
@@ -218,16 +229,17 @@ const createOne = (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
-  // Récupérer l'utilisateur avec l'id et le token
+  // On récupére l'utilisateur avec l'id et le token
   const { id, token } = req.params;
   // On récupère le nouveau mot de passe hashé
   const password = await bcrypt.hash(req.body.password, 10);
   // On vérifie que l'utilisateur existe
   usersTable
+    // On récupère l'utilisateur avec l'id
     .findByPk(id)
     .then((user) => {
+      // Si l'utilisateur n'existe pas, on renvoie une erreur
       if (!user) {
-        // si l'utilisateur n'existe pas, on renvoie une erreur
         return res.status(404).json({ message: "Aucun utilisateur n'a été trouvé" });
       }
       // On vérifie que le token est valide
@@ -236,13 +248,12 @@ const resetPassword = async (req, res) => {
       if (decoded.userId !== user.id) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-      // Si le token est valide, on met à jour le mot de passe
+      // Si le token est valide, on met à jour le mot de passe et on renvoie un message de succès
       user.password = password;
       user.save();
-      // et on renvoie un message de succès
       res.status(200).json({ message: "Password updated successfully" });
     })
-    // En cas d'erreur, on passe dans le catch
+    // En cas d'erreur, on passe dans le catch et on renvoie une erreur
     .catch((error) => {
       const message =
         "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
