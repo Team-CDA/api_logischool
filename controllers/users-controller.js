@@ -11,7 +11,6 @@ const establishmentsTable = db["establishments"];
 const jwt = require("jsonwebtoken");
 const sendMail = require("../helpers/sendMail");
 
-
 const getAllUsers = (req, res) => {
   //On utilise l'ORM pour SELECT toute la table
   usersTable
