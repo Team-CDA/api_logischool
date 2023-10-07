@@ -2,8 +2,7 @@ const { Router } = require ("express")
 const ClassesController = require("../controllers/Classes-controller")
 const router = Router()
 //On importe le controller avec toutes les méthodes à l'intérieur.
-const classeController = require("../controllers/classes-controller");
-
+ 
 //On déclare un schéma pour le type de donnée qu'on est censé récuperer depuis ces routes.
 /**
  * @swagger
