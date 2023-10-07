@@ -11,11 +11,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'id_group'
       });
       // Define association with events_groups table
-      this.belongsToMany(models.events, {
-        through: 'events_groups', // Specify the intermediate table name here
-        as: 'events',
-        foreignKey: 'id_group'
-      });
       this.belongsToMany(models.users, {
         through: "users_groups",
         foreignKey: "id_group",

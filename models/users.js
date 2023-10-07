@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const bcrypt = require("bcrypt"); // Importez bcrypt
+const bcrypt = require("bcrypt");
 module.exports = (sequelize, DataTypes) => {
   class users extends Model {
     static associate(models) {
@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsToMany(models.subjects, {
         through: "users_subjects",
         foreignKey: "id_user",
+      });
+
+      this.belongsToMany(models.classes, {
+        through: "professors_classes",
+        foreignKey: "id_professor",
+        as: "profClass",
       });
 
       this.belongsTo(models.roles, {
@@ -102,7 +108,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/
+          is: /^[a-zA-Z0-9À-ÿ-.,\s]+(?:\s[a-zA-Z0-9À-ÿ-.,\s]+)*$/,
         },
       },
       city: {
@@ -110,8 +116,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
           notEmpty: true,
-          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/
-          ,
+          is: /^[a-zA-ZÀ-ÿ\-]+(?:\s[a-zA-ZÀ-ÿ\-]+)*$/,
         },
       },
       zipcode: {
@@ -227,7 +232,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       sequelize,
       modelName: "users",
-    },
+    }
   );
   return users;
 };

@@ -4,7 +4,9 @@ const { ValidationError, Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 const usersTable = db["users"];
 const classesTable = db["classes"];
+const groupTable = db["groups"];
 const rolesTable = db["roles"];
+const usersGroups = db["users_groups"];
 const establishmentsTable = db["establishments"];
 const jwt = require("jsonwebtoken");
 const sendMail = require("../helpers/sendMail");
@@ -64,6 +66,7 @@ const getAllUsers = (req, res) => {
 };
 
 const getParents = (req, res) => {
+  // On récupère tous les utilisateurs qui ont le rôle 2 (parent)
   usersTable
     .findAll({
       where: {
@@ -73,9 +76,10 @@ const getParents = (req, res) => {
         {
           model: rolesTable,
           as: "roles",
-        }
+        },
       ],
     })
+    // Puis on renvoie le résultat
     .then((users) => {
       if (!users) {
         return res
@@ -84,6 +88,7 @@ const getParents = (req, res) => {
       }
       res.status(200).json(users);
     })
+    // En cas d'erreur, on passe dans le catch
     .catch((error) => {
       const message =
         "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
@@ -105,6 +110,7 @@ const getOneById = (req, res) => {
       }
       // Obtenir les groupes de l'utilisateur
       user.getGroups().then((groups) => {
+        console.log('groupes de user : ', groups);
         // Ajouter les groupes à l'objet utilisateur
         user.dataValues.groups = groups;
 
@@ -125,7 +131,6 @@ const getOneById = (req, res) => {
       });
     });
 };
-
 
 const getByParent = (req, res) => {
   usersTable
@@ -155,8 +160,68 @@ const getByParent = (req, res) => {
     });
 };
 
-const createOne = (req, res) => {
+const getByGroup = (req, res) => {
+  const idGroup = req.params.id;
+  usersTable
+    .findAll({
+      include: [
+        {
+          model: groupTable,
+          where: { id: idGroup },
+          through: {
+            model: usersGroups,
+            attributes: [],
+          },
+        },
+      ],
+    })
+    .then((users) => {
+      if (!users) {
+        return res
+          .status(404)
+          .json({ message: "Aucun utilisateur n'a été trouvé" });
+      }
+      res.status(200).json(users);
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
+      res.status(500).json({
+        message,
+        data: error.message,
+      });
+    });
+};
 
+const getByGroupFromBackEnd = (idGroup) => {
+  console.log("on passe là", idGroup);
+  usersTable
+    .findAll({
+      include: [
+        {
+          model: groupTable,
+          where: { id: idGroup },
+          through: {
+            model: usersGroups,
+            attributes: [],
+          },
+        },
+      ],
+    })
+    .then((users) => {
+      if (!users) {
+        return [];
+      }
+      return users;
+    })
+    .catch((error) => {
+      const message =
+        "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
+      return message;
+    });
+};
+
+const createOne = (req, res) => {
   usersTable
     .create(req.body)
     .then((user) => {
@@ -168,7 +233,7 @@ const createOne = (req, res) => {
           userId: user.id,
         },
         process.env.JWT_SECRET,
-        { expiresIn: '1h' } // Token expirera après 1 heure
+        { expiresIn: "1h" } // Token expirera après 1 heure
       );
 
       const resetLink = `http://localhost:3001/resetPassword?id=${user.id}&token=${token}`;
@@ -178,7 +243,7 @@ const createOne = (req, res) => {
       try {
         sendMail(
           user.email,
-          'Votre formulaire a été soumis avec succès',
+          'Vous êtes inscrit sur LOGISCHOOL !',
           `Cher(e) ${user.firstname} ${user.lastname},
 
             Bienvenue sur notre plateforme ! Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe et vous connecter pour la première fois : ${resetLink}.
@@ -197,7 +262,7 @@ const createOne = (req, res) => {
         });
       } catch (error) {
         console.error(error);
-        res.status(500).send('There was an error while creating the user');
+        res.status(500).send("There was an error while creating the user");
       }
     })
     .catch((error) => {
@@ -215,26 +280,32 @@ const createOne = (req, res) => {
 };
 
 const resetPassword = async (req, res) => {
+  // Récupérer l'utilisateur avec l'id et le token
   const { id, token } = req.params;
+  // On récupère le nouveau mot de passe hashé
   const password = await bcrypt.hash(req.body.password, 10);
-
+  // On vérifie que l'utilisateur existe
   usersTable
     .findByPk(id)
     .then((user) => {
       if (!user) {
-        return res.status(404).json({ message: "Aucun utilisateur n'a été trouvé" });
+        return res
+          .status(404)
+          .json({ message: "Aucun utilisateur n'a été trouvé" });
       }
-      
+
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      // Si le token n'est pas valide, on renvoie une erreur
       if (decoded.userId !== user.id) {
         return res.status(401).json({ message: "Unauthorized" });
       }
-
+      // Si le token est valide, on met à jour le mot de passe
       user.password = password;
       user.save();
-
+      // et on renvoie un message de succès
       res.status(200).json({ message: "Password updated successfully" });
     })
+    // En cas d'erreur, on passe dans le catch
     .catch((error) => {
       const message =
         "Une erreur a eu lieu lors de la récupération d'un utilisateur.";
@@ -244,9 +315,6 @@ const resetPassword = async (req, res) => {
       });
     });
 };
-
-
-
 
 const createParent = (req, res) => {
   usersTable
@@ -396,6 +464,8 @@ const checkUserCredentials = async (email, password) => {
 const userController = {
   getAllUsers,
   getOneById,
+  getByGroup,
+  getByGroupFromBackEnd,
   createOne,
   updateOneById,
   deleteOneById,
@@ -405,7 +475,7 @@ const userController = {
   getByParent,
   getParents,
   createParent,
-  resetPassword
+  resetPassword,
 };
 
 module.exports = userController;

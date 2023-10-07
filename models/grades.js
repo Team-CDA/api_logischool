@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "id_subject",
         as: "subject",
       });
+      this.belongsTo(models.users_classes, {
+        foreignKey: "id_student",
+        as: "studentClass",
+      });
     }
   }
 

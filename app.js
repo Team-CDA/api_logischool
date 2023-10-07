@@ -54,18 +54,14 @@ const usersGroup = require("./routes/users_groups.router");
 const statusesRouter = require("./routes/statuses.router");
 const groupsRouter = require("./routes/groups.router");
 const rolesRouter = require("./routes/roles.router");
-const reportTypesRouter = require("./routes/report_types.router");
-const reportsRouter = require("./routes/reports.router");
 const alertTypesRouter = require("./routes/alert_types.router");
 const signaturesRouter = require("./routes/signatures.router");
 const alertsGroupsRouter = require("./routes/alerts_groups.router");
 const classTypesRouter = require("./routes/class_types.router");
 const classesRouter = require("./routes/classes.router");
 const usersClassesRouter = require("./routes/users_classes.router");
-const eventsRouter = require("./routes/events.router");
 const roomTypesRouter = require("./routes/room_types.router");
 const roomsRouter = require("./routes/rooms.router");
-const eventTypesRouter = require("./routes/event_types.router");
 const timeslotsRouter = require("./routes/timeslots.router");
 const lessonsRouter = require("./routes/lessons.router");
 const subjectsRouter = require("./routes/subjects.router");
@@ -84,20 +80,14 @@ const alertsUsersRouter = require("./routes/alerts_users.router");
 const ratingsRouter = require("./routes/ratings.router");
 const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
-const users_subjectsController = require("./controllers/users_subjects-controller");
 const cors = require("cors");
-// const fs = require('fs');
 require("dotenv").config();
 
-// var logFilePath = '/var/log/morgan.log';
-// var logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-
-//On créé une instance d'une application express (c'est notre serveur)
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http, {
   cors: {
-    origin: ['http://localhost:1212', 'http://localhost:3001'], // Remplacez '*' par l'URL de votre client React.js pour limiter les connections
+    origin: ['http://localhost:1212', 'http://localhost:3001'],
   },
 });
 const alertsRouter = require("./routes/alerts.router");
@@ -131,9 +121,6 @@ app.use("/statuses", statusesRouter);
 
 app.use("/groups", groupsRouter);
 
-app.use("/report_types", reportTypesRouter);
-app.use("/reports", reportsRouter);
-
 app.use("/alert_types", alertTypesRouter);
 app.use("/alerts", configuredAlertsRouter);
 app.use("/alerts_groups", alertsGroupsRouter);
@@ -148,9 +135,6 @@ app.use("/signatures", signaturesRouter);
 
 app.use("/liaison_books", liaison_booksRouter);
 
-app.use("/events", eventsRouter);
-app.use("/event_types", eventTypesRouter);
-
 app.use("/room_types", roomTypesRouter);
 app.use("/rooms", roomsRouter);
 
@@ -164,7 +148,6 @@ app.use("/buildings", buildingsRouter);
 
 app.use("/homeworks", homeworksRouter);
 app.use("/subjects", subjectsRouter);
-app.use("/events_groups", eventsGroupsRouter);
 app.use("/users_subjects", usersSubjectsRouter);
 
 app.use("/ratings", ratingsRouter);

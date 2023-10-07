@@ -9,11 +9,11 @@ module.exports = {
       "liaison_books",
       [
         {
-          date_message: new Date(),
-          date_response: new Date(),
-          message: "Exemple de message 1",
-          message_object: "Objet 1",
-          response: "Réponse 1",
+          date_message: new Date('2023-08-20T12:00:00Z'),
+          date_response: new Date('2023-08-21T14:00:00Z'),
+          message: "Votre enfant a été particulièrement participatif en classe aujourd'hui.",
+          message_object: "Participation en classe",
+          response: "Merci pour cette information. C'est très encourageant!",
           id_initiator: 3,
           id_parent: 2,
           id_student: 1,
@@ -21,11 +21,11 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          date_message: new Date(),
-          date_response: new Date(),
-          message: "Exemple de message 2",
-          message_object: "Objet 2",
-          response: "Réponse 2",
+          date_message: new Date('2023-08-22T09:00:00Z'),
+          date_response: new Date('2023-08-23T10:00:00Z'),
+          message: "Je voudrais vous informer que nous aurons un contrôle de mathématiques la semaine prochaine.",
+          message_object: "Contrôle de mathématiques à venir",
+          response: "Merci de nous avoir informés. Nous veillerons à ce que notre enfant soit bien préparé.",
           id_initiator: 3,
           id_parent: 2,
           id_student: 1,
@@ -33,12 +33,13 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          date_message: new Date(),
+          date_message: new Date('2023-08-24T15:00:00Z'),
           date_response: new Date(),
-          message: "Exemple de message 3",
-          message_object: "Objet 3",
+          message: "Il semble que votre enfant ait oublié son cahier de devoirs en classe aujourd'hui.",
+          message_object: "Oubli de cahier de devoirs",
           response: "",
           id_initiator: 3,
+          id_parent: 2,
           id_student: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -49,6 +50,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    // await queryInterface.sequelize.query("TRUNCATE TABLE liaison_books");
+    await queryInterface.bulkDelete('liaison_books', null, {});
   },
 };

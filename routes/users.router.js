@@ -161,6 +161,8 @@ router.get("/:id", userController.getOneById);
  */
 router.get("/parent/:id", userController.getByParent);
 
+router.get("/group/:id", userController.getByGroup);
+
 /**
  * @swagger
  *
