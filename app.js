@@ -68,7 +68,7 @@ const subjectsRouter = require("./routes/subjects.router");
 const referent_teachersRouter = require("./routes/referent_teachers.router");
 const homeworksRouter = require("./routes/homeworks.router");
 const buildingsRouter = require("./routes/buildings.router");
-const eventsGroupsRouter = require("./routes/events_groups.router");
+// const eventsGroupsRouter = require("./routes/events_groups.router");
 const scheduleRouter = require("./routes/schedule.router");
 const missing_studentsRouter = require("./routes/missing_students.router");
 
