@@ -44,7 +44,7 @@ module.exports = {
 
     for (let i = 0; i < reyAppreciations.length; i++) {
       ratings.push({
-        id_student: 2,  // Assuming Rey's id is 2
+        id_student: 2,
         id_teacher: i + 1,
         id_subject: i + 1,
         startDate: new Date('2023-09-01'),
