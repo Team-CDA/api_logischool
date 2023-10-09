@@ -4,7 +4,8 @@
   "description": "L'api logischool permettra le bon fonctionnement des différentes couches de notre application logischool",
   "main": "app.js",
   "scripts": {
-    "dev": "npm install && nodemon app.js"
+    "dev": "npm install && nodemon app.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,8 @@
     "swagger-ui-express": "^4.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "jest": "^29.7.0",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.3"
   }
 }

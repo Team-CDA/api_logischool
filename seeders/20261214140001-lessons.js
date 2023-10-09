@@ -4,8 +4,8 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     let seeders = [];
 
-    let startDate = new Date('2023-10-02T09:00:00'); // Début le 2 octobre 2023
-    let endDate = new Date('2023-11-02T00:00:00'); // Fin le 2 novembre 2023
+    let startDate = new Date('2023-10-02T09:00:00'); 
+    let endDate = new Date('2023-11-02T00:00:00');
 
     const timeSlots = [60, 90];
 

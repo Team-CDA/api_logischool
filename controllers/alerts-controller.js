@@ -26,7 +26,7 @@ const getAll = (req, res) => {
         res.json({ Message: "Aucune alerte présente en base de données." });
       } else {
         // Sinon, on renvoie le résultat de notre requête
-        res.json(result, 200);
+        res.status(200).json(result);
       }
     })
     //en cas d'erreur, on passe dans le catch
@@ -96,14 +96,12 @@ const getAllForOneUser = (req, res) => {
 };
 
 const createOne = async (io, req, res) => {
-  console.log("Request body:", req.body);
   let transaction;
   try {
     transaction = await sequelize.transaction();
     const alert = await alertsTable.create(req.body, { transaction });
     const groups = req.body.groups;
     const users = req.body.users;
-    console.log('blu', users);
     if (groups.length > 0) {
       const alertsGroupsPromises = groups.map((groupId) => {
         return alertsGroupsTable.create(
@@ -139,7 +137,7 @@ const createOne = async (io, req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log("erreur de transaction :", error.message);
+    // console.log("erreur de transaction :", error.message);
     await transaction.rollback();
     const message =
       "Une erreur a eu lieu lors de l'insertion de l'alerte en base de donnée.";
@@ -209,23 +207,6 @@ const deleteOneById = (req, res) => {
       });
   });
 };
-
-// const deleteAll = (req, res) => {
-//     alertsTable.destroy({
-//             truncate: true
-//         })
-//         .then(r => {
-//             const message = "La table a bien été vidé."
-//             res.status(200).send(message)
-//         })
-//         .catch(error => {
-//             const message = "Une erreur a eu lieu lors de la suppression."
-//             res.status(500).json({
-//                 message,
-//                 error
-//             })
-//         })
-// }
 
 const alertsController = (io) => {
   return {

@@ -140,28 +140,6 @@ router.get("/:id", gradeController.getOneById);
 /**
  * @swagger
  *
- * /grades/{id}:
- *    get:
- *      tags: [Grades]
- *      summary: Récupère un utilisateurs par l'id de son tuteur
- *      description: Récupère un utilisateurs par l'id de son tuteur
- *      responses:
- *         200:
- *            description: Success
- *            content:
- *              application/json:
- *                schema:
- *                  type: array
- *                  items:
- *                    $ref: '#/components/schemas/Grades'
- *         404:
- *            description: the table was not found
- *
- */
-
-/**
- * @swagger
- *
  * /grades/create:
  *    post:
  *      tags: [Grades]

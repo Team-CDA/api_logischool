@@ -1,9 +1,9 @@
 const checkAuth = require("./helpers/jwt");
 const publicRoutes = [
-  "/",
+  // "/",
   "/users/login",
   "/classes",
-  "/users",
+  // "/users",
   "/buildings",
   "/establishments",
   "/menus",
@@ -208,3 +208,5 @@ io.on("connection", (socket) => {
     console.log("Un client s'est déconnecté");
   });
 });
+
+module.exports = app;

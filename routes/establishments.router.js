@@ -171,7 +171,7 @@ router.delete("/deleteAll", etablishmentController.deleteAll);
  *          $ref: '#/components/schemas/Etablishment'
  *      responses:
  *          200:
- *      description: Etablishment successfully created
+ *          description: Etablishment successfully created
  *
  *
  */
