@@ -111,7 +111,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notEmpty: true,
-        is: /^[a-zA-ZÀ-ÿ-]+(?:\s[a-zA-ZÀ-ÿ-]+)*$/
+        is:/^[0-9a-zA-ZÀ-ÿ]+(?:[a-zA-ZÀ-ÿ0-9-,]*\s[a-zA-ZÀ-ÿ0-9-]+)*$/
       },
     },
     city: {
@@ -249,7 +249,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
         validate: {
-          len: [8, 128], // Spécifiez une longueur minimale et maximale pour le mot de passe
+          len: [8, 128],
         },
       },
       token: {
