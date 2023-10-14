@@ -89,7 +89,7 @@ require("dotenv").config();
 const app = express();
 const http = require("http").createServer(app);
 const corsOptions = {
-  origin: ['http://localhost:1212', 'http://localhost:3001'],
+  origin: ['http://localhost:1212', 'http://localhost:3001', 'http://localhost:3000'],
 };
 app.use(cors(corsOptions));
 
@@ -97,7 +97,7 @@ app.use(cors(corsOptions));
 
 const io = require("socket.io")(http, {
   cors: {
-    origin: ['http://localhost:1212', 'http://localhost:3001'],
+    origin: ['http://localhost:1212', 'http://localhost:3001', 'http://localhost:3000'],
   },
 });
 const alertsRouter = require("./routes/alerts.router");
