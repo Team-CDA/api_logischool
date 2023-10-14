@@ -7,6 +7,10 @@ module.exports = {
       {
         name: 'LA MANU',
         id_establishment_type: 1,
+        address: '70 rue des jacobins',
+        city: 'Amiens',
+        zip_code: '80000',
+        phone: '0322113344',
         createdAt: new Date(),
         updatedAt: new Date()
     },

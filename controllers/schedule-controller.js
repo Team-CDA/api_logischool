@@ -2,9 +2,7 @@ const db = require('../models/index');
 const schedule = db['schedule'];
 
 
-// ------------------------- Fonctions utiles : 
-
-// ----------------------------
+// ------------------------- Fonctions utiles ---------------------------- //
 
 
 const getAll = (req, res) => {
@@ -28,7 +26,11 @@ const getAll = (req, res) => {
 
 const getScheduleByUser = (req, res) => {
 
-    schedule.findAll({where: { users_id: req.params.id}})
+    schedule.findAll({
+            where: {
+                users_id: req.params.id
+            }
+        })
         .then(result => {
             if (result.length === 0) {
                 res.send("Aucun emploi du temps n'est présent en base de données.")

@@ -1,5 +1,3 @@
-
-
 'use strict';
 const {
   Model
@@ -12,14 +10,17 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      users_classes.belongsTo(models.users, {
+        foreignKey: 'id_user'
+      });
       this.belongsTo(models.users, {
-          foreignKey: "id_user",
-          as: "users",
-        });
-        this.belongsTo(models.classes, {
-          foreignKey: "id_class",
-          as: "classes",
-        });
+        foreignKey: "id_user",
+        as: "users",
+      });
+      this.belongsTo(models.classes, {
+        foreignKey: "id_class",
+        as: "classes",
+      });
     }
   }
   users_classes.init({
@@ -67,6 +68,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'users_classes',
   });
-  
+
   return users_classes;
 };

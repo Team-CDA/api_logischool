@@ -35,7 +35,7 @@ Création de la table class_types :
 
 Création de la table classes :
 
-    npx sequelize-cli model:create --name classes --attributes name:string,scolarity_year:integer
+    npx sequelize-cli model:create --name classes --attributes name:string,scolarity_year:string
 
 Création de la table Utilisateurs :
 

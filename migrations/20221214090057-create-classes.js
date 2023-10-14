@@ -23,7 +23,8 @@ module.exports = {
         unique: true
       },
       scolarity_year: {
-        type: Sequelize.INTEGER.UNSIGNED
+        type: Sequelize.STRING(128),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

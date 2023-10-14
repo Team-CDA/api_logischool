@@ -45,7 +45,10 @@ const publicMiddleware = (req, res, next) => {
 
 const express = require("express");
 const morgan = require("morgan");
-const { success, getSwagger } = require("./helper");
+const {
+  success,
+  getSwagger
+} = require("./helper");
 const usersRouter = require("./routes/users.router");
 const establishmentsRouter = require("./routes/establishments.router");
 const establishmentTypesRouter = require("./routes/establishment_types.router");
@@ -79,6 +82,7 @@ const alertsUsersRouter = require("./routes/alerts_users.router");
 const ratingsRouter = require("./routes/ratings.router");
 const gradesRouter = require("./routes/grades.router");
 const swaggerUI = require("swagger-ui-express");
+const profclassRouter = require("./routes/profclass.router");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -113,7 +117,9 @@ app.use(morgan("dev"));
 const path = require("path");
 
 app.get("/files/:filename", (req, res) => {
-  const { filename } = req.params;
+  const {
+    filename
+  } = req.params;
   const filePath = path.join(__dirname, "images", filename);
   res.sendFile(filePath);
 });
@@ -169,7 +175,7 @@ app.use("/lessons", lessonsRouter);
 // app.use('/establishments', establishmentsRouter)
 
 app.use("/establishments", establishmentsRouter);
-
+app.use("/profclass", profclassRouter);
 app.use("/doc", swaggerUI.serve, swaggerUI.setup(getSwagger()));
 
 const port = 3000;
@@ -195,10 +201,14 @@ app.get("/", (req, res) => {
 // });
 
 //Gestion de l'erreur 404
-app.use(({ res }) => {
+app.use(({
+  res
+}) => {
   const message =
     "Impossible de trouver la ressource demandée ! Vous pouvez essayer une autre URL.";
-  res.status(404).json({ message });
+  res.status(404).json({
+    message
+  });
 });
 
 //On démarre l'api sur le port 3000 en affichant un message

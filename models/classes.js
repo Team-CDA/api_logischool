@@ -67,7 +67,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       scolarity_year: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.STRING(128),
         allowNull: false,
         validate: {
           notNull: {
