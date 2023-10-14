@@ -1,9 +1,8 @@
 const checkAuth = require("./helpers/jwt");
 const publicRoutes = [
-  // "/",
+  "/",
   "/users/login",
   "/classes",
-  // "/users",
   "/buildings",
   "/establishments",
   "/menus",

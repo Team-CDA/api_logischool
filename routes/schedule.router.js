@@ -145,4 +145,3 @@ router.get('/class/:classId', scheduleController.getScheduleByClass);
 module.exports = router
 
 
-

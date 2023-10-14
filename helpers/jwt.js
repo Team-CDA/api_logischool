@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 // Fonction qui vérifie si l'utilisateur est authentifié.
 module.exports = (req, res, next) => {
-  console.log('bouufe mes nouilles', req)
   try {
     // On récupère le token dans le header de la requête.
     const token = req.headers.authorization.split(" ")[1];
